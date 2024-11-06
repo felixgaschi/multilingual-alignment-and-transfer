@@ -1,0 +1,262 @@
+wals code,name,value,description,latitude,longitude,genus,family,area
+abi,Abipón,1,No morphological case-marking,-29,-61,Abipon,Guaicuruan,Nominal Categories
+abk,Abkhaz,2,2 cases,43.08333333,41,Northwest Caucasian,Northwest Caucasian,Nominal Categories
+aco,Acoma,1,No morphological case-marking,34.91666667,-107.5833333,Keresan,Keresan,Nominal Categories
+ain,Ainu,9,Exclusively borderline case-marking,43,143,Ainu,Ainu,Nominal Categories
+ala,Alamblak,7,8-9 cases,-4.666666667,143.3333333,Sepik Hill,Sepik,Nominal Categories
+alb,Albanian,4,4 cases,41,20,Albanian,Indo-European,Nominal Categories
+ale,Aleut,2,2 cases,54,-166,Aleut,Eskimo-Aleut,Nominal Categories
+ame,Amele,1,No morphological case-marking,-5.25,145.5833333,Mabuso,Trans-New Guinea,Nominal Categories
+amh,Amharic,2,2 cases,10,38,Semitic,Afro-Asiatic,Nominal Categories
+amu,Amuesha,9,Exclusively borderline case-marking,-10.5,-75.41666667,Yanesha',Arawakan,Nominal Categories
+apu,Apurinã,9,Exclusively borderline case-marking,-9,-67,Purus,Arawakan,Nominal Categories
+arb,Arabela,7,8-9 cases,-2,-75.16666667,Zaparoan,Zaparoan,Nominal Categories
+aeg,Arabic (Egyptian),1,No morphological case-marking,30,31,Semitic,Afro-Asiatic,Nominal Categories
+ana,Araona,5,5 cases,-12.33333333,-67.75,Tacanan,Pano-Tacanan,Nominal Categories
+arp,Arapesh (Mountain),1,No morphological case-marking,-3.466666667,143.1666667,Kombio-Arapesh,Torricelli,Nominal Categories
+arm,Armenian (Eastern),5,5 cases,40,45,Armenian,Indo-European,Nominal Categories
+asm,Asmat,1,No morphological case-marking,-5.5,138.5,Asmat-Kamrau Bay,Asmat-Kamrau Bay,Nominal Categories
+awp,Awa Pit,8,10 or more cases,1.5,-78.25,Barbacoan,Barbacoan,Nominal Categories
+aym,Aymara (Central),6,6-7 cases,-17,-69,Aymaran,Aymaran,Nominal Categories
+bag,Bagirmi,1,No morphological case-marking,11.66666667,16,Bongo-Bagirmi,Central Sudanic,Nominal Categories
+bam,Bambara,1,No morphological case-marking,12.5,-7.5,Western Mande,Mande,Nominal Categories
+brs,Barasano,2,2 cases,-0.1666666667,-70.66666667,Tucanoan,Tucanoan,Nominal Categories
+bsq,Basque,8,10 or more cases,43,-3,Basque,Basque,Nominal Categories
+bkr,Batak (Karo),1,No morphological case-marking,3.25,98.25,Northwest Sumatra-Barrier Islands,Austronesian,Nominal Categories
+baw,Bawm,4,4 cases,22.5,92.25,Kuki-Chin,Sino-Tibetan,Nominal Categories
+bej,Beja,2,2 cases,18,36,Beja,Afro-Asiatic,Nominal Categories
+bec,Bengali (Chittagong),6,6-7 cases,22.33333333,91.83333333,Indic,Indo-European,Nominal Categories
+bma,Berber (Middle Atlas),2,2 cases,33,-5,Berber,Afro-Asiatic,Nominal Categories
+brh,Brahui,8,10 or more cases,28.5,67,Dravidian,Dravidian,Nominal Categories
+bri,Bribri,9,Exclusively borderline case-marking,9.416666667,-83,Western Isthmic Chibchan,Chibchan,Nominal Categories
+bul,Bulgarian,1,No morphological case-marking,42.5,25,Slavic,Indo-European,Nominal Categories
+brm,Burmese,7,8-9 cases,21,96,Burmese-Lolo,Sino-Tibetan,Nominal Categories
+bur,Burushaski,7,8-9 cases,36.5,74.5,Burushaski,Burushaski,Nominal Categories
+cah,Cahuilla,5,5 cases,33.5,-116.25,Northern Uto-Aztecan,Uto-Aztecan,Nominal Categories
+cnl,Canela,1,No morphological case-marking,-7,-45,Je Setentrional,Macro-Ge,Nominal Categories
+car,Carib,1,No morphological case-marking,5.5,-56,Cariban,Cariban,Nominal Categories
+ctl,Catalan,1,No morphological case-marking,41.75,2,Romance,Indo-European,Nominal Categories
+cyv,Cayuvava,9,Exclusively borderline case-marking,-13.5,-65.5,Cayuvava,Cayuvava,Nominal Categories
+cha,Chamorro,1,No morphological case-marking,13.45,144.75,Chamorro,Austronesian,Nominal Categories
+cle,Chinantec (Lealao),1,No morphological case-marking,17.33333333,-95.91666667,Chinantecan,Oto-Manguean,Nominal Categories
+chk,Chukchi,8,10 or more cases,67,-173,Northern Chukotko-Kamchatkan,Chukotko-Kamchatkan,Nominal Categories
+cba,Chumash (Barbareño),1,No morphological case-marking,34.5,-120.25,Chumash,Chumash,Nominal Categories
+chv,Chuvash,6,6-7 cases,55.5,47.5,Turkic,Altaic,Nominal Categories
+cmn,Comanche,3,3 cases,33.5,-101.5,Northern Uto-Aztecan,Uto-Aztecan,Nominal Categories
+coo,Coos (Hanis),7,8-9 cases,43.5,-124.1666667,Coosan,Oregon Coast,Nominal Categories
+cre,Cree (Plains),9,Exclusively borderline case-marking,54,-110,Algonquian,Algic,Nominal Categories
+dag,Daga,9,Exclusively borderline case-marking,-10,149.3333333,Dagan,Trans-New Guinea,Nominal Categories
+dni,Dani (Lower Grand Valley),6,6-7 cases,-4.333333333,138.8333333,Dani,Trans-New Guinea,Nominal Categories
+dio,Diola-Fogny,1,No morphological case-marking,13,-16.25,Jola,Niger-Congo,Nominal Categories
+don,Dong (Southern),1,No morphological case-marking,27,109,Kam-Tai,Tai-Kadai,Nominal Categories
+dre,Drehu,1,No morphological case-marking,-21,167.25,Oceanic,Austronesian,Nominal Categories
+dut,Dutch,1,No morphological case-marking,52.5,6,Germanic,Indo-European,Nominal Categories
+dyi,Dyirbal,6,6-7 cases,-17.83333333,145.5833333,Northern Pama-Nyungan,Pama-Nyungan,Nominal Categories
+eka,Ekari,9,Exclusively borderline case-marking,-3.833333333,135.5,Paniai Lakes,Trans-New Guinea,Nominal Categories
+eng,English,2,2 cases,52,0,Germanic,Indo-European,Nominal Categories
+epe,Epena Pedee,8,10 or more cases,3,-77,Choco,Choco,Nominal Categories
+est,Estonian,8,10 or more cases,59,26,Finnic,Uralic,Nominal Categories
+eve,Evenki,8,10 or more cases,56,125,Tungusic,Altaic,Nominal Categories
+ewe,Ewe,1,No morphological case-marking,6.333333333,0.4166666667,Gbe,Niger-Congo,Nominal Categories
+fij,Fijian,1,No morphological case-marking,-17.83333333,178,Oceanic,Austronesian,Nominal Categories
+fin,Finnish,8,10 or more cases,62,25,Finnic,Uralic,Nominal Categories
+fre,French,1,No morphological case-marking,48,2,Romance,Indo-European,Nominal Categories
+frw,Frisian (Western),1,No morphological case-marking,53,6,Germanic,Indo-European,Nominal Categories
+fua,Fulfulde (Adamawa),1,No morphological case-marking,9.166666667,13.5,Peul-Serer,Niger-Congo,Nominal Categories
+fur,Fur,4,4 cases,13.5,25,Fur,Fur,Nominal Categories
+gar,Garo,7,8-9 cases,25.66666667,90.5,Brahmaputran,Sino-Tibetan,Nominal Categories
+geo,Georgian,6,6-7 cases,42,44,Kartvelian,Kartvelian,Nominal Categories
+ger,German,4,4 cases,52,10,Germanic,Indo-European,Nominal Categories
+gim,Gimira,6,6-7 cases,7,35.75,Ta-Ne-Omotic,Afro-Asiatic,Nominal Categories
+goo,Gooniyandi,8,10 or more cases,-18.33333333,126.3333333,Bunuban,Bunuban,Nominal Categories
+grb,Grebo,1,No morphological case-marking,5,-8,Kru,Niger-Congo,Nominal Categories
+grk,Greek (Modern),3,3 cases,39,22,Greek,Indo-European,Nominal Categories
+grw,Greenlandic (West),7,8-9 cases,64,-51,Eskimo,Eskimo-Aleut,Nominal Categories
+gua,Guaraní,1,No morphological case-marking,-26,-56,Maweti-Guarani,Tupian,Nominal Categories
+hai,Haida,1,No morphological case-marking,53,-132,Haida,Haida,Nominal Categories
+ham,Hamtai,8,10 or more cases,-7.5,146.25,Nuclear Angan,Trans-New Guinea,Nominal Categories
+hau,Hausa,1,No morphological case-marking,12,7,West Chadic,Afro-Asiatic,Nominal Categories
+heb,Hebrew (Modern),1,No morphological case-marking,31.5,34.83333333,Semitic,Afro-Asiatic,Nominal Categories
+hix,Hixkaryana,1,No morphological case-marking,-1,-59,Cariban,Cariban,Nominal Categories
+hmo,Hmong Njua,1,No morphological case-marking,28,105,Hmongic,Hmong-Mien,Nominal Categories
+hua,Hua,7,8-9 cases,-6.333333333,145.3333333,Siane-Yagaria,Trans-New Guinea,Nominal Categories
+hve,Huave (San Mateo del Mar),1,No morphological case-marking,16.21666667,-95,Huavean,Huavean,Nominal Categories
+hmi,Huitoto (Minica),6,6-7 cases,-0.3333333333,-74,Witoto,Witotoan,Nominal Categories
+hun,Hungarian,8,10 or more cases,47,20,Ugric,Uralic,Nominal Categories
+hzb,Hunzib,8,10 or more cases,42.16666667,46.25,Avar-Andic-Tsezic,Nakh-Daghestanian,Nominal Categories
+iaa,Iaai,1,No morphological case-marking,-20.41666667,166.5833333,Oceanic,Austronesian,Nominal Categories
+ice,Icelandic,4,4 cases,65,-17,Germanic,Indo-European,Nominal Categories
+igb,Igbo,1,No morphological case-marking,6,7.333333333,Igboid,Niger-Congo,Nominal Categories
+ika,Ika,6,6-7 cases,10.66666667,-73.75,Arhuacic,Chibchan,Nominal Categories
+ilo,Ilocano,1,No morphological case-marking,16,121,Northern Luzon,Austronesian,Nominal Categories
+imo,Imonda,5,5 cases,-3.333333333,141.1666667,Border,Border,Nominal Categories
+ind,Indonesian,1,No morphological case-marking,0,106,Malayo-Sumbawan,Austronesian,Nominal Categories
+ing,Ingush,8,10 or more cases,43.16666667,45.08333333,Nakh,Nakh-Daghestanian,Nominal Categories
+irq,Iraqw,9,Exclusively borderline case-marking,-4,35.5,Southern Cushitic,Afro-Asiatic,Nominal Categories
+iri,Irish,2,2 cases,53,-8,Celtic,Indo-European,Nominal Categories
+ita,Italian,1,No morphological case-marking,43,12,Romance,Indo-European,Nominal Categories
+jak,Jakaltek,1,No morphological case-marking,15.66666667,-91.66666667,Mayan,Mayan,Nominal Categories
+jpn,Japanese,7,8-9 cases,37,140,Japanese,Japanese,Nominal Categories
+juh,Ju|'hoan,1,No morphological case-marking,-19,21,Ju-Kung,Kxa,Nominal Categories
+kly,Kala Lagaw Ya,7,8-9 cases,-10.11666667,142.1166667,Northern Pama-Nyungan,Pama-Nyungan,Nominal Categories
+kls,Kalispel,6,6-7 cases,48,-117,Interior Salish,Salishan,Nominal Categories
+knd,Kannada,6,6-7 cases,14,76,Dravidian,Dravidian,Nominal Categories
+knr,Kanuri,6,6-7 cases,12,13,Western Saharan,Saharan,Nominal Categories
+krk,Karok,3,3 cases,41.66666667,-123,Karok,Hokan,Nominal Categories
+kas,Kashmiri,4,4 cases,34,76,Indic,Indo-European,Nominal Categories
+kyl,Kayah Li (Eastern),1,No morphological case-marking,19,97.5,Karen,Sino-Tibetan,Nominal Categories
+kay,Kayardild,8,10 or more cases,-17.05,139.5,Tangkic,Tangkic,Nominal Categories
+ker,Kera,9,Exclusively borderline case-marking,9.833333333,15.08333333,East Chadic,Afro-Asiatic,Nominal Categories
+ket,Ket,8,10 or more cases,64,87,Yeniseian,Yeniseian,Nominal Categories
+kew,Kewa,6,6-7 cases,-6.5,143.8333333,Enga_Kewa-Huli,Trans-New Guinea,Nominal Categories
+kha,Khalkha,7,8-9 cases,47,105,Mongolic,Altaic,Nominal Categories
+kty,Khanty,3,3 cases,65,65,Ugric,Uralic,Nominal Categories
+khs,Khasi,1,No morphological case-marking,25.5,92,Khasian,Austro-Asiatic,Nominal Categories
+khm,Khmer,1,No morphological case-marking,12.5,105,Khmer,Austro-Asiatic,Nominal Categories
+kmu,Khmu',1,No morphological case-marking,21,102,Khmuic,Austro-Asiatic,Nominal Categories
+klv,Kilivila,1,No morphological case-marking,-8.5,151.0833333,Oceanic,Austronesian,Nominal Categories
+kin,Kinyarwanda,1,No morphological case-marking,-2,30,Bantu,Niger-Congo,Nominal Categories
+kio,Kiowa,9,Exclusively borderline case-marking,37,-99,Kiowa-Tanoan,Kiowa-Tanoan,Nominal Categories
+krb,Kiribati,1,No morphological case-marking,1.333333333,173,Oceanic,Austronesian,Nominal Categories
+koa,Koasati,6,6-7 cases,34.83333333,-85.16666667,Muskogean,Muskogean,Nominal Categories
+kob,Kobon,1,No morphological case-marking,-5.166666667,144.3333333,Kalam-Kobon,Trans-New Guinea,Nominal Categories
+kmb,Kombai,1,No morphological case-marking,-5.583333333,140,Ndeiram,Trans-New Guinea,Nominal Categories
+kon,Kongo,1,No morphological case-marking,-5,15,Bantu,Niger-Congo,Nominal Categories
+kor,Korean,6,6-7 cases,37.5,128,Korean,Korean,Nominal Categories
+kfe,Koromfe,1,No morphological case-marking,14.25,-0.9166666667,Koromfe,Niger-Congo,Nominal Categories
+kos,Kosraean,1,No morphological case-marking,5.3,163,Oceanic,Austronesian,Nominal Categories
+kse,Koyraboro Senni,1,No morphological case-marking,16,0,Songhay,Songhay,Nominal Categories
+kro,Krongo,6,6-7 cases,10.5,30,Kadugli,Kadu,Nominal Categories
+knm,Kunama,6,6-7 cases,14.5,37,Kunama,Kunama,Nominal Categories
+kut,Kutenai,1,No morphological case-marking,49.5,-116,Kutenai,Kutenai,Nominal Categories
+lad,Ladakhi,5,5 cases,34,78,Bodic,Sino-Tibetan,Nominal Categories
+lak,Lak,8,10 or more cases,42.16666667,47.16666667,Lak,Nakh-Daghestanian,Nominal Categories
+lkt,Lakhota,1,No morphological case-marking,43.83333333,-101.8333333,Mississippi Valley Siouan,Siouan,Nominal Categories
+lan,Lango,1,No morphological case-marking,2.166666667,33,Western Nilotic,Eastern Sudanic,Nominal Categories
+lat,Latvian,5,5 cases,57,24,Baltic,Indo-European,Nominal Categories
+lav,Lavukaleve,1,No morphological case-marking,-9.083333333,159.2,Lavukaleve,Solomons East Papuan,Nominal Categories
+lep,Lepcha,2,2 cases,27.16666667,88.5,Himalayish,Sino-Tibetan,Nominal Categories
+lez,Lezgian,8,10 or more cases,41.66666667,47.83333333,Lezgic,Nakh-Daghestanian,Nominal Categories
+lit,Lithuanian,6,6-7 cases,55,24,Baltic,Indo-European,Nominal Categories
+luv,Luvale,1,No morphological case-marking,-12,22,Bantu,Niger-Congo,Nominal Categories
+mab,Maba,3,3 cases,13.75,20.83333333,Maban,Maban,Nominal Categories
+mdr,Madurese,1,No morphological case-marking,-7,113.5,Malayo-Sumbawan,Austronesian,Nominal Categories
+mak,Makah,1,No morphological case-marking,48.33333333,-124.6666667,Southern Wakashan,Wakashan,Nominal Categories
+mal,Malagasy,1,No morphological case-marking,-20,47,Barito,Austronesian,Nominal Categories
+mlk,Malakmalak,6,6-7 cases,-13.41666667,130.4166667,Northern Daly,Northern Daly,Nominal Categories
+mym,Malayalam,6,6-7 cases,10,76.5,Dravidian,Dravidian,Nominal Categories
+mnd,Mandarin,1,No morphological case-marking,34,110,Chinese,Sino-Tibetan,Nominal Categories
+myi,Mangarrayi,7,8-9 cases,-14.66666667,133.5,Mangarrayi,Mangarrayi-Maran,Nominal Categories
+mao,Maori,1,No morphological case-marking,-40,176,Oceanic,Austronesian,Nominal Categories
+map,Mapudungun,2,2 cases,-38,-72,Araucanian,Araucanian,Nominal Categories
+mku,Maranungku,9,Exclusively borderline case-marking,-13.66666667,130,Wagaydy,Western Daly,Nominal Categories
+mhi,Marathi,5,5 cases,19,76,Indic,Indo-European,Nominal Categories
+mar,Maricopa,6,6-7 cases,33.16666667,-113.1666667,Yuman,Hokan,Nominal Categories
+mrd,Marind,1,No morphological case-marking,-7.833333333,140.1666667,Marind-Yaqay,Trans-New Guinea,Nominal Categories
+mrt,Martuthunira,8,10 or more cases,-20.83333333,116.5,Western Pama-Nyungan,Pama-Nyungan,Nominal Categories
+mau,Maung,1,No morphological case-marking,-11.91666667,133.5,Iwaidjan,Iwaidjan,Nominal Categories
+may,Maybrat,2,2 cases,-1.333333333,132.5,Maybrat,Maybrat,Nominal Categories
+mei,Meithei,6,6-7 cases,24.75,94,Manipuri,Sino-Tibetan,Nominal Categories
+mss,Miwok (Southern Sierra),6,6-7 cases,37.5,-120,Miwok,Penutian,Nominal Categories
+mxc,Mixtec (Chalcatongo),1,No morphological case-marking,17.05,-97.58333333,Mixtec,Oto-Manguean,Nominal Categories
+mok,Mokilese,1,No morphological case-marking,6.666666667,159.75,Oceanic,Austronesian,Nominal Categories
+moe,Mordvin (Erzya),8,10 or more cases,53,45.5,Mordvin,Uralic,Nominal Categories
+mun,Mundari,7,8-9 cases,23,84.66666667,Munda,Austro-Asiatic,Nominal Categories
+mrl,Murle,4,4 cases,6.5,33.5,South Surmic,Eastern Sudanic,Nominal Categories
+nht,Nahuatl (Tetelcingo),1,No morphological case-marking,19.66666667,-99,Aztecan,Uto-Aztecan,Nominal Categories
+kho,Nama,2,2 cases,-25.5,18,Khoe-Kwadi,Khoe-Kwadi,Nominal Categories
+nav,Navajo,1,No morphological case-marking,36.16666667,-108,Athapaskan,Na-Dene,Nominal Categories
+ndy,Ndyuka,1,No morphological case-marking,4.5,-54.5,Creoles and Pidgins,other,Nominal Categories
+ntu,Nenets,6,6-7 cases,70,76,Samoyedic,Uralic,Nominal Categories
+nez,Nez Perce,8,10 or more cases,46,-116,Sahaptian,Penutian,Nominal Categories
+nti,Ngiti,1,No morphological case-marking,1.333333333,30.25,Lendu,Central Sudanic,Nominal Categories
+ngi,Ngiyambaa,5,5 cases,-31.75,145.5,Southeastern Pama-Nyungan,Pama-Nyungan,Nominal Categories
+niv,Nivkh,7,8-9 cases,53.33333333,142,Nivkh,Nivkh,Nominal Categories
+nko,Nkore-Kiga,1,No morphological case-marking,-0.9166666667,29.83333333,Bantu,Niger-Congo,Nominal Categories
+nbd,Nubian (Dongolese),6,6-7 cases,18.25,30.75,Nubian,Eastern Sudanic,Nominal Categories
+nug,Nunggubuyu,8,10 or more cases,-13.75,135.6666667,Nunggubuyu,Gunwinyguan,Nominal Categories
+ond,Oneida,1,No morphological case-marking,43,-75.66666667,Northern Iroquoian,Iroquoian,Nominal Categories
+orh,Oromo (Harar),6,6-7 cases,9,42,Lowland East Cushitic,Afro-Asiatic,Nominal Categories
+ots,Otomí (Sierra),1,No morphological case-marking,20.66666667,-98.83333333,Otomian,Oto-Manguean,Nominal Categories
+pms,Paamese,1,No morphological case-marking,-16.5,168.25,Oceanic,Austronesian,Nominal Categories
+pai,Paiwan,1,No morphological case-marking,22.5,120.8333333,Paiwan,Austronesian,Nominal Categories
+pal,Palauan,1,No morphological case-marking,7.5,134.5833333,Palauan,Austronesian,Nominal Categories
+pan,Panjabi,2,2 cases,31,74,Indic,Indo-European,Nominal Categories
+psh,Pashto,3,3 cases,33,67,Iranian,Indo-European,Nominal Categories
+psm,Passamaquoddy-Maliseet,9,Exclusively borderline case-marking,45,-67,Algonquian,Algic,Nominal Categories
+pau,Paumarí,3,3 cases,-6,-64,Arauan,Arauan,Nominal Categories
+prs,Persian,2,2 cases,32,54,Iranian,Indo-European,Nominal Categories
+prh,Pirahã,9,Exclusively borderline case-marking,-7,-62,Mura,Mura,Nominal Categories
+pit,Pitjantjatjara,8,10 or more cases,-26,130,Western Pama-Nyungan,Pama-Nyungan,Nominal Categories
+pol,Polish,6,6-7 cases,52,20,Slavic,Indo-European,Nominal Categories
+pso,Pomo (Southeastern),6,6-7 cases,39,-122.5,Pomoan,Hokan,Nominal Categories
+pae,Páez,6,6-7 cases,2.666666667,-76,Páezan,Páezan,Nominal Categories
+qaw,Qawasqar,2,2 cases,-49,-75,Alacalufan,Alacalufan,Nominal Categories
+qim,Quechua (Imbabura),7,8-9 cases,0.3333333333,-78,Quechuan,Quechuan,Nominal Categories
+ram,Rama,7,8-9 cases,11.75,-83.75,Rama,Chibchan,Nominal Categories
+rap,Rapanui,1,No morphological case-marking,-27.11666667,-109.3666667,Oceanic,Austronesian,Nominal Categories
+rka,Romani (Kalderash),6,6-7 cases,45,21,Indic,Indo-European,Nominal Categories
+rom,Romanian,2,2 cases,46,25,Romance,Indo-European,Nominal Categories
+rus,Russian,6,6-7 cases,56,38,Slavic,Indo-European,Nominal Categories
+sno,Saami (Northern),6,6-7 cases,69,24,Saami,Uralic,Nominal Categories
+san,Sango,1,No morphological case-marking,5,18,Ubangi,Niger-Congo,Nominal Categories
+snm,Sanuma,2,2 cases,4.5,-64.66666667,Yanomam,Yanomam,Nominal Categories
+sel,Selknam,9,Exclusively borderline case-marking,-53,-70,Chonan Proper,Chonan,Nominal Categories
+sml,Semelai,3,3 cases,3,103,Aslian,Austro-Asiatic,Nominal Categories
+snt,Sentani,1,No morphological case-marking,-2.583333333,140.5833333,Sentanic,Sentanic,Nominal Categories
+scr,Serbian-Croatian,5,5 cases,44,19,Slavic,Indo-European,Nominal Categories
+shk,Shipibo-Konibo,6,6-7 cases,-7.5,-75,Panoan,Pano-Tacanan,Nominal Categories
+snh,Sinhala,5,5 cases,7,80.5,Indic,Indo-European,Nominal Categories
+sla,Slave,1,No morphological case-marking,67,-125,Athapaskan,Na-Dene,Nominal Categories
+som,Somali,3,3 cases,3,45,Lowland East Cushitic,Afro-Asiatic,Nominal Categories
+spa,Spanish,1,No morphological case-marking,40,-4,Romance,Indo-European,Nominal Categories
+squ,Squamish,2,2 cases,49.66666667,-123.1666667,Central Salish,Salishan,Nominal Categories
+sue,Suena,4,4 cases,-7.75,147.55,Binanderean,Trans-New Guinea,Nominal Categories
+sup,Supyire,9,Exclusively borderline case-marking,11.5,-5.583333333,Senufo,Niger-Congo,Nominal Categories
+swa,Swahili,1,No morphological case-marking,-6.5,39,Bantu,Niger-Congo,Nominal Categories
+swe,Swedish,2,2 cases,60,15,Germanic,Indo-European,Nominal Categories
+tab,Taba,1,No morphological case-marking,0,127.5,South Halmahera - West New Guinea,Austronesian,Nominal Categories
+tag,Tagalog,1,No morphological case-marking,15,121,Greater Central Philippine,Austronesian,Nominal Categories
+tts,Tati (Southern),2,2 cases,36,49.66666667,Iranian,Indo-European,Nominal Categories
+tha,Thai,1,No morphological case-marking,16,101,Kam-Tai,Tai-Kadai,Nominal Categories
+tin,Tinrin,1,No morphological case-marking,-21.66666667,165.75,Oceanic,Austronesian,Nominal Categories
+tiw,Tiwi,1,No morphological case-marking,-11.5,131,Tiwian,Tiwian,Nominal Categories
+tli,Tlingit,7,8-9 cases,59,-135,Tlingit,Na-Dene,Nominal Categories
+tda,Toda,8,10 or more cases,11.41666667,76.75,Dravidian,Dravidian,Nominal Categories
+tru,Trumai,5,5 cases,-11.91666667,-53.58333333,Trumai,Trumai,Nominal Categories
+tsi,Tsimshian (Coast),1,No morphological case-marking,52.5,-129,Tsimshianic,Tsimshianic,Nominal Categories
+tuk,Tukang Besi,1,No morphological case-marking,-5.5,123.5,Celebic,Austronesian,Nominal Categories
+tun,Tunica,9,Exclusively borderline case-marking,32.66666667,-91,Tunica,Tunica,Nominal Categories
+tna,Turkana,6,6-7 cases,3,35.5,Eastern Nilotic,Eastern Sudanic,Nominal Categories
+tur,Turkish,6,6-7 cases,39,35,Turkic,Altaic,Nominal Categories
+tvl,Tuvaluan,1,No morphological case-marking,-8.5,179.1666667,Oceanic,Austronesian,Nominal Categories
+udh,Udihe,7,8-9 cases,47.66666667,136.25,Tungusic,Altaic,Nominal Categories
+udm,Udmurt,8,10 or more cases,57.5,52.5,Permic,Uralic,Nominal Categories
+una,Una,1,No morphological case-marking,-4.666666667,140,Mek,Trans-New Guinea,Nominal Categories
+ung,Ungarinjin,7,8-9 cases,-16.33333333,126,Worrorran,Worrorran,Nominal Categories
+urd,Urdu,2,2 cases,25,67,Indic,Indo-European,Nominal Categories
+urk,Urubú-Kaapor,1,No morphological case-marking,-2.333333333,-46.5,Maweti-Guarani,Tupian,Nominal Categories
+usa,Usan,9,Exclusively borderline case-marking,-4.833333333,145.1666667,North Adelbert,Trans-New Guinea,Nominal Categories
+vie,Vietnamese,1,No morphological case-marking,10.5,106.5,Vietic,Austro-Asiatic,Nominal Categories
+wam,Wambaya,7,8-9 cases,-18.66666667,135.75,Wambayan,Mirndi,Nominal Categories
+wra,Warao,5,5 cases,9.333333333,-61.66666667,Warao,Warao,Nominal Categories
+wrd,Wardaman,7,8-9 cases,-15.5,131,Yangmanic,Yangmanic,Nominal Categories
+war,Wari',1,No morphological case-marking,-11.33333333,-65,Chapacura-Wanham,Chapacura-Wanham,Nominal Categories
+was,Washo,9,Exclusively borderline case-marking,39.25,-120,Washo,Washo,Nominal Categories
+wel,Welsh,1,No morphological case-marking,52,-3,Celtic,Indo-European,Nominal Categories
+wic,Wichita,9,Exclusively borderline case-marking,33.33333333,-97.33333333,Northern Caddoan,Caddoan,Nominal Categories
+wch,Wichí,1,No morphological case-marking,-22.5,-62.58333333,Matacoan,Matacoan,Nominal Categories
+win,Wintu,4,4 cases,41,-122.5,Wintuan,Penutian,Nominal Categories
+yag,Yagua,9,Exclusively borderline case-marking,-3.5,-72,Peba-Yaguan,Peba-Yaguan,Nominal Categories
+yaq,Yaqui,2,2 cases,27.5,-110.25,Cahita,Uto-Aztecan,Nominal Categories
+ywl,Yawelmani,6,6-7 cases,35.41666667,-119,Yokuts,Penutian,Nominal Categories
+yid,Yidiny,7,8-9 cases,-17,145.75,Northern Pama-Nyungan,Pama-Nyungan,Nominal Categories
+yim,Yimas,9,Exclusively borderline case-marking,-4.666666667,143.55,Lower Sepik,Ramu-Lower Sepik,Nominal Categories
+yor,Yoruba,1,No morphological case-marking,8,4.333333333,Defoid,Niger-Congo,Nominal Categories
+yuc,Yuchi,9,Exclusively borderline case-marking,35.75,-86.75,Yuchi,Yuchi,Nominal Categories
+yko,Yukaghir (Kolyma),7,8-9 cases,65.75,150.8333333,Yukaghir,Yukaghir,Nominal Categories
+ypk,Yup'ik (Central),6,6-7 cases,59.5,-160,Eskimo,Eskimo-Aleut,Nominal Categories
+yur,Yurok,9,Exclusively borderline case-marking,41.33333333,-124,Yurok,Algic,Nominal Categories
+zqc,Zoque (Copainalá),2,2 cases,17,-93.25,Mixe-Zoque,Mixe-Zoque,Nominal Categories
+zul,Zulu,1,No morphological case-marking,-30,30,Bantu,Niger-Congo,Nominal Categories
+zun,Zuni,1,No morphological case-marking,35.08333333,-108.8333333,Zuni,Zuni,Nominal Categories

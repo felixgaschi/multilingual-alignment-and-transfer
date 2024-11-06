@@ -1,0 +1,487 @@
+wals code,name,value,description,latitude,longitude,genus,family,area
+xoo,!Xóõ,2,Moderately complex,-24,21.5,Tu,Tu,Phonology
+ani,//Ani,2,Moderately complex,-18.91666667,21.91666667,Khoe-Kwadi,Khoe-Kwadi,Phonology
+abi,Abipón,3,Complex,-29,-61,Abipon,Guaicuruan,Phonology
+abk,Abkhaz,3,Complex,43.08333333,41,Northwest Caucasian,Northwest Caucasian,Phonology
+ach,Aché,1,Simple,-25.25,-55.16666667,Maweti-Guarani,Tupian,Phonology
+aco,Acoma,2,Moderately complex,34.91666667,-107.5833333,Keresan,Keresan,Phonology
+agh,Aghem,2,Moderately complex,6.666666667,10,Wide Grassfields,Niger-Congo,Phonology
+aht,Ahtna,3,Complex,62,-145,Athapaskan,Na-Dene,Phonology
+aik,Aikaná,2,Moderately complex,-12.66666667,-60.66666667,Aikaná,Aikaná,Phonology
+ain,Ainu,2,Moderately complex,43,143,Ainu,Ainu,Phonology
+aiz,Aizi,3,Complex,5.25,-4.5,Kru,Niger-Congo,Phonology
+akn,Akan,2,Moderately complex,6.5,-1.25,Tano,Niger-Congo,Phonology
+akw,Akawaio,2,Moderately complex,6,-59.5,Cariban,Cariban,Phonology
+ala,Alamblak,3,Complex,-4.666666667,143.3333333,Sepik Hill,Sepik,Phonology
+alw,Alawa,3,Complex,-15.16666667,134.25,Mara,Mangarrayi-Maran,Phonology
+alb,Albanian,3,Complex,41,20,Albanian,Indo-European,Phonology
+aea,Aleut (Eastern),3,Complex,54.75,-164,Aleut,Eskimo-Aleut,Phonology
+ald,Alladian,2,Moderately complex,5.166666667,-4.333333333,Avikam-Alladian,Niger-Congo,Phonology
+ame,Amele,2,Moderately complex,-5.25,145.5833333,Mabuso,Trans-New Guinea,Phonology
+amh,Amharic,2,Moderately complex,10,38,Semitic,Afro-Asiatic,Phonology
+amo,Amo,2,Moderately complex,10.33333333,8.666666667,Central Kainji,Niger-Congo,Phonology
+amu,Amuesha,2,Moderately complex,-10.5,-75.41666667,Yanesha',Arawakan,Phonology
+amz,Amuzgo,3,Complex,16.83333333,-98,Amuzgoan,Oto-Manguean,Phonology
+adk,Andoke,1,Simple,-0.6666666667,-72,Andoke,Andoke,Phonology
+ant,Angaataha,2,Moderately complex,-7.216666667,146.25,Angaataha,Trans-New Guinea,Phonology
+anc,Angas,3,Complex,9.5,9.5,West Chadic,Afro-Asiatic,Phonology
+ao,Ao,2,Moderately complex,26.58333333,94.66666667,Central Naga,Sino-Tibetan,Phonology
+apu,Apurinã,1,Simple,-9,-67,Purus,Arawakan,Phonology
+arb,Arabela,2,Moderately complex,-2,-75.16666667,Zaparoan,Zaparoan,Phonology
+aeg,Arabic (Egyptian),3,Complex,30,31,Semitic,Afro-Asiatic,Phonology
+ana,Araona,1,Simple,-12.33333333,-67.75,Tacanan,Pano-Tacanan,Phonology
+arp,Arapesh (Mountain),2,Moderately complex,-3.466666667,143.1666667,Kombio-Arapesh,Torricelli,Phonology
+arc,Archi,3,Complex,42,46.83333333,Lezgic,Nakh-Daghestanian,Phonology
+amp,Arrernte (Mparntwe),2,Moderately complex,-24,136,Central Pama-Nyungan,Pama-Nyungan,Phonology
+asm,Asmat,2,Moderately complex,-5.5,138.5,Asmat-Kamrau Bay,Asmat-Kamrau Bay,Phonology
+ava,Avar,3,Complex,42.5,46.5,Avar-Andic-Tsezic,Nakh-Daghestanian,Phonology
+awp,Awa Pit,3,Complex,1.5,-78.25,Barbacoan,Barbacoan,Phonology
+awn,Awngi,2,Moderately complex,10.83333333,36.66666667,Central Cushitic,Afro-Asiatic,Phonology
+aym,Aymara (Central),2,Moderately complex,-17,-69,Aymaran,Aymaran,Phonology
+aze,Azerbaijani,2,Moderately complex,40.5,48.5,Turkic,Altaic,Phonology
+bag,Bagirmi,2,Moderately complex,11.66666667,16,Bongo-Bagirmi,Central Sudanic,Phonology
+bai,Bai,2,Moderately complex,26,100,Macro-Bai,Sino-Tibetan,Phonology
+baj,Bajau (Sama),2,Moderately complex,-4.333333333,123,Sama-Bajaw,Austronesian,Phonology
+bki,Bakairí,1,Simple,-14,-55,Cariban,Cariban,Phonology
+bam,Bambara,1,Simple,12.5,-7.5,Western Mande,Mande,Phonology
+byu,Bandjalang (Yugumbir),2,Moderately complex,-27.91666667,153,Southeastern Pama-Nyungan,Pama-Nyungan,Phonology
+brd,Bardi,3,Complex,-16.58333333,122.9166667,Nyulnyulan,Nyulnyulan,Phonology
+bsk,Bashkir,3,Complex,53,58,Turkic,Altaic,Phonology
+bsq,Basque,3,Complex,43,-3,Basque,Basque,Phonology
+bkr,Batak (Karo),2,Moderately complex,3.25,98.25,Northwest Sumatra-Barrier Islands,Austronesian,Phonology
+baw,Bawm,2,Moderately complex,22.5,92.25,Kuki-Chin,Sino-Tibetan,Phonology
+bee,Beembe,2,Moderately complex,-3.916666667,14.08333333,Bantu,Niger-Congo,Phonology
+bej,Beja,3,Complex,18,36,Beja,Afro-Asiatic,Phonology
+bco,Bella Coola,3,Complex,52.5,-126.6666667,Bella Coola,Salishan,Phonology
+ben,Bengali,3,Complex,24,90,Indic,Indo-European,Phonology
+bma,Berber (Middle Atlas),3,Complex,33,-5,Berber,Afro-Asiatic,Phonology
+ber,Berta,2,Moderately complex,10.33333333,34.66666667,Berta,Berta,Phonology
+bir,Birom,2,Moderately complex,9.666666667,8.833333333,Benue-Congo Plateau,Niger-Congo,Phonology
+bis,Bisa,2,Moderately complex,11.5,-0.5,Eastern Mande,Mande,Phonology
+bbf,Bobo Madaré (Northern),1,Simple,12.41666667,-4.333333333,Western Mande,Mande,Phonology
+bod,Bodo,2,Moderately complex,26.83333333,92,Brahmaputran,Sino-Tibetan,Phonology
+brr,Bororo,1,Simple,-16,-57,Bororoan,Bororoan,Phonology
+brh,Brahui,3,Complex,28.5,67,Dravidian,Dravidian,Phonology
+bra,Brao,3,Complex,14.16666667,107.5,Bahnaric,Austro-Asiatic,Phonology
+bre,Breton,3,Complex,48,-3,Celtic,Indo-European,Phonology
+brw,Bru (Western),3,Complex,16.75,104.75,Katuic,Austro-Asiatic,Phonology
+bul,Bulgarian,3,Complex,42.5,25,Slavic,Indo-European,Phonology
+bua,Burarra,3,Complex,-12.25,134.5833333,Burarran,Mangrida,Phonology
+brm,Burmese,2,Moderately complex,21,96,Burmese-Lolo,Sino-Tibetan,Phonology
+bur,Burushaski,3,Complex,36.5,74.5,Burushaski,Burushaski,Phonology
+bet,Bété,2,Moderately complex,6.25,-6.25,Kru,Niger-Congo,Phonology
+cac,Cacua,2,Moderately complex,1.083333333,-70,Cacua-Nukak,Cacua-Nukak,Phonology
+cad,Caddo,2,Moderately complex,33.33333333,-93.5,Caddo,Caddoan,Phonology
+cah,Cahuilla,3,Complex,33.5,-116.25,Northern Uto-Aztecan,Uto-Aztecan,Phonology
+cax,Campa (Axininca),2,Moderately complex,-12,-74,Pre-Andine Arawakan,Arawakan,Phonology
+cam,Camsá,3,Complex,1.166666667,-77,Camsá,Camsá,Phonology
+cnl,Canela,3,Complex,-7,-45,Je Setentrional,Macro-Ge,Phonology
+cnt,Cantonese,2,Moderately complex,23,113,Chinese,Sino-Tibetan,Phonology
+car,Carib,2,Moderately complex,5.5,-56,Cariban,Cariban,Phonology
+ctl,Catalan,2,Moderately complex,41.75,2,Romance,Indo-European,Phonology
+cyv,Cayuvava,1,Simple,-13.5,-65.5,Cayuvava,Cayuvava,Phonology
+chw,Cham (Western),3,Complex,12,105.5,Malayo-Sumbawan,Austronesian,Phonology
+cha,Chamorro,2,Moderately complex,13.45,144.75,Chamorro,Austronesian,Phonology
+chl,Chehalis (Upper),3,Complex,46.58333333,-123,Tsamosan,Salishan,Phonology
+che,Cherokee,2,Moderately complex,35.5,-83.5,Southern Iroquoian,Iroquoian,Phonology
+cck,Chickasaw,2,Moderately complex,34,-88,Muskogean,Muskogean,Phonology
+cti,Chin (Tiddim),2,Moderately complex,23.33333333,93.66666667,Kuki-Chin,Sino-Tibetan,Phonology
+cle,Chinantec (Lealao),2,Moderately complex,17.33333333,-95.91666667,Chinantecan,Oto-Manguean,Phonology
+chq,Chinantec (Quiotepec),1,Simple,17.58333333,-96.66666667,Chinantecan,Oto-Manguean,Phonology
+chp,Chipewyan,2,Moderately complex,59,-106,Athapaskan,Na-Dene,Phonology
+chk,Chukchi,3,Complex,67,-173,Northern Chukotko-Kamchatkan,Chukotko-Kamchatkan,Phonology
+chv,Chuvash,3,Complex,55.5,47.5,Turkic,Altaic,Phonology
+cil,CiLuba,2,Moderately complex,-6,22,Bantu,Niger-Congo,Phonology
+ccp,Cocopa,3,Complex,32.33333333,-115,Yuman,Hokan,Phonology
+cmn,Comanche,2,Moderately complex,33.5,-101.5,Northern Uto-Aztecan,Uto-Aztecan,Phonology
+coo,Coos (Hanis),3,Complex,43.5,-124.1666667,Coosan,Oregon Coast,Phonology
+cre,Cree (Plains),2,Moderately complex,54,-110,Algonquian,Algic,Phonology
+cub,Cubeo,1,Simple,1.333333333,-70.5,Tucanoan,Tucanoan,Phonology
+dad,Dadibi,2,Moderately complex,-6.55,144.5833333,Teberan,Teberan-Pawaian,Phonology
+dag,Daga,2,Moderately complex,-10,149.3333333,Dagan,Trans-New Guinea,Phonology
+dgb,Dagbani,2,Moderately complex,9.583333333,-0.5,Oti-Volta,Niger-Congo,Phonology
+dgr,Dagur,3,Complex,48,124,Mongolic,Altaic,Phonology
+ddf,Daju (Dar Fur),2,Moderately complex,12.25,25.25,Daju,Eastern Sudanic,Phonology
+dan,Dan,2,Moderately complex,7.5,-8,Eastern Mande,Mande,Phonology
+dnw,Dangaléat (Western),2,Moderately complex,12.16666667,18.33333333,East Chadic,Afro-Asiatic,Phonology
+dni,Dani (Lower Grand Valley),2,Moderately complex,-4.333333333,138.8333333,Dani,Trans-New Guinea,Phonology
+dar,Darai,2,Moderately complex,24,84,Indic,Indo-European,Phonology
+det,Deti,2,Moderately complex,-20.5,24.5,Khoe-Kwadi,Khoe-Kwadi,Phonology
+din,Dinka,2,Moderately complex,8.5,28,Western Nilotic,Eastern Sudanic,Phonology
+dio,Diola-Fogny,3,Complex,13,-16.25,Jola,Niger-Congo,Phonology
+diy,Diyari,2,Moderately complex,-28,139,Central Pama-Nyungan,Pama-Nyungan,Phonology
+diz,Dizi,3,Complex,6.166666667,36.5,Dizoid,Afro-Asiatic,Phonology
+djp,Djapu,3,Complex,-12.66666667,136,Western Pama-Nyungan,Pama-Nyungan,Phonology
+der,Dla (Proper),2,Moderately complex,-3.583333333,141,Senagi,Senagi,Phonology
+don,Dong (Southern),2,Moderately complex,27,109,Kam-Tai,Tai-Kadai,Phonology
+doy,Doyayo,3,Complex,8.666666667,13.08333333,Samba-Duru,Niger-Congo,Phonology
+dre,Drehu,2,Moderately complex,-21,167.25,Oceanic,Austronesian,Phonology
+dyi,Dyirbal,2,Moderately complex,-17.83333333,145.5833333,Northern Pama-Nyungan,Pama-Nyungan,Phonology
+efi,Efik,2,Moderately complex,4.916666667,8.5,Lower Cross,Niger-Congo,Phonology
+eja,Ejagham,2,Moderately complex,5.416666667,8.666666667,Ekoid-Mbe,Niger-Congo,Phonology
+eka,Ekari,1,Simple,-3.833333333,135.5,Paniai Lakes,Trans-New Guinea,Phonology
+eng,English,3,Complex,52,0,Germanic,Indo-European,Phonology
+epe,Epena Pedee,2,Moderately complex,3,-77,Choco,Choco,Phonology
+eve,Evenki,2,Moderately complex,56,125,Tungusic,Altaic,Phonology
+ewe,Ewe,2,Moderately complex,6.333333333,0.4166666667,Gbe,Niger-Congo,Phonology
+ewo,Ewondo,2,Moderately complex,4,12,Bantu,Niger-Congo,Phonology
+eya,Eyak,3,Complex,60.5,-145,Eyak,Na-Dene,Phonology
+fas,Fasu,1,Simple,-6.583333333,143.3333333,Fasu,Trans-New Guinea,Phonology
+fef,Fe'fe',2,Moderately complex,5.25,10.16666667,Wide Grassfields,Niger-Congo,Phonology
+fij,Fijian,1,Simple,-17.83333333,178,Oceanic,Austronesian,Phonology
+fin,Finnish,2,Moderately complex,62,25,Finnic,Uralic,Phonology
+fre,French,3,Complex,48,2,Romance,Indo-European,Phonology
+ful,Fulniô,3,Complex,-8,-37.5,Fulniô,Fulniô,Phonology
+fur,Fur,2,Moderately complex,13.5,25,Fur,Fur,Phonology
+fuz,Fuzhou,2,Moderately complex,26,119.5,Chinese,Sino-Tibetan,Phonology
+fye,Fyem,2,Moderately complex,9.583333333,9.333333333,Benue-Congo Plateau,Niger-Congo,Phonology
+gds,Gadsup,2,Moderately complex,-6.25,146,Gauwa,Trans-New Guinea,Phonology
+gar,Garo,2,Moderately complex,25.66666667,90.5,Brahmaputran,Sino-Tibetan,Phonology
+grr,Garrwa,2,Moderately complex,-17.08333333,137.1666667,Garrwan,Garrwan,Phonology
+gbb,Gbeya Bossangoa,2,Moderately complex,6.666666667,17.5,Gbaya-Manza-Ngbaka,Niger-Congo,Phonology
+gla,Gelao,2,Moderately complex,22.91666667,105.5,Kadai,Tai-Kadai,Phonology
+geo,Georgian,3,Complex,42,44,Kartvelian,Kartvelian,Phonology
+ger,German,3,Complex,52,10,Germanic,Indo-European,Phonology
+goo,Gooniyandi,2,Moderately complex,-18.33333333,126.3333333,Bunuban,Bunuban,Phonology
+gan,Great Andamanese,2,Moderately complex,12,92.66666667,Great Andamanese,Great Andamanese,Phonology
+grb,Grebo,1,Simple,5,-8,Kru,Niger-Congo,Phonology
+grk,Greek (Modern),3,Complex,39,22,Greek,Indo-European,Phonology
+grw,Greenlandic (West),2,Moderately complex,64,-51,Eskimo,Eskimo-Aleut,Phonology
+gmb,Guambiano,2,Moderately complex,2.5,-76.66666667,Barbacoan,Barbacoan,Phonology
+gua,Guaraní,1,Simple,-26,-56,Maweti-Guarani,Tupian,Phonology
+gwa,Gwari,3,Complex,9.5,7,Nupoid,Niger-Congo,Phonology
+ga,Gã,2,Moderately complex,5.666666667,-0.1666666667,Ga-Dangme,Niger-Congo,Phonology
+had,Hadza,1,Simple,-3.75,35.16666667,Hadza,Hadza,Phonology
+hai,Haida,3,Complex,53,-132,Haida,Haida,Phonology
+hak,Hakka,2,Moderately complex,25,116,Chinese,Sino-Tibetan,Phonology
+hmr,Hamer,2,Moderately complex,5,36.5,South Omotic,Afro-Asiatic,Phonology
+ham,Hamtai,3,Complex,-7.5,146.25,Nuclear Angan,Trans-New Guinea,Phonology
+hau,Hausa,2,Moderately complex,12,7,West Chadic,Afro-Asiatic,Phonology
+haw,Hawaiian,1,Simple,19.58333333,-155.5,Oceanic,Austronesian,Phonology
+hba,Hebrew (Modern Ashkenazic),3,Complex,31.75,35.16666667,Semitic,Afro-Asiatic,Phonology
+hin,Hindi,3,Complex,25,77,Indic,Indo-European,Phonology
+hix,Hixkaryana,2,Moderately complex,-1,-59,Cariban,Cariban,Phonology
+hmo,Hmong Njua,2,Moderately complex,28,105,Hmongic,Hmong-Mien,Phonology
+hop,Hopi,3,Complex,36,-110,Northern Uto-Aztecan,Uto-Aztecan,Phonology
+htc,Huastec,2,Moderately complex,22.08333333,-99.33333333,Mayan,Mayan,Phonology
+hve,Huave (San Mateo del Mar),2,Moderately complex,16.21666667,-95,Huavean,Huavean,Phonology
+hum,Huitoto (Murui),1,Simple,-1,-73.5,Witoto,Witotoan,Phonology
+hun,Hungarian,3,Complex,47,20,Ugric,Uralic,Phonology
+hzb,Hunzib,2,Moderately complex,42.16666667,46.25,Avar-Andic-Tsezic,Nakh-Daghestanian,Phonology
+hup,Hupa,3,Complex,41.08333333,-123.6666667,Athapaskan,Na-Dene,Phonology
+iaa,Iaai,2,Moderately complex,-20.41666667,166.5833333,Oceanic,Austronesian,Phonology
+iba,Iban,2,Moderately complex,2,112,Malayo-Sumbawan,Austronesian,Phonology
+igb,Igbo,1,Simple,6,7.333333333,Igboid,Niger-Congo,Phonology
+ijo,Ijo (Kolokuma),1,Simple,4.916666667,5.666666667,Ijoid,Ijoid,Phonology
+ik,Ik,3,Complex,3.75,34.16666667,Kuliak,Eastern Sudanic,Phonology
+ika,Ika,2,Moderately complex,10.66666667,-73.75,Arhuacic,Chibchan,Phonology
+imo,Imonda,3,Complex,-3.333333333,141.1666667,Border,Border,Phonology
+ind,Indonesian,3,Complex,0,106,Malayo-Sumbawan,Austronesian,Phonology
+igs,Ingessana,2,Moderately complex,11.5,34,Eastern Jebel,Eastern Sudanic,Phonology
+ing,Ingush,3,Complex,43.16666667,45.08333333,Nakh,Nakh-Daghestanian,Phonology
+irx,Iranxe,2,Moderately complex,-13,-58,Iranxe,Iranxe,Phonology
+irq,Iraqw,2,Moderately complex,-4,35.5,Southern Cushitic,Afro-Asiatic,Phonology
+irr,Irarutu,2,Moderately complex,-3,133.5,South Halmahera - West New Guinea,Austronesian,Phonology
+ird,Irish (Donegal),3,Complex,55,-8,Celtic,Indo-European,Phonology
+iso,Isoko,2,Moderately complex,5.5,6.25,Edoid,Niger-Congo,Phonology
+ite,Itelmen,3,Complex,57,157.5,Southern Chukotko-Kamchatkan,Chukotko-Kamchatkan,Phonology
+ito,Itonama,2,Moderately complex,-12.83333333,-64.33333333,Itonama,Itonama,Phonology
+iva,Ivatan,2,Moderately complex,20.5,122,Batanic,Austronesian,Phonology
+jak,Jakaltek,2,Moderately complex,15.66666667,-91.66666667,Mayan,Mayan,Phonology
+jpn,Japanese,2,Moderately complex,37,140,Japanese,Japanese,Phonology
+jpr,Japreria,2,Moderately complex,10.5,-73,Cariban,Cariban,Phonology
+jaq,Jaqaru,2,Moderately complex,-13,-76,Aymaran,Aymaran,Phonology
+jeb,Jebero,2,Moderately complex,-5.416666667,-76.5,Cahuapanan,Cahuapanan,Phonology
+jeh,Jeh,3,Complex,15.16666667,107.8333333,Bahnaric,Austro-Asiatic,Phonology
+jng,Jingpho,2,Moderately complex,25.41666667,97,Brahmaputran,Sino-Tibetan,Phonology
+jom,Jomang,2,Moderately complex,10.58333333,30.5,Talodi,Kordofanian,Phonology
+juh,Ju|'hoan,1,Simple,-19,21,Ju-Kung,Kxa,Phonology
+kad,Kadugli,2,Moderately complex,11,29.66666667,Kadugli,Kadu,Phonology
+kng,Kaingang,2,Moderately complex,-26,-52,Je Meridional,Macro-Ge,Phonology
+kly,Kala Lagaw Ya,3,Complex,-10.11666667,142.1166667,Northern Pama-Nyungan,Pama-Nyungan,Phonology
+kal,Kalami,2,Moderately complex,35.5,72.5,Indic,Indo-European,Phonology
+kgu,Kalkatungu,2,Moderately complex,-21,139.5,Northern Pama-Nyungan,Pama-Nyungan,Phonology
+knk,Kanakuru,2,Moderately complex,10,12,West Chadic,Afro-Asiatic,Phonology
+knd,Kannada,3,Complex,14,76,Dravidian,Dravidian,Phonology
+knr,Kanuri,2,Moderately complex,12,13,Western Saharan,Saharan,Phonology
+ksg,Karen (Sgaw),2,Moderately complex,18,97,Karen,Sino-Tibetan,Phonology
+kyl,Kayah Li (Eastern),2,Moderately complex,19,97.5,Karen,Sino-Tibetan,Phonology
+kay,Kayardild,2,Moderately complex,-17.05,139.5,Tangkic,Tangkic,Phonology
+ked,Kedang,2,Moderately complex,-8.25,123.75,Central Malayo-Polynesian,Austronesian,Phonology
+kef,Kefa,2,Moderately complex,7.25,36.25,Ta-Ne-Omotic,Afro-Asiatic,Phonology
+ker,Kera,2,Moderately complex,9.833333333,15.08333333,East Chadic,Afro-Asiatic,Phonology
+ket,Ket,3,Complex,64,87,Yeniseian,Yeniseian,Phonology
+kew,Kewa,1,Simple,-6.5,143.8333333,Enga_Kewa-Huli,Trans-New Guinea,Phonology
+kty,Khanty,2,Moderately complex,65,65,Ugric,Uralic,Phonology
+khr,Kharia,2,Moderately complex,22.5,84.33333333,Munda,Austro-Asiatic,Phonology
+khs,Khasi,3,Complex,25.5,92,Khasian,Austro-Asiatic,Phonology
+khm,Khmer,3,Complex,12.5,105,Khmer,Austro-Asiatic,Phonology
+kmu,Khmu',3,Complex,21,102,Khmuic,Austro-Asiatic,Phonology
+klv,Kilivila,2,Moderately complex,-8.5,151.0833333,Oceanic,Austronesian,Phonology
+kio,Kiowa,2,Moderately complex,37,-99,Kiowa-Tanoan,Kiowa-Tanoan,Phonology
+kgz,Kirghiz,3,Complex,42,75,Turkic,Altaic,Phonology
+krb,Kiribati,2,Moderately complex,1.333333333,173,Oceanic,Austronesian,Phonology
+kss,Kisi (Southern),2,Moderately complex,8.5,-10.25,Southern Mel,Niger-Congo,Phonology
+kiw,Kiwai (Southern),1,Simple,-8,143.5,Kiwaian,Trans-New Guinea,Phonology
+klm,Klamath,3,Complex,42.5,-121.5,Klamath-Modoc,Penutian,Phonology
+kla,Klao,1,Simple,4.75,-8.75,Kru,Niger-Congo,Phonology
+koa,Koasati,2,Moderately complex,34.83333333,-85.16666667,Muskogean,Muskogean,Phonology
+kob,Kobon,2,Moderately complex,-5.166666667,144.3333333,Kalam-Kobon,Trans-New Guinea,Phonology
+koi,Koiari,1,Simple,-9.5,147.3333333,Koiarian,Trans-New Guinea,Phonology
+kzy,Komi-Zyrian,3,Complex,65,55,Permic,Uralic,Phonology
+kom,Komo,2,Moderately complex,8.75,33.75,Koman,Koman,Phonology
+kor,Korean,2,Moderately complex,37.5,128,Korean,Korean,Phonology
+kfe,Koromfe,2,Moderately complex,14.25,-0.9166666667,Koromfe,Niger-Congo,Phonology
+kry,Koryak,3,Complex,61,167,Northern Chukotko-Kamchatkan,Chukotko-Kamchatkan,Phonology
+kot,Kota,3,Complex,11.5,77.16666667,Dravidian,Dravidian,Phonology
+ktk,Kotoko,3,Complex,11.33333333,15.33333333,Biu-Mandara,Afro-Asiatic,Phonology
+koy,Koya,3,Complex,17.5,81.33333333,Dravidian,Dravidian,Phonology
+kch,Koyra Chiini,2,Moderately complex,17,-3,Songhay,Songhay,Phonology
+kpa,Kpan,3,Complex,7.583333333,10.16666667,Jukunoid,Niger-Congo,Phonology
+kpe,Kpelle,2,Moderately complex,7,-10,Western Mande,Mande,Phonology
+kro,Krongo,2,Moderately complex,10.5,30,Kadugli,Kadu,Phonology
+kya,Kuku-Yalanji,2,Moderately complex,-16,145,Northern Pama-Nyungan,Pama-Nyungan,Phonology
+kul,Kullo,2,Moderately complex,6.75,37.08333333,Ta-Ne-Omotic,Afro-Asiatic,Phonology
+kun,Kuna,2,Moderately complex,8,-77.33333333,Kuna,Chibchan,Phonology
+knm,Kunama,2,Moderately complex,14.5,37,Kunama,Kunama,Phonology
+kmp,Kunimaipa,2,Moderately complex,-8,146.8333333,Core Goilalan,Trans-New Guinea,Phonology
+krd,Kurdish (Central),3,Complex,36,44,Iranian,Indo-European,Phonology
+kut,Kutenai,3,Complex,49.5,-116,Kutenai,Kutenai,Phonology
+kwa,Kwaio,1,Simple,-8.95,161,Oceanic,Austronesian,Phonology
+kwk,Kwakw'ala,3,Complex,51,-127,Northern Wakashan,Wakashan,Phonology
+kwo,Kwoma,2,Moderately complex,-4.166666667,142.75,Nukuma,Sepik,Phonology
+lad,Ladakhi,3,Complex,34,78,Bodic,Sino-Tibetan,Phonology
+lah,Lahu,2,Moderately complex,20,98.16666667,Burmese-Lolo,Sino-Tibetan,Phonology
+lak,Lak,3,Complex,42.16666667,47.16666667,Lak,Nakh-Daghestanian,Phonology
+lkt,Lakhota,3,Complex,43.83333333,-101.8333333,Mississippi Valley Siouan,Siouan,Phonology
+lkk,Lakkia,2,Moderately complex,24.08333333,110.1666667,Kadai,Tai-Kadai,Phonology
+lan,Lango,2,Moderately complex,2.166666667,33,Western Nilotic,Eastern Sudanic,Phonology
+lat,Latvian,3,Complex,57,24,Baltic,Indo-European,Phonology
+lav,Lavukaleve,2,Moderately complex,-9.083333333,159.2,Lavukaleve,Solomons East Papuan,Phonology
+llm,Lelemi,1,Simple,7.333333333,0.5,Na-Togo,Niger-Congo,Phonology
+len,Lenakel,2,Moderately complex,-19.45,169.25,Oceanic,Austronesian,Phonology
+lep,Lepcha,3,Complex,27.16666667,88.5,Himalayish,Sino-Tibetan,Phonology
+lez,Lezgian,3,Complex,41.66666667,47.83333333,Lezgic,Nakh-Daghestanian,Phonology
+lit,Lithuanian,3,Complex,55,24,Baltic,Indo-European,Phonology
+lua,Lua,2,Moderately complex,9.75,17.75,Bua,Niger-Congo,Phonology
+lug,Lugbara,2,Moderately complex,3.083333333,30.91666667,Moru-Ma'di,Central Sudanic,Phonology
+luo,Luo,2,Moderately complex,-0.5,34.75,Western Nilotic,Eastern Sudanic,Phonology
+lus,Lushootseed,3,Complex,48,-122,Central Salish,Salishan,Phonology
+kkv,Lusi,2,Moderately complex,-5.583333333,149.6666667,Oceanic,Austronesian,Phonology
+luv,Luvale,1,Simple,-12,22,Bantu,Niger-Congo,Phonology
+lu,Lü,2,Moderately complex,22,100.6666667,Kam-Tai,Tai-Kadai,Phonology
+mya,Ma'ya,2,Moderately complex,-1.25,130.9166667,South Halmahera - West New Guinea,Austronesian,Phonology
+maa,Maasai,2,Moderately complex,-3,36,Eastern Nilotic,Eastern Sudanic,Phonology
+mab,Maba,3,Complex,13.75,20.83333333,Maban,Maban,Phonology
+mne,Maidu (Northeast),2,Moderately complex,40,-120.6666667,Maiduan,Penutian,Phonology
+mak,Makah,3,Complex,48.33333333,-124.6666667,Southern Wakashan,Wakashan,Phonology
+mal,Malagasy,2,Moderately complex,-20,47,Barito,Austronesian,Phonology
+mlk,Malakmalak,3,Complex,-13.41666667,130.4166667,Northern Daly,Northern Daly,Phonology
+mla,Mambila,2,Moderately complex,6.75,11.5,Mambiloid,Niger-Congo,Phonology
+mnd,Mandarin,2,Moderately complex,34,110,Chinese,Sino-Tibetan,Phonology
+myi,Mangarrayi,3,Complex,-14.66666667,133.5,Mangarrayi,Mangarrayi-Maran,Phonology
+mgg,Mangghuer,2,Moderately complex,36,102,Mongolic,Altaic,Phonology
+mao,Maori,1,Simple,-40,176,Oceanic,Austronesian,Phonology
+map,Mapudungun,2,Moderately complex,-38,-72,Araucanian,Araucanian,Phonology
+mku,Maranungku,3,Complex,-13.66666667,130,Wagaydy,Western Daly,Phonology
+mar,Maricopa,3,Complex,33.16666667,-113.1666667,Yuman,Hokan,Phonology
+mrd,Marind,2,Moderately complex,-7.833333333,140.1666667,Marind-Yaqay,Trans-New Guinea,Phonology
+mrt,Martuthunira,2,Moderately complex,-20.83333333,116.5,Western Pama-Nyungan,Pama-Nyungan,Phonology
+mau,Maung,3,Complex,-11.91666667,133.5,Iwaidjan,Iwaidjan,Phonology
+max,Maxakalí,2,Moderately complex,-18,-40,Maxakalian,Macro-Ge,Phonology
+may,Maybrat,1,Simple,-1.333333333,132.5,Maybrat,Maybrat,Phonology
+mzc,Mazatec (Chiquihuitlán),2,Moderately complex,17.75,-96.91666667,Popolocan,Oto-Manguean,Phonology
+mba,Mba,1,Simple,1,25,Ubangi,Niger-Congo,Phonology
+mbb,Mbabaram,2,Moderately complex,-17.16666667,145,Northern Pama-Nyungan,Pama-Nyungan,Phonology
+mei,Meithei,2,Moderately complex,24.75,94,Manipuri,Sino-Tibetan,Phonology
+hok,Min (Southern),2,Moderately complex,25,118,Chinese,Sino-Tibetan,Phonology
+mss,Miwok (Southern Sierra),2,Moderately complex,37.5,-120,Miwok,Penutian,Phonology
+mtp,Mixe (Totontepec),3,Complex,17.25,-96,Mixe-Zoque,Mixe-Zoque,Phonology
+mxc,Mixtec (Chalcatongo),1,Simple,17.05,-97.58333333,Mixtec,Oto-Manguean,Phonology
+mog,Moghol,3,Complex,35,62,Mongolic,Altaic,Phonology
+mor,Mor,1,Simple,-2.95,135.75,South Halmahera - West New Guinea,Austronesian,Phonology
+mro,Moro,2,Moderately complex,11,30.16666667,Heiban,Kordofanian,Phonology
+mov,Movima,1,Simple,-13.83333333,-65.66666667,Movima,Movima,Phonology
+mui,Muinane,1,Simple,-1,-72.5,Boran,Boran,Phonology
+mum,Mumuye,2,Moderately complex,9,11.66666667,Mumuye-Yandang,Niger-Congo,Phonology
+mun,Mundari,2,Moderately complex,23,84.66666667,Munda,Austro-Asiatic,Phonology
+mrl,Murle,2,Moderately complex,6.5,33.5,South Surmic,Eastern Sudanic,Phonology
+mpa,Murrinh-Patha,3,Complex,-14.66666667,129.6666667,Murrinh-Patha,Southern Daly,Phonology
+nhn,Nahuatl (North Puebla),2,Moderately complex,20,-98.25,Aztecan,Uto-Aztecan,Phonology
+nht,Nahuatl (Tetelcingo),2,Moderately complex,19.66666667,-99,Aztecan,Uto-Aztecan,Phonology
+kho,Nama,2,Moderately complex,-25.5,18,Khoe-Kwadi,Khoe-Kwadi,Phonology
+nmb,Nambikuára (Southern),3,Complex,-14,-59.5,Nambikuaran,Nambikuaran,Phonology
+nai,Nanai,2,Moderately complex,49.5,137,Tungusic,Altaic,Phonology
+nnc,Nancowry,2,Moderately complex,8.05,93.5,Nicobarese,Austro-Asiatic,Phonology
+nan,Nandi,2,Moderately complex,0.25,35,Eastern Nilotic,Eastern Sudanic,Phonology
+nar,Nara (in Ethiopia),2,Moderately complex,15.08333333,37.58333333,Nara,Eastern Sudanic,Phonology
+nav,Navajo,2,Moderately complex,36.16666667,-108,Athapaskan,Na-Dene,Phonology
+nax,Naxi,1,Simple,27.5,100,Na-Qiangic,Sino-Tibetan,Phonology
+ndt,Ndut,2,Moderately complex,14.91666667,-16.91666667,Cangin,Niger-Congo,Phonology
+ndy,Ndyuka,2,Moderately complex,4.5,-54.5,Creoles and Pidgins,other,Phonology
+ntu,Nenets,3,Complex,70,76,Samoyedic,Uralic,Phonology
+nap,Neo-Aramaic (Persian Azerbaijan),3,Complex,38,47,Semitic,Afro-Asiatic,Phonology
+new,Newari (Kathmandu),2,Moderately complex,27.66666667,85.5,Himalayish,Sino-Tibetan,Phonology
+nez,Nez Perce,3,Complex,46,-116,Sahaptian,Penutian,Phonology
+nga,Nganasan,2,Moderately complex,71,93,Samoyedic,Uralic,Phonology
+nti,Ngiti,1,Simple,1.333333333,30.25,Lendu,Central Sudanic,Phonology
+ngi,Ngiyambaa,2,Moderately complex,-31.75,145.5,Southeastern Pama-Nyungan,Pama-Nyungan,Phonology
+ngz,Ngizim,2,Moderately complex,12.08333333,10.91666667,West Chadic,Afro-Asiatic,Phonology
+niv,Nivkh,3,Complex,53.33333333,142,Nivkh,Nivkh,Phonology
+nko,Nkore-Kiga,2,Moderately complex,-0.9166666667,29.83333333,Bantu,Niger-Congo,Phonology
+nob,Nobiin,2,Moderately complex,21,31,Nubian,Eastern Sudanic,Phonology
+non,Noni,3,Complex,6.416666667,10.58333333,Beboid,Niger-Congo,Phonology
+nor,Norwegian,3,Complex,61,8,Germanic,Indo-European,Phonology
+nug,Nunggubuyu,2,Moderately complex,-13.75,135.6666667,Nunggubuyu,Gunwinyguan,Phonology
+nuu,Nuuchahnulth,3,Complex,49.66666667,-126.6666667,Southern Wakashan,Wakashan,Phonology
+nkt,Nyah Kur (Tha Pong),3,Complex,15.66666667,101.6666667,Monic,Austro-Asiatic,Phonology
+nyg,Nyangi,2,Moderately complex,3.416666667,33.58333333,Kuliak,Eastern Sudanic,Phonology
+nyi,Nyimang,2,Moderately complex,12.16666667,29.33333333,Nyimang,Eastern Sudanic,Phonology
+nis,Nyishi,3,Complex,27.5,93.5,Tani,Sino-Tibetan,Phonology
+ood,O'odham,3,Complex,32,-112,Tepiman,Uto-Aztecan,Phonology
+ogb,Ogbia,2,Moderately complex,4.666666667,6.25,Central Delta,Niger-Congo,Phonology
+ond,Oneida,3,Complex,43,-75.66666667,Northern Iroquoian,Iroquoian,Phonology
+orm,Ormuri,3,Complex,32.5,69.75,Iranian,Indo-European,Phonology
+orh,Oromo (Harar),2,Moderately complex,9,42,Lowland East Cushitic,Afro-Asiatic,Phonology
+otm,Otomí (Mezquital),3,Complex,20.16666667,-99.16666667,Otomian,Oto-Manguean,Phonology
+pms,Paamese,2,Moderately complex,-16.5,168.25,Oceanic,Austronesian,Phonology
+pac,Pacoh,2,Moderately complex,16.41666667,107.0833333,Katuic,Austro-Asiatic,Phonology
+pai,Paiwan,2,Moderately complex,22.5,120.8333333,Paiwan,Austronesian,Phonology
+pnr,Panare,2,Moderately complex,6.5,-66,Cariban,Cariban,Phonology
+puk,Parauk,2,Moderately complex,23.25,99.5,Palaungic,Austro-Asiatic,Phonology
+psh,Pashto,3,Complex,33,67,Iranian,Indo-European,Phonology
+psm,Passamaquoddy-Maliseet,3,Complex,45,-67,Algonquian,Algic,Phonology
+pau,Paumarí,1,Simple,-6,-64,Arauan,Arauan,Phonology
+paw,Pawaian,2,Moderately complex,-7,145.0833333,Pawaian,Teberan-Pawaian,Phonology
+pec,Pech,2,Moderately complex,15,-85.5,Pech,Chibchan,Phonology
+prs,Persian,3,Complex,32,54,Iranian,Indo-European,Phonology
+phl,Phlong,2,Moderately complex,15,99,Karen,Sino-Tibetan,Phonology
+prh,Pirahã,1,Simple,-7,-62,Mura,Mura,Phonology
+pit,Pitjantjatjara,2,Moderately complex,-26,130,Western Pama-Nyungan,Pama-Nyungan,Phonology
+poa,Po-Ai,2,Moderately complex,-20.66666667,164.8333333,Oceanic,Austronesian,Phonology
+poh,Pohnpeian,3,Complex,6.883333333,158.25,Oceanic,Austronesian,Phonology
+pol,Polish,3,Complex,52,20,Slavic,Indo-European,Phonology
+pur,Purépecha,2,Moderately complex,19.5,-101.6666667,Tarascan,Tarascan,Phonology
+pae,Páez,3,Complex,2.666666667,-76,Páezan,Páezan,Phonology
+bng,Qaqet,2,Moderately complex,-4.583333333,152,Baining,Baining,Phonology
+qaw,Qawasqar,3,Complex,-49,-75,Alacalufan,Alacalufan,Phonology
+ram,Rama,2,Moderately complex,11.75,-83.75,Rama,Chibchan,Phonology
+rap,Rapanui,1,Simple,-27.11666667,-109.3666667,Oceanic,Austronesian,Phonology
+res,Resígaro,2,Moderately complex,-2.416666667,-71.5,Japura-Colombia,Arawakan,Phonology
+rsc,Romansch (Scharans),3,Complex,46.75,9.5,Romance,Indo-European,Phonology
+ror,Roro,1,Simple,-8.75,146.5833333,Oceanic,Austronesian,Phonology
+rtk,Rotokas,1,Simple,-6,155.1666667,North Bougainville,North Bougainville,Phonology
+ruk,Rukai (Tanan),2,Moderately complex,22.83333333,120.8333333,Rukai,Austronesian,Phonology
+rus,Russian,3,Complex,56,38,Slavic,Indo-European,Phonology
+rut,Rutul,3,Complex,41.5,47.41666667,Lezgic,Nakh-Daghestanian,Phonology
+sab,Sa'ban,3,Complex,3.666666667,115.6666667,North Borneo,Austronesian,Phonology
+scs,Saami (Central-South),3,Complex,64.66666667,16.75,Saami,Uralic,Phonology
+sdw,Sandawe,2,Moderately complex,-5,35,Sandawe,Sandawe,Phonology
+san,Sango,1,Simple,5,18,Ubangi,Niger-Congo,Phonology
+snm,Sanuma,2,Moderately complex,4.5,-64.66666667,Yanomam,Yanomam,Phonology
+svs,Savosavo,1,Simple,-9.133333333,159.8,Savosavo,Solomons East Papuan,Phonology
+sed,Sedang,2,Moderately complex,14.83333333,108,Bahnaric,Austro-Asiatic,Phonology
+sel,Selknam,3,Complex,-53,-70,Chonan Proper,Chonan,Phonology
+skp,Selkup,2,Moderately complex,65,82,Samoyedic,Uralic,Phonology
+sml,Semelai,2,Moderately complex,3,103,Aslian,Austro-Asiatic,Phonology
+snd,Senadi,1,Simple,9.5,-6.25,Senufo,Niger-Congo,Phonology
+sha,Shan,2,Moderately complex,22,98,Kam-Tai,Tai-Kadai,Phonology
+shs,Shasta,2,Moderately complex,41.83333333,-122.6666667,Shasta,Hokan,Phonology
+shk,Shipibo-Konibo,2,Moderately complex,-7.5,-75,Panoan,Pano-Tacanan,Phonology
+shi,Shiriana,2,Moderately complex,3.5,-62.83333333,Yanomam,Yanomam,Phonology
+shu,Shuswap,3,Complex,52,-120,Interior Salish,Salishan,Phonology
+srn,Sirionó,1,Simple,-15.58333333,-64,Maweti-Guarani,Tupian,Phonology
+sla,Slave,2,Moderately complex,67,-125,Athapaskan,Na-Dene,Phonology
+som,Somali,2,Moderately complex,3,45,Lowland East Cushitic,Afro-Asiatic,Phonology
+soq,Soqotri,3,Complex,12.5,54,Semitic,Afro-Asiatic,Phonology
+sor,Sora,2,Moderately complex,20,84.33333333,Munda,Austro-Asiatic,Phonology
+spa,Spanish,2,Moderately complex,40,-4,Romance,Indo-European,Phonology
+squ,Squamish,3,Complex,49.66666667,-123.1666667,Central Salish,Salishan,Phonology
+sre,Sre,3,Complex,11.5,108,Bahnaric,Austro-Asiatic,Phonology
+sue,Suena,1,Simple,-7.75,147.55,Binanderean,Trans-New Guinea,Phonology
+sui,Sui,2,Moderately complex,26,107.5,Kam-Tai,Tai-Kadai,Phonology
+sup,Supyire,2,Moderately complex,11.5,-5.583333333,Senufo,Niger-Congo,Phonology
+swa,Swahili,1,Simple,-6.5,39,Bantu,Niger-Congo,Phonology
+sba,Sáliba (in Colombia),1,Simple,6,-70,Sáliba,Sáliban,Phonology
+tab,Taba,3,Complex,0,127.5,South Halmahera - West New Guinea,Austronesian,Phonology
+tac,Tacana,1,Simple,-13.5,-68,Tacanan,Pano-Tacanan,Phonology
+tag,Tagalog,2,Moderately complex,15,121,Greater Central Philippine,Austronesian,Phonology
+tma,Tama,2,Moderately complex,14.5,22,Taman,Eastern Sudanic,Phonology
+tam,Tamang (Eastern),2,Moderately complex,27.5,85.66666667,Bodic,Sino-Tibetan,Phonology
+tmp,Tampulma,3,Complex,10.41666667,-0.5833333333,Grusi,Niger-Congo,Phonology
+tok,Tarok,2,Moderately complex,9,10.08333333,Benue-Congo Plateau,Niger-Congo,Phonology
+tas,Tashlhiyt,3,Complex,31,-5,Berber,Afro-Asiatic,Phonology
+tsg,Tausug,2,Moderately complex,6,121,Greater Central Philippine,Austronesian,Phonology
+tel,Telugu,2,Moderately complex,16,79,Dravidian,Dravidian,Phonology
+tmn,Temein,2,Moderately complex,11.91666667,29.41666667,Temein,Eastern Sudanic,Phonology
+tne,Temne,3,Complex,8.666666667,-13.08333333,Northern Mel,Niger-Congo,Phonology
+ter,Tera,2,Moderately complex,11,11.83333333,Biu-Mandara,Afro-Asiatic,Phonology
+ttn,Tetun,3,Complex,-9,126,Central Malayo-Polynesian,Austronesian,Phonology
+tha,Thai,2,Moderately complex,16,101,Kam-Tai,Tai-Kadai,Phonology
+tib,Tibetan (Standard Spoken),2,Moderately complex,30,91,Bodic,Sino-Tibetan,Phonology
+tgk,Tigak,2,Moderately complex,-2.716666667,150.8,Oceanic,Austronesian,Phonology
+tgr,Tigré,2,Moderately complex,16.5,38.5,Semitic,Afro-Asiatic,Phonology
+try,Tiruray,2,Moderately complex,6.75,124.1666667,Bilic,Austronesian,Phonology
+tiw,Tiwi,2,Moderately complex,-11.5,131,Tiwian,Tiwian,Phonology
+tli,Tlingit,3,Complex,59,-135,Tlingit,Na-Dene,Phonology
+toa,Toaripi,1,Simple,-8.333333333,146.25,Eleman,Eleman,Phonology
+tol,Tol,2,Moderately complex,14.66666667,-87,Tol,Tol,Phonology
+ton,Tonkawa,2,Moderately complex,30.25,-96.75,Tonkawa,Tonkawa,Phonology
+dts,Toro So,1,Simple,14.41666667,-3.25,Dogon,Dogon,Phonology
+tru,Trumai,2,Moderately complex,-11.91666667,-53.58333333,Trumai,Trumai,Phonology
+tsi,Tsimshian (Coast),3,Complex,52.5,-129,Tsimshianic,Tsimshianic,Phonology
+tso,Tsou,3,Complex,23.5,120.75,Tsou,Austronesian,Phonology
+ttu,Tsova-Tush,3,Complex,42.5,45.5,Nakh,Nakh-Daghestanian,Phonology
+tug,Tuareg (Ahaggar),3,Complex,23,6,Berber,Afro-Asiatic,Phonology
+tuk,Tukang Besi,1,Simple,-5.5,123.5,Celebic,Austronesian,Phonology
+tul,Tulu,3,Complex,12.75,75.33333333,Dravidian,Dravidian,Phonology
+tur,Turkish,2,Moderately complex,39,35,Turkic,Altaic,Phonology
+tuv,Tuvan,3,Complex,52,95,Turkic,Altaic,Phonology
+tza,Tzeltal (Aguacatenango),3,Complex,16.41666667,-92.5,Mayan,Mayan,Phonology
+umb,UMbundu,1,Simple,-12.5,15,Bantu,Niger-Congo,Phonology
+una,Una,2,Moderately complex,-4.666666667,140,Mek,Trans-New Guinea,Phonology
+ung,Ungarinjin,2,Moderately complex,-16.33333333,126,Worrorran,Worrorran,Phonology
+urk,Urubú-Kaapor,2,Moderately complex,-2.333333333,-46.5,Maweti-Guarani,Tupian,Phonology
+usa,Usan,2,Moderately complex,-4.833333333,145.1666667,North Adelbert,Trans-New Guinea,Phonology
+uzn,Uzbek (Northern),3,Complex,40.66666667,66.5,Turkic,Altaic,Phonology
+vie,Vietnamese,2,Moderately complex,10.5,106.5,Vietic,Austro-Asiatic,Phonology
+wah,Wahgi,2,Moderately complex,-5.833333333,144.7166667,Chimbu-Wahgi,Trans-New Guinea,Phonology
+bno,Waimaha,1,Simple,0.3333333333,-70.25,Tucanoan,Tucanoan,Phonology
+wam,Wambaya,2,Moderately complex,-18.66666667,135.75,Wambayan,Mirndi,Phonology
+wnt,Wantoat,2,Moderately complex,-6.166666667,146.5,Finisterre,Trans-New Guinea,Phonology
+wao,Waorani,1,Simple,-1,-76.5,Waorani,Waorani,Phonology
+wps,Wapishana,2,Moderately complex,2.666666667,-60,Negro-Roraima,Arawakan,Phonology
+wra,Warao,1,Simple,9.333333333,-61.66666667,Warao,Warao,Phonology
+wrd,Wardaman,3,Complex,-15.5,131,Yangmanic,Yangmanic,Phonology
+war,Wari',2,Moderately complex,-11.33333333,-65,Chapacura-Wanham,Chapacura-Wanham,Phonology
+wrs,Waris,2,Moderately complex,-3.166666667,141,Border,Border,Phonology
+wma,West Makian,2,Moderately complex,0.5,127.5833333,North Halmaheran,North Halmaheran,Phonology
+wch,Wichí,2,Moderately complex,-22.5,-62.58333333,Matacoan,Matacoan,Phonology
+wmu,Wik Munkan,2,Moderately complex,-13.91666667,141.75,Northern Pama-Nyungan,Pama-Nyungan,Phonology
+win,Wintu,2,Moderately complex,41,-122.5,Wintuan,Penutian,Phonology
+woi,Woisika,2,Moderately complex,-8.25,124.8333333,Alor-Pantar,Greater West Bomberai,Phonology
+wlf,Wolof,3,Complex,15.25,-16,Wolof,Niger-Congo,Phonology
+ygr,Yagaria,3,Complex,-6.333333333,145.4166667,Siane-Yagaria,Trans-New Guinea,Phonology
+yag,Yagua,2,Moderately complex,-3.5,-72,Peba-Yaguan,Peba-Yaguan,Phonology
+ykt,Yakut,3,Complex,62,130,Turkic,Altaic,Phonology
+yny,Yanyuwa,2,Moderately complex,-16.41666667,137.1666667,Western Pama-Nyungan,Pama-Nyungan,Phonology
+yap,Yapese,2,Moderately complex,9.583333333,138.1666667,Yapese,Austronesian,Phonology
+yaq,Yaqui,2,Moderately complex,27.5,-110.25,Cahita,Uto-Aztecan,Phonology
+yar,Yareba,1,Simple,-9.5,148.5,Yareban,Trans-New Guinea,Phonology
+yaw,Yawa,2,Moderately complex,-1.75,136.25,Yawa,Yawa,Phonology
+yay,Yay,2,Moderately complex,22.41666667,104.75,Kam-Tai,Tai-Kadai,Phonology
+yel,Yelî Dnye,1,Simple,-11.36666667,154.1666667,Yele,Yele,Phonology
+yes,Yessan-Mayo,2,Moderately complex,-4.166666667,142.5833333,Tama Sepik,Sepik,Phonology
+yey,Yeyi,2,Moderately complex,-20,23.5,Bantu,Niger-Congo,Phonology
+yid,Yidiny,2,Moderately complex,-17,145.75,Northern Pama-Nyungan,Pama-Nyungan,Phonology
+yim,Yimas,2,Moderately complex,-4.666666667,143.55,Lower Sepik,Ramu-Lower Sepik,Phonology
+yor,Yoruba,1,Simple,8,4.333333333,Defoid,Niger-Congo,Phonology
+ycn,Yucuna,2,Moderately complex,-0.75,-71,Japura-Colombia,Arawakan,Phonology
+yko,Yukaghir (Kolyma),2,Moderately complex,65.75,150.8333333,Yukaghir,Yukaghir,Phonology
+ytu,Yukaghir (Tundra),3,Complex,69,155,Yukaghir,Yukaghir,Phonology
+yul,Yulu,2,Moderately complex,8.5,25.25,Bongo-Bagirmi,Central Sudanic,Phonology
+yus,Yupik (Siberian),2,Moderately complex,65,-173,Eskimo,Eskimo-Aleut,Phonology
+yur,Yurok,3,Complex,41.33333333,-124,Yurok,Algic,Phonology
+zqc,Zoque (Copainalá),3,Complex,17,-93.25,Mixe-Zoque,Mixe-Zoque,Phonology
+zul,Zulu,2,Moderately complex,-30,30,Bantu,Niger-Congo,Phonology
+zun,Zuni,2,Moderately complex,35.08333333,-108.8333333,Zuni,Zuni,Phonology
