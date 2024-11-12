@@ -278,7 +278,7 @@ def realignment_training_loop(
                     "freeze_realign_unfreeze",
                     "freeze_realign_unfreeze_last_half",
                     "freeze_realign_unfreeze_last_6",
-                   ] or re.match(r"freeze_realign_unfreeze_[0-9]+_[0-9]+", strategy):
+                   ] or re.match(r"freeze_realign_unfreeze_[0-9]+_[0-9]+", strategy) or re.match(r"before_realign_only_[0-9]+_[0-9]+", strategy):
         use_caching = cache_dir is not None and hash_args is not None and seed is not None
 
         learning_rate = learning_rate
@@ -465,7 +465,23 @@ def realignment_training_loop(
                     for param in layers[i].parameters():
                         param.requires_grad = False
 
-
+            if re.match(r"before_realign_only_[0-9]+_[0-9]+", strategy):
+                *_, first_layer, last_layer = strategy.split("_")
+                first_layer = int(first_layer)
+                last_layer = int(last_layer)
+                if "roberta" in model_name:
+                    layers = [model.roberta.embeddings] + list(model.roberta.encoder.layer)
+                elif "distilbert" in model_name:
+                    layers = [model.distilbert.embeddings] + list(model.distilbert.transformer.layer)
+                elif model_name.startswith("bert"):
+                    layers = [model.bert.embeddings] + list(model.bert.encoder.layer)
+                else:
+                    raise NotImplementedError(f"Strategy of type /before_realign_only_[0-9]+_[0-9]+/ is not implemented for model {model_name}")
+                for i, layer in enumerate(layers):
+                    if first_layer <= i < last_layer:
+                        for param in layer.parameters():
+                            param.requires_grad = False
+            
             log_layer_status(model, model_name)
 
             training_state = epoch_loop(
@@ -617,6 +633,23 @@ def realignment_training_loop(
                         raise NotImplementedError(f"Strategy of type /freeze_realign_unfreeze_[0-9]+_[0-9]+/ is not implemented for model {model_name}")
                     for param in layers[i].parameters():
                         param.requires_grad = True
+            
+            if re.match(r"before_realign_only_[0-9]+_[0-9]+", strategy):
+                *_, first_layer, last_layer = strategy.split("_")
+                first_layer = int(first_layer)
+                last_layer = int(last_layer)
+                if "roberta" in model_name:
+                    layers = [model.roberta.embeddings] + list(model.roberta.encoder.layer)
+                elif "distilbert" in model_name:
+                    layers = [model.distilbert.embeddings] + list(model.distilbert.transformer.layer)
+                elif model_name.startswith("bert"):
+                    layers = [model.bert.embeddings] + list(model.bert.encoder.layer)
+                else:
+                    raise NotImplementedError(f"Strategy of type /before_realign_only_[0-9]+_[0-9]+/ is not implemented for model {model_name}")
+                for i, layer in enumerate(layers):
+                    if first_layer <= i < last_layer:
+                        for param in layer.parameters():
+                            param.requires_grad = True
 
     optimizer = Adam(model.parameters(), lr=learning_rate, betas=(0.9, 0.999), eps=1e-8)
     scheduler = get_scheduler(
