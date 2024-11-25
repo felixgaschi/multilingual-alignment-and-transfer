@@ -31,9 +31,13 @@ def print_results(model: str, method: str):
 
     for lang in ["avg", *langs]:
         line = [lang]
+        results = []
         for i in range(n_layers + 1):
             values = df[df.method == f"{prefix}_{i}_{i+1}_dico"][f"final_eval_{lang}_accuracy"]
-            line.append(f"{np.mean(values) * 100:.1f}")
+            results.append(np.mean(values))
+        i_max = np.argmax(results)
+        for i, res in enumerate(results):
+            line.append(f"{'**' if i == i_max else ''}{res * 100:.1f}{'**' if i == i_max else ''}")
         table.append(line)
     
     print(tabulate.tabulate(table, headers=headers, tablefmt="github"))

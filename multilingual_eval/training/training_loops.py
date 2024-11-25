@@ -478,7 +478,7 @@ def realignment_training_loop(
                 else:
                     raise NotImplementedError(f"Strategy of type /before_realign_only_[0-9]+_[0-9]+/ is not implemented for model {model_name}")
                 for i, layer in enumerate(layers):
-                    if first_layer <= i < last_layer:
+                    if i < first_layer or i >= last_layer:
                         for param in layer.parameters():
                             param.requires_grad = False
             
@@ -647,7 +647,7 @@ def realignment_training_loop(
                 else:
                     raise NotImplementedError(f"Strategy of type /before_realign_only_[0-9]+_[0-9]+/ is not implemented for model {model_name}")
                 for i, layer in enumerate(layers):
-                    if first_layer <= i < last_layer:
+                    if i < first_layer or i >= last_layer:
                         for param in layer.parameters():
                             param.requires_grad = True
 
