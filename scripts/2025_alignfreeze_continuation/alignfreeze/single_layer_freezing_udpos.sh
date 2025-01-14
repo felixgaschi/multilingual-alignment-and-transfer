@@ -46,7 +46,7 @@ else
 fi
 
 for layer in $(seq 0 $MAX_LAYER); do
-    /root/miniconda3/envs/align_freeze/bin/python scripts/2023_acl/controlled_realignment.py \
+    python scripts/2023_acl/controlled_realignment.py \
         --translation_dir $TRANSLATION_DIR/$DATASET \
         --fastalign_dir $FASTALIGN_DIR/$DATASET \
         --dico_dir $DICOALIGN_DIR/$DATASET \

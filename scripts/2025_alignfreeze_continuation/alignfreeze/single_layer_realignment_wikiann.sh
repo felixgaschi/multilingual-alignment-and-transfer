@@ -53,10 +53,10 @@ for layer in $(seq 0 $MAX_LAYER); do
         --awesome_dir $AWESOME_DIR/$DATASET \
         --strategies before_realign_only_${layer}_$((layer + 1))_dico \
         --models $MODEL \
-        --tasks udpos \
+        --tasks wikiann \
         --cache_dir $CACHE_DIR \
         --n_epochs 5 \
         --right_langs $langs \
         --project_prefix "bylayer_" \
-        --output_file $RESULT_DIR/${MODEL}__${DATASET}__single_layer_realignment.csv $ADD_ARGS
+        --output_file $RESULT_DIR/${MODEL}__${DATASET}__wikiann__single_layer_realignment.csv $ADD_ARGS
 done;

@@ -8,8 +8,8 @@ model_to_layers = {
     "distilbert-base-multilingual-cased": 6
 }
 
-def print_results(model: str, method: str):
-    fname = f"scripts/2025_alignfreeze_continuation/data/single_layer_realignment/{model}__opus100__{method}.csv"
+def print_results(model: str, method: str, task: str):
+    fname = f"scripts/2025_alignfreeze_continuation/data/single_layer_realignment/{model}__opus100__{'' if task == 'udpos' else f'{task}__'}{method}.csv"
 
     if method == "single_layer_realignment":
         prefix = "before_realign_only"
@@ -20,7 +20,7 @@ def print_results(model: str, method: str):
 
     df = pd.read_csv(fname)
 
-    langs = list(map(lambda x: x.split("_")[2], filter(lambda x: x.startswith("final_eval") and "same" not in x and "avg" not in x, df.columns)))
+    langs = list(set(map(lambda x: x.split("_")[2], filter(lambda x: x.startswith("final_eval") and "same" not in x and "avg" not in x, df.columns))))
     langs.sort()
     
     n_layers = model_to_layers[model]
@@ -49,6 +49,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("model", type=str)
     parser.add_argument("--method", type=str, default="single_layer_realignment")
+    parser.add_argument("--task", type=str, default="udpos")
     args = parser.parse_args()    
 
-    print_results(args.model, args.method)
+    print_results(args.model, args.method, args.task)
