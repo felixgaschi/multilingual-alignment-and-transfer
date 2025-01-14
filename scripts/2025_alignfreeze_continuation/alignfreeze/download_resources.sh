@@ -46,6 +46,16 @@ for lang in $langs; do
     mkdir -p $TRANSLATION_DIR/opus100
     mkdir -p $DICOALIGN_DIR/opus100
 
+    pair=$(python -c "print('-'.join(sorted(['en', '$lang'])))")
+
+    # Create FastAlign-compatible tokenized translation dataset
+    python subscripts/prepare_pharaoh_dataset.py \
+        $OPUS_DIR/$pair/opus.$pair-train.en \
+        $OPUS_DIR/$pair/opus.$pair-train.$lang \
+        $TRANSLATION_DIR/opus100/en-$lang.tokenized.train.txt \
+        --left_lang en --right_lang $lang
+
+
     # Align with bilingual dictionaries
     if [ ! -f $DICOALIGN_DIR/opus100/en-$lang.train ]; then
         python scripts/word_align_with_dictionary.py $TRANSLATION_DIR/opus100/en-$lang.tokenized.train.txt $MUSE_DIR en $lang $DICOALIGN_DIR/opus100/en-$lang.train
