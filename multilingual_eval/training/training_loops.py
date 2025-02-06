@@ -312,9 +312,8 @@ def realignment_training_loop(
                     "freeze_realign_unfreeze_last_6",
                    ] or re.match(r"freeze_realign_unfreeze_[0-9]+_[0-9]+", strategy) or re.match(r"before_realign_only_[0-9]+_[0-9]+", strategy) \
                        or re.match(r"before_random_realign_[0-9]+", strategy) \
-                           or re.match(r"before_gradual_topdown_[0-9]+", strategy) \
-                               or re.match(r"before_gradual_bottomup_[0-9]+", strategy) \
-                                   or re.match(r"before_gradual_random_[0-9]+", strategy):
+                           or re.match(r"before_gradual_(topdown|bottomup|random)_[0-9]+", strategy) \
+                               or re.match(r"before_oneatatime_(topdown|bottomup|random)_[0-9]+", strategy):
         use_caching = cache_dir is not None and hash_args is not None and seed is not None
 
         learning_rate = learning_rate

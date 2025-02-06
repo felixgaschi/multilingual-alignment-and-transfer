@@ -113,11 +113,13 @@ def epoch_loop(
     
     layers = None
     scheduling_freeze = False
+    phase = None
     direction = None
     progress = nb_iter
 
-    if strategy and re.match(r"before_gradual_(topdown|bottomup|random)_[0-9]+", strategy):
+    if strategy and re.match(r"before_(gradual|oneatatime)_(topdown|bottomup|random)_[0-9]+", strategy):
         # Extract the direction (topdown/bottomup) and progress value
+        phase = strategy.split("_")[1]
         direction = strategy.split("_")[2]
         progress = int(strategy.split("_")[3])
 
@@ -192,7 +194,7 @@ def epoch_loop(
         if task_dataloader is not None
         else enumerate(itertools.repeat(None, nb_iter))
     ):
-        if scheduling_freeze and direction and i > 0 and i % (nb_iter // progress) == 0:
+        if scheduling_freeze and phase and direction and i > 0 and i % (nb_iter // progress) == 0:
             # Calculate the next set of layers to unfreeze
             freeze_step = i // (nb_iter // progress)
             num_layers = len(layers)
@@ -203,12 +205,18 @@ def epoch_loop(
                     if i >= num_layers - num_unfrozen_layers:
                         for param in layer.parameters():
                             param.requires_grad = True
+                    elif phase == "oneatatime":
+                        for param in layer.parameters():
+                            param.requires_grad = False
             elif direction == "bottomup":
                 # Bottom-up: Unfreeze the first `num_unfrozen_layers` layers
                 for i, layer in enumerate(layers):
                     if i < num_unfrozen_layers:
                         for param in layer.parameters():
                             param.requires_grad = True
+                    elif phase == "oneatatime":
+                        for param in layer.parameters():
+                            param.requires_grad = False
             elif direction == "random":
                 selected_layers = select_layers_for_realignment(len(layers), progress)
                 logging.info(f"Current selected layers! {str(selected_layers)}")
