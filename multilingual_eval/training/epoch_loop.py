@@ -12,6 +12,38 @@ from transformers.optimization import get_scheduler
 from multilingual_eval.training.utils import bring_batch_to_model, get_next_or_restart
 from multilingual_eval.training.states import TrainingState
 
+def select_layers_for_realignment(total_layers, K):
+    """
+    Selects K layers by dividing the model into K blocks and choosing one layer per block.
+
+    Args:
+        total_layers (int): Total number of layers in the model.
+        K (int): Number of layers to select.
+
+    Returns:
+        list: Selected layer indices (sorted).
+    """
+    if K > total_layers:
+        return list(range(total_layers))
+
+    # Divide layers into K blocks
+    block_size = total_layers // K
+    blocks = []
+    for i in range(K):
+        start = i * block_size
+        end = (i + 1) * block_size if i < K - 1 else total_layers  # Last block takes remaining layers
+        blocks.append((start, end))
+
+    # Select one layer from each block
+    selected_layers = []
+    for block in blocks:
+        start, end = block
+        if len(selected_layers) > 0 and selected_layers[-1] == start - 1:
+            start += 1
+        selected_layers.append(random.choice(range(start, end)))
+    
+    return sorted(selected_layers)
+
 def epoch_loop(
     model,
     optimizer,
@@ -33,6 +65,8 @@ def epoch_loop(
     parallelism=False,
     separate_backward=False,
     realignment_ignore_parameters: Optional[list] = None,
+    model_name=None,
+    strategy=None,
 ):
     """
     Function to perform an epoch of training, with specific task samples and/or realignment task samples
@@ -71,6 +105,72 @@ def epoch_loop(
 
     if task_dataloader is not None:
         nb_iter = len(task_dataloader)
+        
+    # --- Helper Functions ---
+    # --- Preprocess Freeze Schedule ---
+    # Convert schedule to a list of actions sorted by step/epoch
+    import re
+    
+    layers = None
+    scheduling_freeze = False
+    direction = None
+    progress = nb_iter
+
+    if strategy and re.match(r"before_gradual_(topdown|bottomup|random)_[0-9]+", strategy):
+        # Extract the direction (topdown/bottomup) and progress value
+        direction = strategy.split("_")[2]
+        progress = int(strategy.split("_")[3])
+
+        if model_name:
+            if "roberta" in model_name:
+                layers = [model.roberta.embeddings] + list(model.roberta.encoder.layer)
+            elif "distilbert" in model_name:
+                layers = [model.distilbert.embeddings] + list(model.distilbert.transformer.layer)
+            elif model_name.startswith("bert"):
+                layers = [model.bert.embeddings] + list(model.bert.encoder.layer)
+        else:
+            raise ValueError("Provide model_name please for this case")
+
+        num_layers = len(layers)
+        num_unfrozen_layers = max(1, num_layers // progress)  # Ensure at least 1 layer is unfrozen
+        
+         # Apply freezing/unfreezing based on direction
+        if direction == "topdown":
+            # Top-down: Unfreeze the last `num_unfrozen_layers` layers
+            for i, layer in enumerate(layers):
+                if i >= num_layers - num_unfrozen_layers:
+                    for param in layer.parameters():
+                        param.requires_grad = True
+                else:
+                    for param in layer.parameters():
+                        param.requires_grad = False
+        elif direction == "bottomup":
+            # Bottom-up: Unfreeze the first `num_unfrozen_layers` layers
+            for i, layer in enumerate(layers):
+                if i < num_unfrozen_layers:
+                    for param in layer.parameters():
+                        param.requires_grad = True
+                else:
+                    for param in layer.parameters():
+                        param.requires_grad = False
+        elif direction == "random":
+            selected_layers = select_layers_for_realignment(len(layers), progress)
+            logging.info(f"Current selected layers! {str(selected_layers)}")
+            for i, layer in enumerate(layers):
+                if i in selected_layers:
+                    for param in layer.parameters():
+                        param.requires_grad = True
+                else:
+                    for param in layer.parameters():
+                        param.requires_grad = False
+        
+        scheduling_freeze = True
+        
+        for i, layer in enumerate(layers):
+            if any(param.requires_grad for param in layer.parameters()):
+                logging.info(f"RobertaLayer {i}: Unfrozen")
+            else:
+                logging.info(f"RobertaLayer {i}: Frozen")
 
     model.train()
     if log_in_wandb:
@@ -81,7 +181,7 @@ def epoch_loop(
 
     nb_batch = math.ceil(nb_iter / task_accumulation_steps)
 
-    progress_bar = tqdm(total=nb_batch, file=open(os.devnull, "w"))
+    progress_bar = tqdm(total=nb_batch)
 
     optimizer.zero_grad()
     if realignment_optimizer:
@@ -92,6 +192,40 @@ def epoch_loop(
         if task_dataloader is not None
         else enumerate(itertools.repeat(None, nb_iter))
     ):
+        if scheduling_freeze and direction and i > 0 and i % (nb_iter // progress) == 0:
+            # Calculate the next set of layers to unfreeze
+            freeze_step = i // (nb_iter // progress)
+            num_layers = len(layers)
+            num_unfrozen_layers = max(1, ((freeze_step + 1) * num_layers) // progress)  # Ensure at least 1 layer is unfrozen
+            if direction == "topdown":
+                # Top-down: Unfreeze the last `num_unfrozen_layers` layers
+                for i, layer in enumerate(layers):
+                    if i >= num_layers - num_unfrozen_layers:
+                        for param in layer.parameters():
+                            param.requires_grad = True
+            elif direction == "bottomup":
+                # Bottom-up: Unfreeze the first `num_unfrozen_layers` layers
+                for i, layer in enumerate(layers):
+                    if i < num_unfrozen_layers:
+                        for param in layer.parameters():
+                            param.requires_grad = True
+            elif direction == "random":
+                selected_layers = select_layers_for_realignment(len(layers), progress)
+                logging.info(f"Current selected layers! {str(selected_layers)}")
+                for i, layer in enumerate(layers):
+                    if i in selected_layers:
+                        for param in layer.parameters():
+                            param.requires_grad = True
+                    else:
+                        for param in layer.parameters():
+                            param.requires_grad = False
+                            
+            for i, layer in enumerate(layers):
+                if any(param.requires_grad for param in layer.parameters()):
+                    logging.info(f"RobertaLayer {i}: Unfrozen")
+                else:
+                    logging.info(f"RobertaLayer {i}: Frozen")
+        
         if i % task_accumulation_steps == 0:
             
             accumulated_steps = 0
@@ -208,6 +342,11 @@ def epoch_loop(
                     )
 
     progress_bar.close()
+    
+    if strategy and re.match(r"before_gradual_random_[0-9]+", strategy):
+        for i, layer in enumerate(layers):
+            for param in layer.parameters():
+                param.requires_grad = True
 
     return training_state
 

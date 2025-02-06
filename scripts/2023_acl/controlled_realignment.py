@@ -345,7 +345,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--segmenter_port",
         type=int,
-        default=9001
+        default=9123
     )
     parser.add_argument(
         "--realignment_steps",

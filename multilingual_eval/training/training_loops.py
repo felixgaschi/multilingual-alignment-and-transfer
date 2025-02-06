@@ -23,6 +23,37 @@ from multilingual_eval.training.evaluation_loops import (
     evaluate_token_classification,
 )
 
+def select_layers_for_realignment(total_layers, K):
+    """
+    Selects K layers by dividing the model into K blocks and choosing one layer per block.
+
+    Args:
+        total_layers (int): Total number of layers in the model.
+        K (int): Number of layers to select.
+
+    Returns:
+        list: Selected layer indices (sorted).
+    """
+    if K > total_layers:
+        return list(range(total_layers))
+
+    # Divide layers into K blocks
+    block_size = total_layers // K
+    blocks = []
+    for i in range(K):
+        start = i * block_size
+        end = (i + 1) * block_size if i < K - 1 else total_layers  # Last block takes remaining layers
+        blocks.append((start, end))
+
+    # Select one layer from each block
+    selected_layers = []
+    for block in blocks:
+        start, end = block
+        if len(selected_layers) > 0 and selected_layers[-1] == start - 1:
+            start += 1
+        selected_layers.append(random.choice(range(start, end)))
+    
+    return sorted(selected_layers)
 
 def realignment_training_loop(
     tokenizer,
@@ -272,13 +303,18 @@ def realignment_training_loop(
         )
 
     use_caching = False
+    selected_layers = None
 
     # If strategy is "before" or "before+during", perform realignment before fine-tuning
     if strategy in ["before", "before+during", 
                     "freeze_realign_unfreeze",
                     "freeze_realign_unfreeze_last_half",
                     "freeze_realign_unfreeze_last_6",
-                   ] or re.match(r"freeze_realign_unfreeze_[0-9]+_[0-9]+", strategy) or re.match(r"before_realign_only_[0-9]+_[0-9]+", strategy):
+                   ] or re.match(r"freeze_realign_unfreeze_[0-9]+_[0-9]+", strategy) or re.match(r"before_realign_only_[0-9]+_[0-9]+", strategy) \
+                       or re.match(r"before_random_realign_[0-9]+", strategy) \
+                           or re.match(r"before_gradual_topdown_[0-9]+", strategy) \
+                               or re.match(r"before_gradual_bottomup_[0-9]+", strategy) \
+                                   or re.match(r"before_gradual_random_[0-9]+", strategy):
         use_caching = cache_dir is not None and hash_args is not None and seed is not None
 
         learning_rate = learning_rate
@@ -481,6 +517,26 @@ def realignment_training_loop(
                     if i < first_layer or i >= last_layer:
                         for param in layer.parameters():
                             param.requires_grad = False
+                            
+            # Realign but choose K layers randomly
+            k_layers = None
+            if re.match(r"before_random_realign_[0-9]+", strategy):
+                *_, k_layers = strategy.split("_")
+                k_layers = int(k_layers)
+                if "roberta" in model_name:
+                    layers = [model.roberta.embeddings] + list(model.roberta.encoder.layer)
+                elif "distilbert" in model_name:
+                    layers = [model.distilbert.embeddings] + list(model.distilbert.transformer.layer)
+                elif model_name.startswith("bert"):
+                    layers = [model.bert.embeddings] + list(model.bert.encoder.layer)
+                else:
+                    raise NotImplementedError(f"Strategy of type /before_realign_only_random_[0-9]+/ is not implemented for model {model_name}")
+                selected_layers = select_layers_for_realignment(len(layers), k_layers)
+                logging.info(f"Current selected layers! {str(selected_layers)}")
+                for i, layer in enumerate(layers):
+                    if i not in selected_layers:
+                        for param in layer.parameters():
+                            param.requires_grad = False
             
             log_layer_status(model, model_name)
 
@@ -498,6 +554,8 @@ def realignment_training_loop(
                 training_state=training_state,
                 log_first_sample=True,
                 realignment_steps_by_finetuning=realignment_steps_by_finetuning,
+                model_name=model_name,
+                strategy=strategy,
             )
 
             res = training_state.log_state()
@@ -635,6 +693,7 @@ def realignment_training_loop(
                         param.requires_grad = True
             
             if re.match(r"before_realign_only_[0-9]+_[0-9]+", strategy):
+                # TODO: Create new strategy
                 *_, first_layer, last_layer = strategy.split("_")
                 first_layer = int(first_layer)
                 last_layer = int(last_layer)
@@ -650,6 +709,20 @@ def realignment_training_loop(
                     if i < first_layer or i >= last_layer:
                         for param in layer.parameters():
                             param.requires_grad = True
+                            
+            # Realign but choose K layers randomly
+            if re.match(r"before_random_realign_[0-9]+", strategy):
+                if "roberta" in model_name:
+                    layers = [model.roberta.embeddings] + list(model.roberta.encoder.layer)
+                elif "distilbert" in model_name:
+                    layers = [model.distilbert.embeddings] + list(model.distilbert.transformer.layer)
+                elif model_name.startswith("bert"):
+                    layers = [model.bert.embeddings] + list(model.bert.encoder.layer)
+                else:
+                    raise NotImplementedError(f"Strategy of type /before_realign_only_random_[0-9]+/ is not implemented for model {model_name}")
+                for i, layer in enumerate(layers):
+                    for param in layer.parameters():
+                        param.requires_grad = True
 
     optimizer = Adam(model.parameters(), lr=learning_rate, betas=(0.9, 0.999), eps=1e-8)
     scheduler = get_scheduler(
@@ -795,6 +868,9 @@ def realignment_training_loop(
             assert len(realignment_ignore_parameters) > 0
 
     log_layer_status(model, model_name)
+    
+    if not isinstance(evaluation_datasets, list):
+        evaluation_datasets = [evaluation_datasets]
 
     for i in range(n_epochs):
         training_state = epoch_loop(
