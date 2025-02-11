@@ -202,21 +202,36 @@ def epoch_loop(
             if direction == "topdown":
                 # Top-down: Unfreeze the last `num_unfrozen_layers` layers
                 for i, layer in enumerate(layers):
-                    if i >= num_layers - num_unfrozen_layers:
-                        for param in layer.parameters():
-                            param.requires_grad = True
+                    if phase == "gradual":
+                        if i >= num_layers - num_unfrozen_layers:
+                            for param in layer.parameters():
+                                param.requires_grad = True
                     elif phase == "oneatatime":
-                        for param in layer.parameters():
-                            param.requires_grad = False
+                        prev_unfrozen_start = num_layers - ((freeze_step * num_layers) // progress)
+                        new_unfrozen_start = num_layers - num_unfrozen_layers
+                        if prev_unfrozen_start < i:
+                            for param in layer.parameters():
+                                param.requires_grad = False  # Refreeze previously unfrozen layers
+                        elif new_unfrozen_start <= i:
+                            for param in layer.parameters():
+                                param.requires_grad = True  # Unfreeze new layers
+
             elif direction == "bottomup":
                 # Bottom-up: Unfreeze the first `num_unfrozen_layers` layers
                 for i, layer in enumerate(layers):
-                    if i < num_unfrozen_layers:
-                        for param in layer.parameters():
-                            param.requires_grad = True
+                    if phase == "gradual":
+                        if i < num_unfrozen_layers:
+                            for param in layer.parameters():
+                                param.requires_grad = True
                     elif phase == "oneatatime":
-                        for param in layer.parameters():
-                            param.requires_grad = False
+                        prev_unfrozen_start = freeze_step * num_layers // progress
+                        new_unfrozen_start = num_unfrozen_layers
+                        if i < prev_unfrozen_start:
+                            for param in layer.parameters():
+                                param.requires_grad = False  # Refreeze previously unfrozen layers
+                        elif i < new_unfrozen_start:
+                            for param in layer.parameters():
+                                param.requires_grad = True  # Unfreeze new layers
             elif direction == "random":
                 selected_layers = select_layers_for_realignment(len(layers), progress)
                 logging.info(f"Current selected layers! {str(selected_layers)}")
@@ -351,7 +366,7 @@ def epoch_loop(
 
     progress_bar.close()
     
-    if strategy and re.match(r"before_gradual_random_[0-9]+", strategy):
+    if strategy and (re.match(r"before_gradual_random_[0-9]+", strategy) or re.match(r"before_(gradual|oneatatime)_(topdown|bottomup|random)_[0-9]+", strategy)):
         for i, layer in enumerate(layers):
             for param in layer.parameters():
                 param.requires_grad = True
