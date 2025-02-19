@@ -9,6 +9,7 @@ ADD_ARGS=$4
 
 #langs="ar es fr ru zh af fa hi"
 langs="bg cs de es lv af ar ca da el fa fi fr he hi hu it ja ko lt no pl pt ro ru sk sl sv ta th tr uk vi zh"
+langs="ar zh"
 
 mkdir -p $DATA_DIR
 
@@ -45,18 +46,16 @@ else
     exit 1
 fi
 
-for layer in $(seq 0 $MAX_LAYER); do
-    python scripts/2023_acl/controlled_realignment.py \
-        --translation_dir $TRANSLATION_DIR/$DATASET \
-        --fastalign_dir $FASTALIGN_DIR/$DATASET \
-        --dico_dir $DICOALIGN_DIR/$DATASET \
-        --awesome_dir $AWESOME_DIR/$DATASET \
-        --strategies before_realign_only_${layer}_$((layer + 1))_dico \
-        --models $MODEL \
-        --tasks udpos \
-        --cache_dir $CACHE_DIR \
-        --n_epochs 5 \
-        --right_langs $langs \
-        --project_prefix "bylayer_" \
-        --output_file $RESULT_DIR/${MODEL}__${DATASET}__single_layer_realignment.csv $ADD_ARGS
-done;
+python scripts/2023_acl/controlled_realignment.py \
+    --translation_dir $TRANSLATION_DIR/$DATASET \
+    --fastalign_dir $FASTALIGN_DIR/$DATASET \
+    --dico_dir $DICOALIGN_DIR/$DATASET \
+    --awesome_dir $AWESOME_DIR/$DATASET \
+    --strategies before_gradual_random_3_dico \
+    --models $MODEL \
+    --tasks xnli \
+    --cache_dir $CACHE_DIR \
+    --n_epochs 3 \
+    --right_langs $langs \
+    --project_prefix "bylayer_" \
+    --output_file $RESULT_DIR/${MODEL}__${DATASET}__gradual_random_3_layer_realignment.csv $ADD_ARGS

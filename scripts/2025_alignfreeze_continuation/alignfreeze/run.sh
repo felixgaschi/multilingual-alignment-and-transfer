@@ -1,3 +1,4 @@
+#!/bin/bash
 
 set -e
 
@@ -5,10 +6,10 @@ DATA_DIR=$1
 DATASET=$2
 MODEL=$3
 STRATEGY=$4
-ADD_ARGS=$5
+SEED=$5
+ADD_ARGS=$6
 
 langs="ar bg de el es fr hi ru th tr vi zh"
-additional_langs="cs lv af ca da fa fi he hu it ja ko lt no pl pt ro sk sl sv ta uk"
 
 mkdir -p $DATA_DIR
 
@@ -31,7 +32,7 @@ export TRANSLATION_DIR=$TRANSLATION_DIR
 export FASTALIGN_DIR=$FASTALIGN_DIR
 export DICOALIGN_DIR=$DICOALIGN_DIR
 export AWESOME_DIR=$AWESOME_DIR
-
+#31,42,66,23,17
 python scripts/2023_acl/controlled_realignment.py \
     --translation_dir $TRANSLATION_DIR/$DATASET \
     --fastalign_dir $FASTALIGN_DIR/$DATASET \
@@ -42,7 +43,7 @@ python scripts/2023_acl/controlled_realignment.py \
     --tasks xnli \
     --cache_dir $CACHE_DIR \
     --n_epochs 3 \
+    --seed $SEED \
     --right_langs $langs \
     --project_prefix "bylayer_" \
-    --additional_realignment_langs $additional_langs \
-    --output_file $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}_realignment.csv $ADD_ARGS
+    --output_file $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}_realignment_seed_${SEED}.csv $ADD_ARGS

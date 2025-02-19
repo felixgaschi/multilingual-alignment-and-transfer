@@ -209,7 +209,7 @@ def epoch_loop(
                     elif phase == "oneatatime":
                         prev_unfrozen_start = num_layers - ((freeze_step * num_layers) // progress)
                         new_unfrozen_start = num_layers - num_unfrozen_layers
-                        if prev_unfrozen_start < i:
+                        if prev_unfrozen_start <= i:
                             for param in layer.parameters():
                                 param.requires_grad = False  # Refreeze previously unfrozen layers
                         elif new_unfrozen_start <= i:
