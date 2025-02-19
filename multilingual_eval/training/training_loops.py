@@ -87,7 +87,8 @@ def realignment_training_loop(
     pretrained_model_fn=None,
     realignment_steps_by_finetuning=1,
     label_key="labels",
-    model_name=None
+    model_name=None,
+    checkpoint_path=None
 ):
     """
     Performs a training loop, with or without realignment
@@ -555,6 +556,8 @@ def realignment_training_loop(
                 realignment_steps_by_finetuning=realignment_steps_by_finetuning,
                 model_name=model_name,
                 strategy=strategy,
+                checkpoint_path=checkpoint_path,
+                checkpoint_prefix_name=f"realignment_{model_name}_seed_{seed}",
             )
 
             res = training_state.log_state()
@@ -894,7 +897,9 @@ def realignment_training_loop(
             log_first_sample=i == 0,
             realignment_steps_by_finetuning=realignment_steps_by_finetuning,
             separate_backward=strategy == "during_separate_backward" or bool(realignment_ignore_parameters),
-            realignment_ignore_parameters=realignment_ignore_parameters
+            realignment_ignore_parameters=realignment_ignore_parameters,
+            checkpoint_path=checkpoint_path,
+            checkpoint_prefix_name=f"finetuning_{model_name}_seed_{seed}_epoch_{i}",
         )
         for callback in epoch_callbacks:
             callback(model)

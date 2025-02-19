@@ -45,5 +45,6 @@ python scripts/2023_acl/controlled_realignment.py \
     --n_epochs 3 \
     --seed $SEED \
     --right_langs $langs \
-    --project_prefix "bylayer_" \
-    --output_file $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}_realignment_seed_${SEED}.csv $ADD_ARGS
+    --project_name "bylayer_" \
+    --output_file $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}_realignment_seed_${SEED}.csv \
+    --checkpoint_path $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}_realignment $ADD_ARGS

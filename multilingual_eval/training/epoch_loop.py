@@ -67,6 +67,8 @@ def epoch_loop(
     realignment_ignore_parameters: Optional[list] = None,
     model_name=None,
     strategy=None,
+    checkpoint_path=None,
+    checkpoint_prefix_name="model",
 ):
     """
     Function to perform an epoch of training, with specific task samples and/or realignment task samples
@@ -195,6 +197,16 @@ def epoch_loop(
         else enumerate(itertools.repeat(None, nb_iter))
     ):
         if scheduling_freeze and phase and direction and i > 0 and i % (nb_iter // progress) == 0:
+            # Checkpoint
+            logging.info(f"Saved model at {i}/{nb_iter} at {checkpoint_prefix_name}_iter_{i}.ckpt")
+            torch.save({
+                'iter': i,
+                'nb_iter': nb_iter,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': realignment_loss if realignment_loss == 0  else float(realignment_loss.detach().cpu()),
+            }, os.path.join(checkpoint_path, f"{checkpoint_prefix_name}_iter_{i}.ckpt"))
+            
             # Calculate the next set of layers to unfreeze
             freeze_step = i // (nb_iter // progress)
             num_layers = len(layers)
@@ -370,6 +382,16 @@ def epoch_loop(
         for i, layer in enumerate(layers):
             for param in layer.parameters():
                 param.requires_grad = True
+    
+    # Checkpoint
+    logging.info(f"Saved model at {i}/{nb_iter} at {checkpoint_prefix_name}_iter_{i}.ckpt")
+    torch.save({
+        'iter': i,
+        'nb_iter': nb_iter,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'loss': realignment_loss if realignment_loss == 0  else float(realignment_loss.detach().cpu()),
+    }, os.path.join(checkpoint_path, f"{checkpoint_prefix_name}_iter_{i}.ckpt"))
 
     return training_state
 

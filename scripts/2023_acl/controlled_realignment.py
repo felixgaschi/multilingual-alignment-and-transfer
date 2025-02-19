@@ -58,6 +58,7 @@ def train(
     result_store=None,
     additional_realignment_langs=None,
     realignment_steps=None,
+    checkpoint_path=None,
 ):
     layers = layers or [-1]
     model_name = config["model"]
@@ -203,6 +204,7 @@ def train(
         data_collator=collator_fn(task_name)(tokenizer),
         model_name=model_name,
         nb_realignment_steps_before=realignment_steps,
+        checkpoint_path=checkpoint_path,
     )
 
     if task_name == "xquad":
@@ -337,6 +339,12 @@ if __name__ == "__main__":
         help="The path to the output CSV file containing results (used only if wandb is not use, which is the case by default)",
     )
     parser.add_argument(
+        "--checkpoint_path",
+        type=str,
+        default=None,
+        help="The path to checkpoint save directory",
+    )
+    parser.add_argument(
         "--use_wandb",
         action="store_true",
         dest="use_wandb",
@@ -362,6 +370,12 @@ if __name__ == "__main__":
         )
     if not args.use_wandb:
         os.makedirs(os.path.dirname(args.output_file), exist_ok=True)
+    if not args.checkpoint_path:
+        raise Exception(
+            f"Please provide checkpoint_path to ensure reproducibility!"
+        )
+    else:
+        os.makedirs(args.checkpoint_path, exist_ok=True)
 
     # Config with all the different values of run parameters
     sweep_config = {
@@ -455,5 +469,6 @@ if __name__ == "__main__":
                     result_store=result_store,
                     additional_realignment_langs=args.additional_realignment_langs,
                     realignment_steps=args.realignment_steps,
+                    checkpoint_path=args.checkpoint_path
                 )
                 recorder.add(result_store.get_results())
