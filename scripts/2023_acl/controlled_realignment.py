@@ -43,6 +43,7 @@ from multilingual_eval.training.evaluation_loops import evaluate_xquad
 def train(
     left_lang: str,
     right_langs: List[str],
+    eval_langs: List[str],
     translation_dir: str,
     fastalign_dir: str,
     dico_dir: str,
@@ -59,6 +60,7 @@ def train(
     additional_realignment_langs=None,
     realignment_steps=None,
     checkpoint_path=None,
+    no_interleave=True,
 ):
     layers = layers or [-1]
     model_name = config["model"]
@@ -130,7 +132,7 @@ def train(
 
     # Load test dataset for target languages
     validation_datasets = get_dataset_fn(task_name, zh_segmenter=zh_segmenter)(
-        right_langs,
+        eval_langs,
         tokenizer,
         split="test",
         limit=100 if debug else None,
@@ -148,7 +150,7 @@ def train(
     )
 
     print(f"training dataset: {len(training_dataset)}")
-    for lang, ds in zip(right_langs, validation_datasets):
+    for lang, ds in zip(eval_langs, validation_datasets):
         print(f"{lang} dataset: {len(ds)}")
 
     # Load realignment datatset
@@ -164,7 +166,7 @@ def train(
         )
     elif aligner == "dico":
         alignment_dataset = get_multilingual_realignment_dataset(
-            tokenizer, translation_dir, dico_dir, lang_pairs, max_length=96, seed=seed
+            tokenizer, translation_dir, dico_dir, lang_pairs, max_length=96, seed=seed, do_interleave_datasets=(not no_interleave)
         )
     elif aligner == "awesome":
         alignment_dataset = get_multilingual_realignment_dataset(
@@ -191,7 +193,7 @@ def train(
         same_language_evaluation_dataset=source_validation_dataset
         if task_name not in ["xquad"]
         else None,
-        evaluation_prefixes=right_langs,
+        evaluation_prefixes=eval_langs,
         seed=seed,
         task_batch_size=batch_size,
         learning_rate=7.5e-6 if "roberta" in model_name else 2e-5,
@@ -292,6 +294,13 @@ if __name__ == "__main__":
         help="Target languages for cross-lingual transfer",
     )
     parser.add_argument(
+        "--eval_langs",
+        type=str,
+        nargs="+",
+        default=None,
+        help="Target eval languages for cross-lingual transfer",
+    )
+    parser.add_argument(
         "--additional_realignment_langs",
         type=str,
         nargs="+",
@@ -351,6 +360,12 @@ if __name__ == "__main__":
         help="Use this option to use wandb (but must be installed first)",
     )
     parser.add_argument(
+        "--no_interleave",
+        action="store_true",
+        dest="no_interleave",
+        help="Use this option to disable interleave",
+    )
+    parser.add_argument(
         "--segmenter_port",
         type=int,
         default=9123
@@ -361,8 +376,11 @@ if __name__ == "__main__":
         default=None
     )
     parser.add_argument("--project_name", type=str, default="")
-    parser.set_defaults(debug=False, large_gpu=False, use_wandb=False)
+    parser.set_defaults(debug=False, large_gpu=False, use_wandb=False, no_interleave=False)
     args = parser.parse_args()
+    
+    if not args.eval_langs:
+        args.eval_langs = args.right_langs
 
     if not args.use_wandb and args.output_file is None:
         raise Exception(
@@ -370,11 +388,7 @@ if __name__ == "__main__":
         )
     if not args.use_wandb:
         os.makedirs(os.path.dirname(args.output_file), exist_ok=True)
-    if not args.checkpoint_path:
-        raise Exception(
-            f"Please provide checkpoint_path to ensure reproducibility!"
-        )
-    else:
+    if args.checkpoint_path:
         os.makedirs(args.checkpoint_path, exist_ok=True)
 
     # Config with all the different values of run parameters
@@ -419,6 +433,7 @@ if __name__ == "__main__":
                 lambda cfg, sweep_cfg, zh_sgm: train(
                     args.left_lang,
                     args.right_langs,
+                    args.eval_langs,
                     args.translation_dir,
                     args.fastalign_dir,
                     args.dico_dir,
@@ -454,6 +469,7 @@ if __name__ == "__main__":
                 train(
                     args.left_lang,
                     args.right_langs,
+                    args.eval_langs,
                     args.translation_dir,
                     args.fastalign_dir,
                     args.dico_dir,
@@ -469,6 +485,7 @@ if __name__ == "__main__":
                     result_store=result_store,
                     additional_realignment_langs=args.additional_realignment_langs,
                     realignment_steps=args.realignment_steps,
-                    checkpoint_path=args.checkpoint_path
+                    checkpoint_path=args.checkpoint_path,
+                    no_interleave=args.no_interleave
                 )
                 recorder.add(result_store.get_results())

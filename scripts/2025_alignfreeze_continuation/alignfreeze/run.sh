@@ -7,9 +7,20 @@ DATASET=$2
 MODEL=$3
 STRATEGY=$4
 SEED=$5
-ADD_ARGS=$6
+ADD_ARGS=$7
 
-langs="ar bg de el es fr hi ru th tr vi zh"
+# langs="de el es tr fr bg"
+# langs="ar zh ru hi vi th"
+
+LANGS="$6"  # Accept languages as an argument
+
+echo $LANGS
+
+# Default languages if not provided
+DEFAULT_LANGS="ar bg de el es fr hi ru th tr vi"
+if [ -z "$LANGS" ]; then
+    LANGS="$DEFAULT_LANGS"
+fi
 
 mkdir -p $DATA_DIR
 
@@ -42,9 +53,8 @@ python scripts/2023_acl/controlled_realignment.py \
     --models $MODEL \
     --tasks xnli \
     --cache_dir $CACHE_DIR \
-    --n_epochs 3 \
+    --n_epochs 2 \
     --seed $SEED \
-    --right_langs $langs \
+    --right_langs $LANGS \
     --project_name "bylayer_" \
-    --output_file $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}_realignment_seed_${SEED}.csv \
-    --checkpoint_path $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}_realignment $ADD_ARGS
+    --output_file $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}_langs_${LANGS// /_}_realignment_seed_${SEED}.csv $ADD_ARGS

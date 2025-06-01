@@ -1,6 +1,6 @@
 from transformers import XLMRobertaTokenizer, XLMRobertaTokenizerFast
 from datasets.iterable_dataset import IterableDataset, ExamplesIterable
-from datasets import interleave_datasets
+from datasets import interleave_datasets, concatenate_datasets
 from typing import List, Tuple, Optional, Dict
 import os
 from collections import defaultdict
@@ -558,8 +558,9 @@ def get_multilingual_realignment_dataset(
     ]
 
     if not do_interleave_datasets:
+        datasets = concatenate_datasets(datasets, axis=0)
         if return_torch_compatible:
-            datasets = list(map(TorchCompatibleIterableDataset, datasets))
+            datasets = TorchCompatibleIterableDataset(datasets)
         return datasets
 
     dataset = interleave_datasets(datasets)
