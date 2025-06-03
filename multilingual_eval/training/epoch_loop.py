@@ -229,14 +229,15 @@ def epoch_loop(
     ):
         if scheduling_freeze and phase and direction and i > 0 and i % (nb_iter // progress) == 0:
             # Checkpoint
-            logging.info(f"Saved model at {i}/{nb_iter} at {checkpoint_prefix_name}_iter_{i}.ckpt")
-            torch.save({
-                'iter': i,
-                'nb_iter': nb_iter,
-                'model_state_dict': model.state_dict(),
-                'optimizer_state_dict': optimizer.state_dict(),
-                'loss': realignment_loss if realignment_loss == 0  else float(realignment_loss.detach().cpu()),
-            }, os.path.join(checkpoint_path, f"{checkpoint_prefix_name}_iter_{i}.ckpt"))
+            if checkpoint_path:
+                logging.info(f"Saved model at {i}/{nb_iter} at {checkpoint_prefix_name}_iter_{i}.ckpt")
+                torch.save({
+                    'iter': i,
+                    'nb_iter': nb_iter,
+                    'model_state_dict': model.state_dict(),
+                    'optimizer_state_dict': optimizer.state_dict(),
+                    'loss': realignment_loss if realignment_loss == 0  else float(realignment_loss.detach().cpu()),
+                }, os.path.join(checkpoint_path, f"{checkpoint_prefix_name}_iter_{i}.ckpt"))
             
             # Calculate the next set of layers to unfreeze
             freeze_step = i // (nb_iter // progress)
@@ -415,14 +416,15 @@ def epoch_loop(
                 param.requires_grad = True
     
     # Checkpoint
-    logging.info(f"Saved model at {i}/{nb_iter} at {checkpoint_prefix_name}_iter_{i}.ckpt")
-    torch.save({
-        'iter': i,
-        'nb_iter': nb_iter,
-        'model_state_dict': model.state_dict(),
-        'optimizer_state_dict': optimizer.state_dict(),
-        'loss': realignment_loss if realignment_loss == 0  else float(realignment_loss.detach().cpu()),
-    }, os.path.join(checkpoint_path, f"{checkpoint_prefix_name}_iter_{i}.ckpt"))
+    if checkpoint_path:
+        logging.info(f"Saved model at {i}/{nb_iter} at {checkpoint_prefix_name}_iter_{i}.ckpt")
+        torch.save({
+            'iter': i,
+            'nb_iter': nb_iter,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'loss': realignment_loss if realignment_loss == 0  else float(realignment_loss.detach().cpu()),
+        }, os.path.join(checkpoint_path, f"{checkpoint_prefix_name}_iter_{i}.ckpt"))
 
     return training_state
 
