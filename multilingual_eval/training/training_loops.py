@@ -55,6 +55,27 @@ def select_layers_for_realignment(total_layers, K):
     
     return sorted(selected_layers)
 
+def get_high_ani_layers_for_realignment(model_name: str, method: str):
+    """
+    model_name: ["xlm-roberta-base", "bert-base-multilingual-cased", "distilbert-base-multilingual-cased"]
+    method: ["mean", "half"]
+    """
+    import pandas as pd
+    ani_pretrain_res = pd.read_csv("scripts/2025_alignfreeze_continuation/distillation/anisotropy_results/pretrain/anisotropy_pretrain_1000.csv")[lambda x: x['Model'] == model_name]
+    if method == "mean":
+        mean_ani = ani_pretrain_res.Avg_anisotropy_xlang.mean()
+        high_ani_layers = ani_pretrain_res[lambda x: x['Avg_anisotropy_xlang'] > mean_ani].Layer.tolist()
+    elif method in ["half", "onethird"]:
+        ani_pretrain_res_sorted = ani_pretrain_res.sort_values(by='Avg_anisotropy_xlang', ascending=False)
+        if method == "half":
+            num_layers_to_return = len(ani_pretrain_res_sorted) // 2 
+        else:
+            num_layers_to_return = len(ani_pretrain_res_sorted) // 3 
+        high_ani_layers = ani_pretrain_res_sorted['Layer'].head(num_layers_to_return).tolist()
+    else:
+        raise NotImplementedError(f"Method {method} is not implemented for model {model_name}")
+    return sorted(high_ani_layers)
+
 def realignment_training_loop(
     tokenizer,
     model,
@@ -266,9 +287,7 @@ def realignment_training_loop(
         # Note: if this line is modified, hashing args for caching must be checked
 
         print("Not Using Baseline")
-        # print('Realignment Dataset')
-        # print(realignment_dataset)
-        # print()
+        print()
 
         realignment_dataloader = DataLoader(
             realignment_dataset,
@@ -311,10 +330,17 @@ def realignment_training_loop(
                     "freeze_realign_unfreeze",
                     "freeze_realign_unfreeze_last_half",
                     "freeze_realign_unfreeze_last_6",
+                    "freeze_attn",
+                    "freeze_ffn",
                    ] or re.match(r"freeze_realign_unfreeze_[0-9]+_[0-9]+", strategy) or re.match(r"before_realign_only_[0-9]+_[0-9]+", strategy) \
                        or re.match(r"before_random_realign_[0-9]+", strategy) \
                            or re.match(r"before_gradual_(topdown|bottomup|random)_[0-9]+", strategy) \
-                               or re.match(r"before_oneatatime_(topdown|bottomup|random)_[0-9]+", strategy):
+                               or re.match(r"before_oneatatime_(topdown|bottomup|random)_[0-9]+", strategy) \
+                                    or re.match(r"high_anisotropy_.+", strategy) \
+                                        or re.search(r"realign_random_(half|onethird|twothird|onesixth|fivesixth)(_noembs|_withembs)?(_adjacent|_discrete)?", strategy) \
+                                            or re.search(r"realign_specific_[0-9]+", strategy) \
+                                                or "freeze_ffn" in strategy:
+
         use_caching = cache_dir is not None and hash_args is not None and seed is not None
 
         learning_rate = learning_rate
@@ -473,6 +499,73 @@ def realignment_training_loop(
 
                 print('Freezing done...')
 
+            if strategy == "freeze_attn":
+                if "roberta" in model_name:
+                    attention_structure = [layer.attention for layer in model.roberta.encoder.layer]
+                elif "distilbert" in model_name:
+                    attention_structure = [layer.attention for layer in model.distilbert.transformer.layer]
+                elif model_name.startswith("bert"):
+                    attention_structure = [layer.attention for layer in model.bert.encoder.layer]
+                else:
+                    raise NotImplementedError(f"Strategy of type {strategy} is not implemented for model {model_name}")
+
+                print(f'Freezing attention structure in transformer blocks...')
+                trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+                print(f"___Total trainable parameters BEFORE freezing: {trainable_params}")
+                for layer_attn in attention_structure:
+                    for param in layer_attn.parameters():
+                        param.requires_grad = False
+                trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+                print(f"___Total trainable parameters AFTER freezing: {trainable_params}")
+                print('Freezing done...')
+
+            if "freeze_ffn" in strategy:
+                if "roberta" in model_name:
+                    ffn_structure = [
+                        dense for layer in model.roberta.encoder.layer
+                        for dense in (layer.intermediate.dense, layer.output.dense)
+                    ]
+                elif "distilbert" in model_name:
+                    ffn_structure = [
+                        lin for layer in model.distilbert.transformer.layer
+                        for lin in (layer.ffn.lin1, layer.ffn.lin2)
+                    ]
+                elif model_name.startswith("bert"):
+                    ffn_structure = [
+                        dense for layer in model.bert.encoder.layer
+                        for dense in (layer.intermediate.dense, layer.output.dense)
+                    ]
+                else:
+                    raise NotImplementedError(f"Strategy of type {strategy} is not implemented for model {model_name}")
+
+                print(f'Freezing FFN structure in transformer blocks...')
+                trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+                print(f"___Total trainable parameters BEFORE freezing: {trainable_params}")
+                for layer_ffn in ffn_structure:
+                    for param in layer_ffn.parameters():
+                        param.requires_grad = False
+                trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+                print(f"___Total trainable parameters AFTER freezing: {trainable_params}")
+                print('Freezing done...')
+
+            if re.match(r"high_anisotropy_.+", strategy) and not re.search(r"(gradual|oneatatime)_(topdown|bottomup|random)_[0-9]+", strategy):
+                if "roberta" in model_name:
+                    layers = [model.roberta.embeddings] + list(model.roberta.encoder.layer)
+                elif "distilbert" in model_name:
+                    layers = [model.distilbert.embeddings] + list(model.distilbert.transformer.layer)
+                elif model_name.startswith("bert"):
+                    layers = [model.bert.embeddings] + list(model.bert.encoder.layer)
+                else:
+                    raise NotImplementedError(f"Strategy of type {strategy} is not implemented for model {model_name}")
+                  
+                method = strategy.split("_")[-1]
+                layer_to_realign = get_high_ani_layers_for_realignment(model_name, method)
+                logging.info(f"High anisotropy layers to be realign: {str(layer_to_realign)}")
+                for i, layer in enumerate(layers):
+                    if i not in layer_to_realign:
+                        for param in layer.parameters():
+                            param.requires_grad = False
+
             if re.match(r"freeze_realign_unfreeze_[0-9]+_[0-9]+", strategy):
                 *_, first_layer, last_layer = strategy.split("_")
                 first_layer = int(first_layer)
@@ -538,6 +631,90 @@ def realignment_training_loop(
                         for param in layer.parameters():
                             param.requires_grad = False
             
+            if re.search(r"realign_random_(half|onethird|twothird|onesixth|fivesixth)(_noembs|_withembs)?(_adjacent|_discrete)?", strategy):
+                if "roberta" in model_name:
+                    layers = [model.roberta.embeddings] + list(model.roberta.encoder.layer)
+                elif "distilbert" in model_name:
+                    layers = [model.distilbert.embeddings] + list(model.distilbert.transformer.layer)
+                elif model_name.startswith("bert"):
+                    layers = [model.bert.embeddings] + list(model.bert.encoder.layer)
+                else:
+                    raise NotImplementedError(f"Strategy of type {strategy} is not implemented for model {model_name}")
+                
+                #Extract configg
+                match = re.search(r"realign_random_(half|onethird|twothird|onesixth|fivesixth)(_noembs|_withembs)?(_adjacent|_discrete)?", strategy)
+                num_realign_lays, noembs_flag, position_type = match.groups()
+
+                selected_indices = []
+                start_idx = 0
+                if noembs_flag:
+                    if noembs_flag == "_noembs":
+                        layers = layers[1:] # Skip the embs layer
+                    elif noembs_flag == "withembs":
+                        selected_indices = [0] # Add the embs layer
+                        start_idx = 1
+
+                #Get number of layers to freeze
+                if num_realign_lays == "half":
+                    num_realign_lays = len(layers) // 2 
+                elif num_realign_lays == "twothird":
+                    num_realign_lays = (2 * len(layers)) // 3    
+                elif num_realign_lays == "onethird":
+                    num_realign_lays = len(layers) // 3
+                elif num_realign_lays == "fivesixth":
+                    num_realign_lays = (5 * len(layers)) // 6    
+                elif num_realign_lays == "onesixth":
+                    num_realign_lays = len(layers) // 6
+
+                if noembs_flag == "withembs":
+                    num_realign_lays -= 1
+
+                total_layers = len(layers)
+                if position_type:
+                    if position_type == "_adjacent":
+                        #Select adjacent layers
+                        start = random.randint(start_idx, total_layers - num_realign_lays)
+                        selected_indices.extend(list(range(start, start + num_realign_lays)))
+                    elif position_type == "_discrete":
+                        #Select discrete layers
+                        possible_indices = list(range(total_layers))
+                        for i in range(num_realign_lays):
+                            index = random.choice(possible_indices)
+                            selected_indices.append(index)
+                            possible_indices = [idx for idx in possible_indices if idx not in {index, index + 1, index - 1}]
+                        selected_indices = sorted(selected_indices)
+                else:
+                    selected_indices.extend(sorted(random.sample(range(total_layers), num_realign_lays)))
+                logging.info(f"Layers to be realign: {str(selected_indices)}")
+                
+                #Freezing 
+                for i, layer in enumerate(layers):
+                    if i not in selected_indices:
+                        for param in layer.parameters():
+                            param.requires_grad = False
+
+            if re.search(r"realign_specific_[0-9]+", strategy):
+                if "roberta" in model_name:
+                    layers = [model.roberta.embeddings] + list(model.roberta.encoder.layer)
+                elif "distilbert" in model_name:
+                    layers = [model.distilbert.embeddings] + list(model.distilbert.transformer.layer)
+                elif model_name.startswith("bert"):
+                    layers = [model.bert.embeddings] + list(model.bert.encoder.layer)
+                else:
+                    raise NotImplementedError(f"Strategy of type {strategy} is not implemented for model {model_name}")
+                
+                #Extract indices
+                match = re.search(r"realign_specific_[0-9]+", strategy)
+                _, selected_indices = match.group(0).split("_")
+                selected_indices = sorted([int(i) for i in selected_indices])
+                logging.info(f"Layers to be realign: {str(selected_indices)}")
+                
+                #Freezing 
+                for i, layer in enumerate(layers):
+                    if i not in selected_indices:
+                        for param in layer.parameters():
+                            param.requires_grad = False
+
             log_layer_status(model, model_name)
 
             training_state = epoch_loop(
@@ -665,6 +842,36 @@ def realignment_training_loop(
                         param.requires_grad = True
 
                 print('Unfreezing done...')
+
+            if strategy == "freeze_attn":
+                print(f'Unfreezing attention structure in transformer blocks...')
+                trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+                print(f"___Total trainable parameters BEFORE unfreezing: {trainable_params}")
+                for layer_attn in attention_structure:
+                    for param in layer_attn.parameters():
+                        param.requires_grad = True
+                trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+                print(f"___Total trainable parameters AFTER unfreezing: {trainable_params}")
+                print('Unfreezing done...')
+
+            if "freeze_ffn" in strategy:
+                print(f'Unfreezing FFN structure in transformer blocks...')
+                trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+                print(f"___Total trainable parameters BEFORE unfreezing: {trainable_params}")
+                for layer_ffn in ffn_structure:
+                    for param in layer_ffn.parameters():
+                        param.requires_grad = True
+                trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+                print(f"___Total trainable parameters AFTER unfreezing: {trainable_params}")
+                print('Unfreezing done...')
+
+            if re.match(r"high_anisotropy_.+", strategy) and not re.search(r"(gradual|oneatatime)_(topdown|bottomup|random)_[0-9]+", strategy):
+                print(f"{str(layer_to_realign)} have been realigned. Unfreezing others...")
+                for i, layer in enumerate(layers):
+                    if i not in layer_to_realign:
+                        for param in layer.parameters():
+                            param.requires_grad = True
+                print('Unfreezing done...')
             
             if re.match(r"freeze_realign_unfreeze_[0-9]+_[0-9]+", strategy):
                 *_, first_layer, last_layer = strategy.split("_")
@@ -725,6 +932,14 @@ def realignment_training_loop(
                 for i, layer in enumerate(layers):
                     for param in layer.parameters():
                         param.requires_grad = True
+
+            if re.search(r"realign_random_(half|onethird|twothird|onesixth|fivesixth)(_noembs|_withembs)?(_adjacent|_discrete)?", strategy) or re.search(r"realign_specific_[0-9]+", strategy):                
+                logging.info(f"Unfreezing other layers than {str(selected_indices)}")
+                for i, layer in enumerate(layers):
+                    if i not in selected_indices:
+                        for param in layer.parameters():
+                            param.requires_grad = True
+                print('Unfreezing done...')
 
     optimizer = Adam(model.parameters(), lr=learning_rate, betas=(0.9, 0.999), eps=1e-8)
     scheduler = get_scheduler(

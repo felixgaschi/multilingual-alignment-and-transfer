@@ -394,11 +394,13 @@ if __name__ == "__main__":
         ]["values"][:1]
 
     with ExitStack() as stack:
-        if "zh" in args.right_langs + (args.additional_realignment_langs or []) or args.left_lang == "zh":
-            # Calls Stanford Segmenter in another process, hence the context manager
-            zh_segmenter = stack.enter_context(StanfordSegmenter(port=args.segmenter_port))
-        else:
-            zh_segmenter = None
+        #Currently, NLI does not need zh_segmenter
+        # if "zh" in args.right_langs + (args.additional_realignment_langs or []) or args.left_lang == "zh":
+        #     # Calls Stanford Segmenter in another process, hence the context manager
+        #     zh_segmenter = stack.enter_context(StanfordSegmenter(port=args.segmenter_port))
+        # else:
+        #     zh_segmenter = None
+        zh_segmenter = None
         
         if args.output_file:
             recorder = stack.enter_context(CSVRecorder(args.output_file, config_props=list(sweep_config["parameters"].keys())))

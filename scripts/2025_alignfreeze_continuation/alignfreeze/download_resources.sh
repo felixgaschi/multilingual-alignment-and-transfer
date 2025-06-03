@@ -4,7 +4,8 @@ set -e
 
 DATA_DIR=$1
 
-langs="bg cs de es lv af ar ca da el fa fi fr he hi hu it ja ko lt no pl pt ro ru sk sl sv ta th tr uk vi zh"
+# langs="bg cs de es lv af ar ca da el fa fi fr he hi hu it ko lt no pl pt ro ru sk sl sv ta th tr uk vi"
+langs="zh ja"
 
 mkdir -p $DATA_DIR
 
@@ -31,12 +32,15 @@ export TRANSLATION_DIR=$TRANSLATION_DIR
 export DICOALIGN_DIR=$DICOALIGN_DIR
 
 # download muse dictionaries
+echo "download muse dictionaries"
 bash download_resources/muse_dictionaries.sh $MUSE_DIR "$langs"
 
 # download OPUS 100
+echo "download OPUS 100"
 bash download_resources/opus100.sh $OPUS_DIR "$langs"
 
 # install Stanford segmenter for Chinese
+echo "install Stanford segmenter for Chinese"
 bash download_resources/stanford_tokenizer.sh
 
 

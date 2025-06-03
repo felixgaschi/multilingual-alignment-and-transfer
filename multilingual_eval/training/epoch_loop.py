@@ -44,6 +44,27 @@ def select_layers_for_realignment(total_layers, K):
     
     return sorted(selected_layers)
 
+def get_high_ani_layers_for_realignment(model_name: str, method: str):
+    """
+    model_name: ["xlm-roberta-base", "bert-base-multilingual-cased", "distilbert-base-multilingual-cased"]
+    method: ["mean", "half"]
+    """
+    import pandas as pd
+    ani_pretrain_res = pd.read_csv("scripts/2025_alignfreeze_continuation/distillation/anisotropy_results/pretrain/anisotropy_pretrain_1000.csv")[lambda x: x['Model'] == model_name]
+    if method == "mean":
+        mean_ani = ani_pretrain_res.Avg_anisotropy_xlang.mean()
+        high_ani_layers = ani_pretrain_res[lambda x: x['Avg_anisotropy_xlang'] > mean_ani].Layer.tolist()
+    elif method in ["half", "onethird"]:
+        ani_pretrain_res_sorted = ani_pretrain_res.sort_values(by='Avg_anisotropy_xlang', ascending=False)
+        if method == "half":
+            num_layers_to_return = len(ani_pretrain_res_sorted) // 2 
+        else:
+            num_layers_to_return = len(ani_pretrain_res_sorted) // 3 
+        high_ani_layers = ani_pretrain_res_sorted['Layer'].head(num_layers_to_return).tolist()
+    else:
+        raise NotImplementedError(f"Method {method} is not implemented for model {model_name}")
+    return sorted(high_ani_layers)
+
 def epoch_loop(
     model,
     optimizer,
@@ -119,12 +140,7 @@ def epoch_loop(
     direction = None
     progress = nb_iter
 
-    if strategy and re.match(r"before_(gradual|oneatatime)_(topdown|bottomup|random)_[0-9]+", strategy):
-        # Extract the direction (topdown/bottomup) and progress value
-        phase = strategy.split("_")[1]
-        direction = strategy.split("_")[2]
-        progress = int(strategy.split("_")[3])
-
+    if strategy and (re.match(r"before_(gradual|oneatatime)_(topdown|bottomup|random)_[0-9]+", strategy) or re.search(r"(gradual|oneatatime)_(topdown|bottomup|random)_[0-9]+", strategy)):
         if model_name:
             if "roberta" in model_name:
                 layers = [model.roberta.embeddings] + list(model.roberta.encoder.layer)
@@ -134,6 +150,21 @@ def epoch_loop(
                 layers = [model.bert.embeddings] + list(model.bert.encoder.layer)
         else:
             raise ValueError("Provide model_name please for this case")
+        
+        if strategy.startswith("high_anisotropy"):
+            pattern = r"high_anisotropy_(\w+)_((gradual|oneatatime)_(topdown|bottomup|random)_[0-9]+)"
+            match = re.search(pattern, strategy)
+            method = match.group(1)
+            strategy = "_".join(["dummy", match.group(2)])
+            logging.info(f"Method: {method}")
+            logging.info(f"Strategy: {strategy}")
+            layer_to_realign = get_high_ani_layers_for_realignment(model_name, method)
+            layers = [layers[i] for i in layer_to_realign]
+        
+        # Extract the direction (topdown/bottomup) and progress value
+        phase = strategy.split("_")[1]
+        direction = strategy.split("_")[2]
+        progress = int(strategy.split("_")[3])
 
         num_layers = len(layers)
         num_unfrozen_layers = max(1, num_layers // progress)  # Ensure at least 1 layer is unfrozen
