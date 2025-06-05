@@ -18,7 +18,7 @@ def get_pharaoh_dataset(
     keep_only_one_to_one=True,
     ignore_identical=True,
 ):
-    def pharaoh_reader():
+    def pharaoh_reader(offset=0):
         with open(translation_file) as translation_reader, open(alignment_file) as alignment_reader:
             for i, (translation, alignment) in enumerate(zip(translation_reader, alignment_reader)):
                 parts = translation.split("|||")
@@ -59,7 +59,7 @@ def get_pharaoh_dataset(
                 if len(left_positions) == 0:
                     continue
 
-                yield i, {
+                yield offset + i, {
                     "left_tokens": left_tokens,
                     "right_tokens": right_tokens,
                     "aligned_left_ids": left_positions,
@@ -67,7 +67,7 @@ def get_pharaoh_dataset(
                 }
 
         if repeat:
-            yield from pharaoh_reader()
+            yield from pharaoh_reader(offset=i + 1)
 
     return IterableDataset(ExamplesIterable(pharaoh_reader, {}))
 
@@ -451,7 +451,7 @@ def get_realignment_dataset_for_one_pair(
     Get realignment dataset from a parallel dataset in FastAlign format and FastAlign output
     """
     raw_dataset = get_pharaoh_dataset(
-        translation_file, alignment_file, ignore_identical=ignore_identical
+        translation_file, alignment_file, ignore_identical=ignore_identical, repeat=True
     ).shuffle(seed=seed, buffer_size=10_000)
     mapper = AdaptAlignmentToTokenizerMapper(
         tokenizer, max_length=max_length, first_subword_only=first_subowrd_only
@@ -563,7 +563,7 @@ def get_multilingual_realignment_dataset(
             datasets = TorchCompatibleIterableDataset(datasets)
         return datasets
 
-    dataset = interleave_datasets(datasets)
+    dataset = interleave_datasets(datasets, seed=seed, probabilities=[1.0 / len(datasets)] * len(datasets))
 
     if return_torch_compatible:
         dataset = TorchCompatibleIterableDataset(dataset)
