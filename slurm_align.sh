@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --gpus-per-node=v100:1
 #SBATCH --mem=16G
-#SBATCH --time=96:00:00
+#SBATCH --time=12:00:00
 #SBATCH --account=def-annielee
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=quangphuoc.nguyen@ontariotechu.net
@@ -16,5 +16,5 @@ source /home/bumie304/scratch/nlp_project/env/bin/activate
 #############################################################
 
 echo "Job Array ID / Job ID: $SLURM_ARRAY_JOB_ID / $SLURM_JOB_ID"
-# bash scripts/2025_alignfreeze_continuation/distillation/run.sh data opus100 freeze_ffn_dico
-bash scripts/2025_alignfreeze_continuation/distillation/run.sh data opus100 realign_random_half_withembs_discrete_dico
+
+bash scripts/2025_alignfreeze_continuation/distillation/run.sh data opus100 random_28 before_dico 66
