@@ -1,11 +1,11 @@
 # Random number of languages scaling baseline setting:
-random_14: 
+### random_14: 
 - langs="ar hi tr el fr th vi zh"
 - additional_langs="da fi ja ko lt ta"
-random_7: 
+### random_7: 
 - langs="ar hi tr el fr"
 - additional_langs="da lt"
-random_3: 
+### random_3: 
 - langs="ar hi tr"
 - additional_langs=""
 
