@@ -34,6 +34,7 @@ final_columns = [col for col in df_merged.columns if "final" in col]
 long_df = pd.melt(df_merged, id_vars=['method'], value_vars=final_columns,
                     var_name='language', value_name='accuracy')
 long_df['language'] = long_df['language'].str.replace('final_eval_', '').str.replace('_accuracy', '')
+long_df = long_df.drop_duplicates()
 
 # This save results part mainly for me to format it to Github table format later, so you might not need it.
 if save_results:
