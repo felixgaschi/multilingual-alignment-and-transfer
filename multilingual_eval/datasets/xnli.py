@@ -1,6 +1,7 @@
 from typing import Union, List
 import numpy as np
 from datasets import load_dataset, interleave_datasets
+from huggingface_hub import snapshot_download
 
 from multilingual_eval.datasets.data_utils import convert_dataset_to_iterable_dataset
 
@@ -40,7 +41,16 @@ def get_xnli(
             lang_id = [lang_id]
         assert len(lang_id) == len(lang)
 
+    afri_langs = {'amh', 'eng', 'ewe', 'fra', 'hau', 'ibo', 'kin', 'lin', 'lug', 'orm', 'sna', 'sot', 'swa', 'twi', 'wol', 'xho', 'yor', 'zul'}
+
+    afrixnli_lang = [elt for elt in lang if elt in afri_langs]
+    lang = [elt for elt in lang if elt not in afri_langs]
+
     datasets = [load_dataset("xnli", elt, data_dir=datasets_cache_dir)[split] for elt in lang]
+
+    if afri_langs:
+        afrixnli_datasets = load_afrixnli(split, afrixnli_lang, datasets_cache_dir)
+        datasets.extend(afrixnli_datasets)
 
     n_datasets = len(datasets)
 
@@ -99,6 +109,34 @@ def get_xnli(
         return datasets, lengths
     return datasets
 
+def load_afrixnli(split, lang, datasets_cache_dir):
+    """
+    Return AfriXNLI dataset from Masakhane (https://huggingface.co/datasets/masakhane/afrixnli)
+    """
+
+    def load_language_data(root_dir, lang):
+        return load_dataset(
+            "parquet",
+            data_files={
+                "test": f"{root_dir}/{lang}/test/*.parquet",
+                "validation": f"{root_dir}/{lang}/validation/*.parquet"
+            }
+        )
+
+    if split not in ["validation", "test"]:
+        split = "validation"
+        print(f"Split {split} is not supported for AfriXNLI. Defaulting to 'validation'")
+
+    # datasets version < 2.15 are unable to load this dataset directly
+    local_dir  = snapshot_download(
+        repo_id="masakhane/afrixnli",
+        repo_type="dataset",
+        revision="refs/convert/parquet",
+        local_dir=f"{datasets_cache_dir}/afrixnli",
+    )
+    print(f"Dataset masakhane/afrixnli downloaded to: {local_dir}")
+    datasets = [load_language_data(f"{datasets_cache_dir}/afrixnli", elt)[split] for elt in lang]
+    return datasets
 
 def xnli_metric_fn(p):
     if isinstance(p, dict):
