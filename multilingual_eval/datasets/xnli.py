@@ -48,7 +48,8 @@ def get_xnli(
 
     datasets = [load_dataset("xnli", elt, data_dir=datasets_cache_dir)[split] for elt in lang]
 
-    if afri_langs:
+    if afrixnli_lang:
+        print(f"Loading dataset from {split} split for {afrixnli_lang}")
         afrixnli_datasets = load_afrixnli(split, afrixnli_lang, datasets_cache_dir)
         datasets.extend(afrixnli_datasets)
 
@@ -124,8 +125,8 @@ def load_afrixnli(split, lang, datasets_cache_dir):
         )
 
     if split not in ["validation", "test"]:
-        split = "validation"
         print(f"Split {split} is not supported for AfriXNLI. Defaulting to 'validation'")
+        split = "validation"
 
     # datasets version < 2.15 are unable to load this dataset directly
     local_dir  = snapshot_download(
