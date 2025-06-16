@@ -76,6 +76,6 @@ for MODEL in "xlm-roberta-base"; do
         --right_langs $langs \
         --eval_langs ar bg de el es fr hi ru th tr vi zh afrixnli\
         --project_name "reg_lang_selection" \
-        --output_file $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}.csv \
+        --output_file $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}__xnli.csv $ADD_ARGS\
         --additional_realignment_langs $additional_langs 
 done
