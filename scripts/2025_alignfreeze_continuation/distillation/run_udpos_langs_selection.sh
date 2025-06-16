@@ -4,12 +4,10 @@ set -e
 
 DATA_DIR=$1
 DATASET=$2
-SELECTION_STRAT=$3
-STRATEGY=$4
-SEED=$5
+STRATEGY=$3
+SEED=$4
+SELECTION_STRAT=$5
 ADD_ARGS=$6
-
-# langs="bg cs de es lv af ar ca da el fa fi fr he hi hu it ja ko lt no pl pt ro ru sk sl sv ta th tr uk vi zh"
 
 if [ "$SELECTION_STRAT" == "random_28" ]; then
     langs="ar tr hi lt el fr da fi zh th vi ja ko ta cs lv af da fi hu it ja ko lt no ro sk ta"
@@ -24,8 +22,8 @@ elif [ "$SELECTION_STRAT" == "random_3" ]; then
     langs="ar hi tr"
 
 else
-    echo "Error: Unknown SELECTION_STRAT value: $SELECTION_STRAT"
-    exit 1
+    echo "Unknown SELECTION_STRAT value: $SELECTION_STRAT. Setting to default."
+    langs="bg cs de es lv af ar ca da el fa fi fr he hi hu it ja ko lt no pl pt ro ru sk sl sv ta th tr uk vi zh"
 fi
 
 # Print for confirmation
