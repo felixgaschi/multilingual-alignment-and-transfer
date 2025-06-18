@@ -10,13 +10,16 @@
 - additional_langs=""
 
 ### Diverse Uriel 3 Featural
-Afrikaans, Arabic, Chinese
+langs="ar zh"
+additional_langs="af"
 
 ### Diverse Uriel 7 Featural
-Afrikaans, Arabic, Chinese, Hebrew, Japanese, Tamil, Vietnamese
+langs="ar vi zh"
+additional_langs="af he ja ta"
 
 ### Diverse Uriel 14 Featural
-Afrikaans, Arabic, Chinese, Farsi, Greek, Hebrew, Japanese, Korean, Russian, Slovenian, Tamil, Thai, Turkish, Vietnamese
+langs="ar el ru th tr vi zh"
+additional_langs="af fa he ja ko sv ta"
 
 xlm-roberta-base with seed-31-42-66
 xlm-roberta-base with seed-31-42-66
