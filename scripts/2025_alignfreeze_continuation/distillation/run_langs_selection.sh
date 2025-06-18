@@ -70,8 +70,8 @@ fi
 #********************************************TASK SETTING********************************************
 if [ "$TASK" == "xnli" ]; then
     n_epochs=2
-    eval_langs="ar bg de el es fr hi ru th tr vi zh afrixnli"
-if [ "$TASK" == "xnli" ]; then
+    eval_langs="ar bg de el es fr hi ru th tr vi zh amh eng ewe fra hau ibo kin lin lug orm sna sot swa twi wol xho yor zul"
+elif [ "$TASK" == "xnli" ]; then
     n_epochs=5
     eval_langs="bg cs de es lv af ar ca da el fa fi fr he hi hu it ja ko lt no pl pt ro ru sk sl sv ta th tr uk vi zh"
 fi
@@ -79,6 +79,7 @@ fi
 
 # Print for confirmation
 echo "Selected strategy: $SELECTION_STRAT"
+echo "task: $TASK"
 echo "langs: $langs"
 echo "seeds: $SEED"
 echo "epoch: $n_epochs"
@@ -91,7 +92,7 @@ TRANSLATION_DIR=$DATA_DIR/translation
 FASTALIGN_DIR=$DATA_DIR/fastalign
 DICOALIGN_DIR=$DATA_DIR/dico-align
 AWESOME_DIR=$DATA_DIR/awesome-align
-RESULT_DIR=$DATA_DIR/reg_lang_selection_results/$SELECTION_STRAT
+RESULT_DIR=$DATA_DIR/phuoc_seed_31/$SELECTION_STRAT
 
 mkdir -p $CACHE_DIR
 mkdir -p $TRANSLATION_DIR
@@ -108,9 +109,9 @@ export AWESOME_DIR=$AWESOME_DIR
 export RESULT_DIR=$RESULT_DIR
 #31,42,66,23,17
 
-# "distilbert-base-multilingual-cased" 
-for MODEL in "xlm-roberta-base" "bert-base-multilingual-cased"; do
-    python scripts/2023_acl/controlled_realignment.py \
+# "distilbert-base-multilingual-cased" "bert-base-multilingual-cased"
+for MODEL in "xlm-roberta-base" ; do
+    python scripts/2025_alignfreeze_continuation/controlled_realignment.py \
         --translation_dir $TRANSLATION_DIR/$DATASET \
         --fastalign_dir $FASTALIGN_DIR/$DATASET \
         --dico_dir $DICOALIGN_DIR/$DATASET \
@@ -123,6 +124,7 @@ for MODEL in "xlm-roberta-base" "bert-base-multilingual-cased"; do
         --seed $SEED \
         --right_langs $langs \
         --eval_langs $eval_langs \
-        --output_file $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}__${TASK}.csv $ADD_ARGS
+        --output_file $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}__${TASK}.csv $ADD_ARGS \
+        --checkpoint_path ~/scratch/nlp_project/results/$DATASET/$STRATEGY/$SELECTION_STRAT \
+        --large_gpu
 done
-
