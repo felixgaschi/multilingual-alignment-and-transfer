@@ -221,6 +221,7 @@ def train(
         model_name=model_name,
         nb_realignment_steps_before=realignment_steps,
         checkpoint_path=checkpoint_path,
+        task_name=task_name,
     )
 
     if task_name == "xquad":

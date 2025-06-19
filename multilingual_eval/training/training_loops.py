@@ -9,6 +9,7 @@ import random
 import math
 import hashlib
 import os
+import glob
 import re
 import json
 import dataclasses
@@ -109,7 +110,8 @@ def realignment_training_loop(
     realignment_steps_by_finetuning=1,
     label_key="labels",
     model_name=None,
-    checkpoint_path=None
+    checkpoint_path=None,
+    task_name=None
 ):
     """
     Performs a training loop, with or without realignment
@@ -717,31 +719,44 @@ def realignment_training_loop(
 
             log_layer_status(model, model_name)
 
-            training_state = epoch_loop(
-                model,
-                before_optimizer,
-                task_dataloader=None,
-                realignment_dataloader=realignment_dataloader,
-                task_accumulation_steps=1,
-                logging_steps=logging_steps,
-                log_in_wandb=log_in_wandb,
-                result_store=result_store,
-                nb_iter=realignment_steps_before,
-                realignment_step_callbacks=realignment_step_callbacks,
-                training_state=training_state,
-                log_first_sample=True,
-                realignment_steps_by_finetuning=realignment_steps_by_finetuning,
-                model_name=model_name,
-                strategy=strategy,
-                checkpoint_path=checkpoint_path,
-                checkpoint_prefix_name=f"realignment_{model_name}_seed_{seed}",
-            )
+            # Check for existing realignment ckpt
+            realignment_checkpoint_prefix_name = f"realignment_{model_name}_seed_{seed}"
+            pattern = os.path.join(checkpoint_path, f"{realignment_checkpoint_prefix_name}_iter_*.ckpt")
+            matching_files = glob.glob(pattern)
+            if matching_files:
+                realignment_ckpt_file = sorted(matching_files)[-1]
+                realignment_ckpt = torch.load(realignment_ckpt_file, map_location=torch.device('cpu'))
+                partial_state_dict = {k: v for k, v in realignment_ckpt['model_state_dict'].items() if not k.startswith("classifier")}
+                missing_keys, unexpected_keys = model.load_state_dict(partial_state_dict, strict=False)
+                logging.info(f"Found saved realignment checkpoint. Realignment checkpoint loaded {realignment_ckpt_file}")
+                logging.warning(f"Missing keys: {missing_keys}")
+                logging.warning(f"Unexpected keys: {unexpected_keys}")
+            else:
+                training_state = epoch_loop(
+                    model,
+                    before_optimizer,
+                    task_dataloader=None,
+                    realignment_dataloader=realignment_dataloader,
+                    task_accumulation_steps=1,
+                    logging_steps=logging_steps,
+                    log_in_wandb=log_in_wandb,
+                    result_store=result_store,
+                    nb_iter=realignment_steps_before,
+                    realignment_step_callbacks=realignment_step_callbacks,
+                    training_state=training_state,
+                    log_first_sample=True,
+                    realignment_steps_by_finetuning=realignment_steps_by_finetuning,
+                    model_name=model_name,
+                    strategy=strategy,
+                    checkpoint_path=checkpoint_path,
+                    checkpoint_prefix_name=realignment_checkpoint_prefix_name,
+                )
 
-            res = training_state.log_state()
-            if log_in_wandb:
-                wandb.log(res)
-            if result_store:
-                result_store.log(res)
+                res = training_state.log_state()
+                if log_in_wandb:
+                    wandb.log(res)
+                if result_store:
+                    result_store.log(res)
 
             if cache_path is not None:
                 logging.info(f"Saving realigned model: {model_hash}")
@@ -1090,6 +1105,12 @@ def realignment_training_loop(
         evaluation_datasets = [evaluation_datasets]
 
     for i in range(n_epochs):
+        if i == n_epochs - 1:
+            logging.info(f"Saving checkpoint for epoch {i}")
+            ft_checkpoint_path = checkpoint_path
+            ft_prefix_name = f"finetuning_{model_name}_{task_name}_seed_{seed}_epoch_{i}"
+        else:
+            ft_checkpoint_path = ft_prefix_name = None
         training_state = epoch_loop(
             model,
             optimizer,
@@ -1113,8 +1134,8 @@ def realignment_training_loop(
             realignment_steps_by_finetuning=realignment_steps_by_finetuning,
             separate_backward=strategy == "during_separate_backward" or bool(realignment_ignore_parameters),
             realignment_ignore_parameters=realignment_ignore_parameters,
-            checkpoint_path=checkpoint_path,
-            checkpoint_prefix_name=f"finetuning_{model_name}_seed_{seed}_epoch_{i}",
+            checkpoint_path=ft_checkpoint_path,
+            checkpoint_prefix_name=ft_prefix_name,
         )
         for callback in epoch_callbacks:
             callback(model)
