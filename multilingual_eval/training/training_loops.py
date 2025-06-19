@@ -1146,7 +1146,7 @@ def realignment_training_loop(
 
         if realignment_ckpt:
             res.nb_realignment_steps_seen = realignment_ckpt['nb_iter']
-            result_store.log("realignment_loss": realignment_ckpt['loss'])
+            result_store.log({"realignment_loss": realignment_ckpt['loss']})
         res = training_state.log_state()
         if log_in_wandb:
             wandb.log(res)
