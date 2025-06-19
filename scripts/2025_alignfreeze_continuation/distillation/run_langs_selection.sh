@@ -62,8 +62,13 @@ elif [ "$SELECTION_STRAT" == "low_res" ]; then
     langs="no bg da lt th he sk ro uk ta el lv sl af"
 
 else
-    echo "Unknown SELECTION_STRAT value: $SELECTION_STRAT. Setting to default."
     langs="bg cs de es lv af ar ca da el fa fi fr he hi hu it ja ko lt no pl pt ro ru sk sl sv ta th tr uk vi zh"
+    if [ "$SELECTION_STRAT" == "random_lang_with_seed" ]; then
+        echo "Random langs 3 7 14."
+        ADD_ARGS="--n_realignment_langs 3 7 14"
+    else
+        echo "Unknown SELECTION_STRAT value: $SELECTION_STRAT. Setting to 34 langs."
+    fi
 fi
 #********************************************END REALIGNMENT LANGUAGE SETTING********************************************
 
@@ -71,7 +76,7 @@ fi
 if [ "$TASK" == "xnli" ]; then
     n_epochs=2
     eval_langs="ar bg de el es fr hi ru th tr vi zh amh eng ewe fra hau ibo kin lin lug orm sna sot swa twi wol xho yor zul"
-elif [ "$TASK" == "xnli" ]; then
+elif [ "$TASK" == "udpos" ]; then
     n_epochs=5
     eval_langs="bg cs de es lv af ar ca da el fa fi fr he hi hu it ja ko lt no pl pt ro ru sk sl sv ta th tr uk vi zh"
 fi
@@ -126,5 +131,5 @@ for MODEL in "xlm-roberta-base" ; do
         --eval_langs $eval_langs \
         --output_file $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}__${TASK}.csv $ADD_ARGS \
         --checkpoint_path ~/scratch/nlp_project/results/$DATASET/$STRATEGY/$SELECTION_STRAT \
-        --large_gpu
+        --large_gpu $ADD_ARGS
 done
