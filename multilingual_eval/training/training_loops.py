@@ -723,6 +723,7 @@ def realignment_training_loop(
             realignment_checkpoint_prefix_name = f"realignment_{model_name}_seed_{seed}"
             pattern = os.path.join(checkpoint_path, f"{realignment_checkpoint_prefix_name}_iter_*.ckpt")
             matching_files = glob.glob(pattern)
+            realignment_ckpt = None
             if matching_files:
                 realignment_ckpt_file = sorted(matching_files)[-1]
                 realignment_ckpt = torch.load(realignment_ckpt_file, map_location=torch.device('cpu'))
@@ -1144,10 +1145,10 @@ def realignment_training_loop(
         for callback in epoch_callbacks:
             callback(model)
 
-        if realignment_ckpt:
-            res.nb_realignment_steps_seen = realignment_ckpt['nb_iter']
-            result_store.log({"realignment_loss": realignment_ckpt['loss']})
         res = training_state.log_state()
+        if realignment_ckpt:
+            res["realignment_steps"] = realignment_ckpt['nb_iter']
+            res["realignment_loss"] = realignment_ckpt['loss']
         if log_in_wandb:
             wandb.log(res)
         if result_store:
