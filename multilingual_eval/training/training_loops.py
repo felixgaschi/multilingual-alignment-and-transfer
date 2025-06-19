@@ -727,11 +727,15 @@ def realignment_training_loop(
                 realignment_ckpt_file = sorted(matching_files)[-1]
                 realignment_ckpt = torch.load(realignment_ckpt_file, map_location=torch.device('cpu'))
                 partial_state_dict = {k: v for k, v in realignment_ckpt['model_state_dict'].items() if not k.startswith("classifier")}
-                missing_keys, unexpected_keys = model.load_state_dict(partial_state_dict, strict=False)
-                logging.info(f"Found saved realignment checkpoint. Realignment checkpoint loaded {realignment_ckpt_file}")
-                logging.warning(f"Missing keys: {missing_keys}")
-                logging.warning(f"Unexpected keys: {unexpected_keys}")
-            else:
+                try:
+                    missing_keys, unexpected_keys = model.load_state_dict(partial_state_dict, strict=False)
+                    logging.info(f"Found saved realignment checkpoint. Realignment checkpoint loaded {realignment_ckpt_file}")
+                    logging.warning(f"Missing keys: {missing_keys}")
+                    logging.warning(f"Unexpected keys: {unexpected_keys}")
+                except Exception as e:
+                    logging.warning(f"Unable to load realignment ckpt. Error: {e}")
+                    del realignment_ckpt, realignment_ckpt_file, partial_state_dict
+            if not realignment_ckpt:
                 training_state = epoch_loop(
                     model,
                     before_optimizer,
@@ -1140,6 +1144,9 @@ def realignment_training_loop(
         for callback in epoch_callbacks:
             callback(model)
 
+        if realignment_ckpt:
+            res.nb_realignment_steps_seen = realignment_ckpt['nb_iter']
+            result_store.log("realignment_loss": realignment_ckpt['loss'])
         res = training_state.log_state()
         if log_in_wandb:
             wandb.log(res)
