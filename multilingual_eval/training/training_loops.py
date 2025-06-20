@@ -736,6 +736,8 @@ def realignment_training_loop(
                 except Exception as e:
                     logging.warning(f"Unable to load realignment ckpt. Error: {e}")
                     del realignment_ckpt, realignment_ckpt_file, partial_state_dict
+                # This frees up unused memory
+                del realignment_ckpt["model_state_dict"], partial_state_dict
             if not realignment_ckpt:
                 training_state = epoch_loop(
                     model,
