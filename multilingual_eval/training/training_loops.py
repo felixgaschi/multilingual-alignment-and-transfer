@@ -720,24 +720,25 @@ def realignment_training_loop(
             log_layer_status(model, model_name)
 
             # Check for existing realignment ckpt
-            realignment_checkpoint_prefix_name = f"realignment_{model_name}_seed_{seed}"
-            pattern = os.path.join(checkpoint_path, f"{realignment_checkpoint_prefix_name}_iter_*.ckpt")
-            matching_files = glob.glob(pattern)
-            realignment_ckpt = None
-            if matching_files:
-                realignment_ckpt_file = sorted(matching_files)[-1]
-                realignment_ckpt = torch.load(realignment_ckpt_file, map_location=torch.device('cpu'))
-                partial_state_dict = {k: v for k, v in realignment_ckpt['model_state_dict'].items() if not k.startswith("classifier")}
-                try:
-                    missing_keys, unexpected_keys = model.load_state_dict(partial_state_dict, strict=False)
-                    logging.info(f"Found saved realignment checkpoint. Realignment checkpoint loaded {realignment_ckpt_file}")
-                    logging.warning(f"Missing keys: {missing_keys}")
-                    logging.warning(f"Unexpected keys: {unexpected_keys}")
-                except Exception as e:
-                    logging.warning(f"Unable to load realignment ckpt. Error: {e}")
-                    del realignment_ckpt, realignment_ckpt_file, partial_state_dict
-                # This frees up unused memory
-                del realignment_ckpt["model_state_dict"], partial_state_dict
+            if checkpoint_path:
+                realignment_checkpoint_prefix_name = f"realignment_{model_name}_seed_{seed}"
+                pattern = os.path.join(checkpoint_path, f"{realignment_checkpoint_prefix_name}_iter_*.ckpt")
+                matching_files = glob.glob(pattern)
+                realignment_ckpt = None
+                if matching_files:
+                    realignment_ckpt_file = sorted(matching_files)[-1]
+                    realignment_ckpt = torch.load(realignment_ckpt_file, map_location=torch.device('cpu'))
+                    partial_state_dict = {k: v for k, v in realignment_ckpt['model_state_dict'].items() if not k.startswith("classifier")}
+                    try:
+                        missing_keys, unexpected_keys = model.load_state_dict(partial_state_dict, strict=False)
+                        logging.info(f"Found saved realignment checkpoint. Realignment checkpoint loaded {realignment_ckpt_file}")
+                        logging.warning(f"Missing keys: {missing_keys}")
+                        logging.warning(f"Unexpected keys: {unexpected_keys}")
+                    except Exception as e:
+                        logging.warning(f"Unable to load realignment ckpt. Error: {e}")
+                        del realignment_ckpt, realignment_ckpt_file, partial_state_dict
+                    # This frees up unused memory
+                    del realignment_ckpt["model_state_dict"], partial_state_dict
             if not realignment_ckpt:
                 training_state = epoch_loop(
                     model,

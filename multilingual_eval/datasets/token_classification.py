@@ -3,6 +3,8 @@ import numpy as np
 import pycountry
 
 from datasets import interleave_datasets
+from huggingface_hub import snapshot_download
+from datasets import load_dataset
 from multilingual_eval.datasets.code_switching import (
     get_dataset_with_code_swicthing,
 )
@@ -81,7 +83,19 @@ def get_token_classification_getter(
         ):
             dictionaries_for_code_switching = [dictionaries_for_code_switching]
 
+        afri_langs = {
+            'bam', 'bbj', 'ewe', 'fon', 'hau', 'ibo', 'kin', 'lug', 'luo', 'mos', 'nya', 'pcm', 'sna', 'swa', 'tsn', 'twi', 'wol', 'xho', 'yor', 'zul'
+        }
+
+        masakhapos_lang = [elt for elt in lang if elt in afri_langs]
+        lang = [elt for elt in lang if elt not in afri_langs]
+        
         datasets = [subset_loader(elt, cache_dir=datasets_cache_dir)[split] for elt in lang]
+
+        if "pos" in label_name and masakhapos_lang:
+            print(f"Loading dataset from {split} split for {masakhapos_lang}")
+            masakhapos_datasets = load_masakhapos(split, masakhapos_lang, datasets_cache_dir)
+            datasets.extend(masakhapos_datasets)
 
         n_datasets = len(datasets)
 
@@ -160,6 +174,19 @@ def get_token_classification_getter(
 
     return get_token_classification_dataset
 
+def load_masakhapos(split, lang, datasets_cache_dir):
+    """
+    Return masakhapos dataset from Masakhane (https://huggingface.co/datasets/masakhane/masakhapos)
+    """
+    # datasets version < 2.15 are unable to load this dataset directly
+    local_dir  = snapshot_download(
+        repo_id="masakhane/masakhapos", 
+        repo_type="dataset", 
+        local_dir=f"{datasets_cache_dir}/masakhapos",
+    )
+    print(f"Dataset loading script masakhane/masakhapos downloaded to: {local_dir}. Loading datasets...")
+    datasets = [load_dataset(f"{local_dir}/masakhapos.py", name=elt, split=split, cache_dir=local_dir) for elt in lang] 
+    return datasets
 
 def get_token_classification_metrics():
     """
