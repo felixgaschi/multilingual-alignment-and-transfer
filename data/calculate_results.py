@@ -38,11 +38,7 @@ for model in ["xlm-roberta-base", "bert-base-multilingual-cased"]:
             true_task = "udpos"
         
         if task == "udpos":
-            df1 = pd.read_csv(f"felix_results_lang_selection/12_langs/{model}__{true_task}.csv")
-            cols_filter = [col for col in df1.columns
-                if col.startswith("final_eval_") and col.endswith("_accuracy")
-                and not col.endswith("avg_accuracy") and not col.endswith("same_accuracy")]
-            cols_filter += ['seed']
+            cols_filter = [f"final_eval_{lang}_accuracy" for lang in UDPOS_LANGS]
         elif task == "masakhapos":
             cols_filter = [f"final_eval_{lang}_accuracy" for lang in MASAKHAPOS_LANGS]
         elif task == "xnli":
@@ -52,17 +48,16 @@ for model in ["xlm-roberta-base", "bert-base-multilingual-cased"]:
         cols_filter += ['seed']
         
         for exp in exps_directories:
-            df1 = pd.read_csv(f"felix_results_lang_selection/{exp}/{model}__{true_task}.csv")
-            
-            df1_filtered = df1[df1['seed'].isin([42, 66])]
-
-            df2 = pd.read_csv(f"phuoc_seed_31/{exp}/{model}__opus100__before_dico__{true_task}.csv")
-            df2_filtered = df2[df2['seed'] == 31]
             try:
+                df1 = pd.read_csv(f"felix_results_lang_selection/{exp}/{model}__{true_task}.csv")
+            
+                df1_filtered = df1[df1['seed'].isin([42, 66])]
+
+                df2 = pd.read_csv(f"phuoc_seed_31/{exp}/{model}__opus100__before_dico__{true_task}.csv")
+                df2_filtered = df2[df2['seed'] == 31]
                 df1_filtered = df1_filtered[cols_filter]
                 df2_filtered = df2_filtered[cols_filter]
             except Exception as e:
-                print(exp)
                 continue
             
             combined = pd.concat([df1_filtered, df2_filtered], ignore_index=True)
