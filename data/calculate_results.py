@@ -57,6 +57,8 @@ for model in ["xlm-roberta-base", "bert-base-multilingual-cased"]:
                 df2_filtered = df2[df2['seed'] == 31]
                 df1_filtered = df1_filtered[cols_filter]
                 df2_filtered = df2_filtered[cols_filter]
+                assert(len(df1_filtered) == 2)
+                assert(len(df1_filtered) == 1)
             except Exception as e:
                 continue
             
