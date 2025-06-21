@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
-import os 
+import os
+from scipy.stats import ttest_rel 
 
 
 # Constants
@@ -26,6 +27,36 @@ MASAKHAPOS_LANGS = [
 
 
 SEEDS = [31, 42, 66]
+
+def get_pvalues_against(results_df, base_exp):
+    """
+    Compare all entries against base_exp for the same task and model.
+    Returns: list of (compared_exp, p_value, is_significant)
+    """
+    p_values = []
+
+    # Filter for base experiment
+    base_row = results_df[results_df['exp'] == base_exp]
+    
+    if len(base_row) == 0:
+        return [-1 for i in range(len(results_df))]
+
+    base_row = base_row.iloc[0]
+    base_zipped = sorted(zip(base_row['seeds'], base_row['list_final_avg']))
+    base_seeds, base_vals = zip(*base_zipped)  # base_seeds is now the canonical order
+
+    # Iterate over other rows
+    for _, row in results_df.iterrows():
+        if row['exp'] == base_exp:
+            p_values.append(-1)
+            continue
+        other_zipped = sorted(zip(row['seeds'], row['list_final_avg']))
+        other_seeds, other_vals = zip(*other_zipped)
+
+        t_stat, p_val = ttest_rel(base_vals, other_vals)
+        p_values.append(p_val)
+
+    return p_values
 
 exps_directories = [d for d in os.listdir("felix_results_lang_selection")]
 
@@ -76,6 +107,9 @@ for model in ["xlm-roberta-base", "bert-base-multilingual-cased"]:
             combined[accuracy_cols] *= 100
             combined['final_eval_avg_accuracy'] = combined[accuracy_cols].mean(axis=1)
             
+            seeds = combined['seed'].tolist()
+            list_acc_final = combined['final_eval_avg_accuracy'].tolist()
+            
             mean_per_lang = combined[accuracy_cols + ['final_eval_avg_accuracy']].mean(axis=0)
             std_per_lang = combined[accuracy_cols + ['final_eval_avg_accuracy']].std(axis=0)
 
@@ -86,12 +120,18 @@ for model in ["xlm-roberta-base", "bert-base-multilingual-cased"]:
             }
             formatted['exp'] = exp
             formatted['task'] = task
+            formatted['seeds'] = seeds
+            formatted['list_final_avg'] = list_acc_final
 
             per_experiment_results.append(formatted)
             
         # Create final DataFrame
         results_df = pd.DataFrame(per_experiment_results)
+        
+        if len(results_df) != 0:
+            results_df["p_val_12_langs"] = get_pvalues_against(results_df, "12_langs")
+            results_df["p_val_34_langs"] = get_pvalues_against(results_df, "34_langs")
 
-        # Print LaTeX format
-        results_df.to_csv(f"summary_{model}_{task}.csv", index=False)
+            # Print LaTeX format
+            results_df.to_csv(f"summary_{model}_{task}.csv", index=False)
  
