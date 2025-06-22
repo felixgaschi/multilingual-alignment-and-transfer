@@ -25,6 +25,10 @@ MASAKHAPOS_LANGS = [
     'sna', 'swa', 'tsn', 'twi', 'wol', 'xho', 'yor', 'zul'
 ]
 
+SORT_COLUMNS = ["12_langs", "34_langs", "DIVERSE_URIEL_FEATURAL_3", "DIVERSE_URIEL_FEATURAL_7", "DIVERSE_URIEL_FEATURAL_14",
+                "LEAST_DIVERSE_URIEL_FEATURAL_3", "LEAST_DIVERSE_URIEL_FEATURAL_7", "LEAST_DIVERSE_URIEL_FEATURAL_14",
+                "random_distinct_family_3", "random_distinct_family_7", "random_distinct_family_14", "indo_3", "indo_7", "indo_14",
+                "low_res", "mix_res", "high_res", "random_langs_with_seed_3", "random_langs_with_seed_7", "random_langs_with_seed_14"]
 
 SEEDS = [31, 42, 66]
 
@@ -127,6 +131,10 @@ for model in ["xlm-roberta-base", "bert-base-multilingual-cased"]:
             
         # Create final DataFrame
         results_df = pd.DataFrame(per_experiment_results)
+        results_df['exp'] = pd.Categorical(results_df['exp'], categories=SORT_COLUMNS, ordered=True)
+
+        # Then sort the entire DataFrame by 'exp'
+        results_df = results_df.sort_values('exp')
         
         if len(results_df) != 0:
             results_df["p_val_12_langs"] = get_pvalues_against(results_df, "12_langs")
