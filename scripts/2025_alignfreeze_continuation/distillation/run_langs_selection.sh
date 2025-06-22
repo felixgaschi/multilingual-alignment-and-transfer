@@ -44,6 +44,16 @@ elif [ "$SELECTION_STRAT" == "DIVERSE_URIEL_FEATURAL_7" ]; then
 elif [ "$SELECTION_STRAT" == "DIVERSE_URIEL_FEATURAL_3" ]; then
     langs="ar zh af"
 
+#=================================LEAST DIVERSE URIEL FEATURAL=================================
+elif [ "$SELECTION_STRAT" == "LEAST_DIVERSE_URIEL_FEATURAL_14" ]; then
+    langs="bg el ru cs lv ca da it lt pl pt ro sl uk"
+
+elif [ "$SELECTION_STRAT" == "LEAST_DIVERSE_URIEL_FEATURAL_7" ]; then
+    langs="ca da el it pt sl uk"
+
+elif [ "$SELECTION_STRAT" == "LEAST_DIVERSE_URIEL_FEATURAL_3" ]; then
+    langs="ca it pt"
+
 #=================================BASELINE=================================
 elif [ "$SELECTION_STRAT" == "12_langs" ]; then
     langs="ar bg de el es fr hi ru th tr vi zh"
@@ -63,9 +73,15 @@ elif [ "$SELECTION_STRAT" == "low_res" ]; then
 
 else
     langs="bg cs de es lv af ar ca da el fa fi fr he hi hu it ja ko lt no pl pt ro ru sk sl sv ta th tr uk vi zh"
-    if [ "$SELECTION_STRAT" == "random_lang_with_seed" ]; then
-        echo "Random langs 3 7 14."
-        ADD_ARGS="--n_realignment_langs 3 7 14"
+    if [ "$SELECTION_STRAT" == "random_langs_with_seed_3" ]; then
+        echo "Random langs 3."
+        ADD_ARGS="--n_realignment_langs 3"
+    elif [ "$SELECTION_STRAT" == "random_langs_with_seed_7" ]; then
+        echo "Random langs 7."
+        ADD_ARGS="--n_realignment_langs 7"
+    elif [ "$SELECTION_STRAT" == "random_langs_with_seed_14" ]; then
+        echo "Random langs 14."
+        ADD_ARGS="--n_realignment_langs 14"
     else
         echo "Unknown SELECTION_STRAT value: $SELECTION_STRAT. Setting to 34 langs."
     fi
@@ -78,7 +94,7 @@ if [ "$TASK" == "xnli" ]; then
     eval_langs="ar bg de el es fr hi ru th tr vi zh amh eng ewe fra hau ibo kin lin lug orm sna sot swa twi wol xho yor zul"
 elif [ "$TASK" == "udpos" ]; then
     n_epochs=5
-    eval_langs="bg cs de es lv af ar ca da el fa fi fr he hi hu it ja ko lt no pl pt ro ru sk sl sv ta th tr uk vi zh"
+    eval_langs="bg cs de es lv af ar ca da el fa fi fr he hi hu it ja ko lt no pl pt ro ru sk sl sv ta th tr uk vi zh bam bbj ewe fon hau ibo kin lug luo mos nya pcm sna swa tsn twi wol xho yor zul"
 fi
 #********************************************END TASK SETTING********************************************
 
@@ -115,7 +131,7 @@ export RESULT_DIR=$RESULT_DIR
 #31,42,66,23,17
 
 # "distilbert-base-multilingual-cased" "bert-base-multilingual-cased"
-for MODEL in "xlm-roberta-base" ; do
+for MODEL in "xlm-roberta-base" "bert-base-multilingual-cased"; do
     python scripts/2025_alignfreeze_continuation/controlled_realignment.py \
         --translation_dir $TRANSLATION_DIR/$DATASET \
         --fastalign_dir $FASTALIGN_DIR/$DATASET \
