@@ -30,7 +30,7 @@ SORT_COLUMNS = ["12_langs", "34_langs", "DIVERSE_URIEL_FEATURAL_3", "DIVERSE_URI
                 "random_distinct_family_3", "random_distinct_family_7", "random_distinct_family_14", "indo_3", "indo_7", "indo_14",
                 "low_res", "mix_res", "high_res", "random_langs_with_seed_3", "random_langs_with_seed_7", "random_langs_with_seed_14"]
 
-SEEDS = [31, 42, 66]
+SEEDS = [31, 42, 66, 23, 17]
 
 def get_pvalues_against(results_df, base_exp):
     """
@@ -86,13 +86,13 @@ for model in ["xlm-roberta-base", "bert-base-multilingual-cased"]:
             try:
                 df1 = pd.read_csv(f"felix_results_lang_selection/{exp}/{model}__{true_task}.csv")
             
-                df1_filtered = df1[df1['seed'].isin([42, 66])]
+                df1_filtered = df1[df1['seed'].isin([42, 66, 23, 17])]
 
                 df2 = pd.read_csv(f"phuoc_seed_31/{exp}/{model}__opus100__before_dico__{true_task}.csv")
                 df2_filtered = df2[df2['seed'] == 31]
                 df1_filtered = df1_filtered[cols_filter]
                 df2_filtered = df2_filtered[cols_filter]
-                assert(len(df1_filtered) == 2)
+                assert(len(df1_filtered) == 4)
                 assert(len(df2_filtered) == 1)
             except Exception as e:
                 continue

@@ -50,10 +50,10 @@ for exp in exps_directories:
             
             try:
                 df1 = pd.read_csv(f"felix_results_lang_selection/{exp}/{model}__{true_task}.csv")
-                df1_filtered = df1[df1['seed'].isin([42, 66])]
+                df1_filtered = df1[df1['seed'].isin([42, 66, 17, 23])]
                 df1_filtered = df1_filtered[cols_filter]
                 
-                assert(len(df1_filtered) == 2) 
+                assert(len(df1_filtered) == 4) 
             except Exception as e:
                 print(f"Not finished: [FELIX] {exp} -- {model} -- {task}")
                 continue
