@@ -119,7 +119,7 @@ for model in ["xlm-roberta-base", "bert-base-multilingual-cased"]:
 
             # Format as "mean ± std"
             formatted = {
-                col: f"{mean_per_lang[col]:.2f} $\pm$ {std_per_lang[col]:.2f}"
+                col: f"{mean_per_lang[col]:.2f} \scriptsize $\pm$ {std_per_lang[col]:.2f}"
                 for col in mean_per_lang.index
             }
             formatted['exp'] = exp
