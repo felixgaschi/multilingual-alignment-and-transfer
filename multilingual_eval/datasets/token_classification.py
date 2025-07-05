@@ -42,7 +42,7 @@ def get_token_classification_getter(
         return_length=False,
         n_epochs=1,
         max_length=128,
-        return_overflowing_tokens=True,
+        return_overflowing_tokens=False,
         zh_segmenter: Optional[StanfordSegmenter] = None,
         resegment_zh=False,
     ):

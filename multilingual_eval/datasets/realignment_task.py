@@ -5,6 +5,7 @@ from typing import List, Tuple, Optional, Dict
 import os
 from collections import defaultdict
 import contextlib
+import itertools
 import numpy as np
 import logging
 
@@ -13,14 +14,18 @@ from multilingual_eval.datasets.data_utils import TorchCompatibleIterableDataset
 
 def get_pharaoh_dataset(
     translation_file: str,
-    alignment_file: str,
+    alignment_file: Optional[str],
     repeat=False,
     keep_only_one_to_one=True,
     ignore_identical=True,
 ):
     def pharaoh_reader(offset=0):
-        with open(translation_file) as translation_reader, open(alignment_file) as alignment_reader:
-            for i, (translation, alignment) in enumerate(zip(translation_reader, alignment_reader)):
+        with open(translation_file) as translation_reader, (open(alignment_file) if alignment_file else contextlib.nullcontext()) as alignment_reader:
+            if alignment_file is None:
+                alignment_iterator = itertools.repeat(None)
+            else:
+                alignment_iterator = alignment_reader
+            for i, (translation, alignment) in enumerate(zip(translation_reader, alignment_iterator)):
                 parts = translation.split("|||")
                 if len(parts) != 2:
                     continue
@@ -28,43 +33,49 @@ def get_pharaoh_dataset(
                 left_tokens = left_sent.strip().split()
                 right_tokens = right_sent.strip().split()
 
-                pairs = alignment.strip().split()
-                pairs = list(map(lambda x: tuple(map(int, x.split("-"))), pairs))
-
-                left_positions = list(map(lambda x: x[0], pairs))
-                right_positions = list(map(lambda x: x[1], pairs))
-
-                if keep_only_one_to_one:
-                    new_left_positions = []
-                    new_right_positions = []
-                    for a, b in zip(left_positions, right_positions):
-                        if left_positions.count(a) > 1 or right_positions.count(b) > 1:
-                            continue
-                        new_left_positions.append(a)
-                        new_right_positions.append(b)
-                    left_positions = new_left_positions
-                    right_positions = new_right_positions
-
-                if ignore_identical:
-                    new_left_positions = []
-                    new_right_positions = []
-                    for a, b in zip(left_positions, right_positions):
-                        if left_tokens[a] == right_tokens[b]:
-                            continue
-                        new_left_positions.append(a)
-                        new_right_positions.append(b)
-                    left_positions = new_left_positions
-                    right_positions = new_right_positions
-
-                if len(left_positions) == 0:
-                    continue
-
-                yield offset + i, {
+                output = {
                     "left_tokens": left_tokens,
                     "right_tokens": right_tokens,
-                    "aligned_left_ids": left_positions,
-                    "aligned_right_ids": right_positions,
                 }
+
+                if alignment_file is not None:
+                    pairs = alignment.strip().split()
+                    pairs = list(map(lambda x: tuple(map(int, x.split("-"))), pairs))
+
+                    left_positions = list(map(lambda x: x[0], pairs))
+                    right_positions = list(map(lambda x: x[1], pairs))
+
+                    if keep_only_one_to_one:
+                        new_left_positions = []
+                        new_right_positions = []
+                        for a, b in zip(left_positions, right_positions):
+                            if left_positions.count(a) > 1 or right_positions.count(b) > 1:
+                                continue
+                            new_left_positions.append(a)
+                            new_right_positions.append(b)
+                        left_positions = new_left_positions
+                        right_positions = new_right_positions
+
+                    if ignore_identical:
+                        new_left_positions = []
+                        new_right_positions = []
+                        for a, b in zip(left_positions, right_positions):
+                            if left_tokens[a] == right_tokens[b]:
+                                continue
+                            new_left_positions.append(a)
+                            new_right_positions.append(b)
+                        left_positions = new_left_positions
+                        right_positions = new_right_positions
+
+                    if len(left_positions) == 0:
+                        continue
+
+                    output.update({
+                        "aligned_left_ids": left_positions,
+                        "aligned_right_ids": right_positions,
+                    })
+
+                yield offset + i, output
 
         if repeat:
             yield from pharaoh_reader(offset=i + 1)
@@ -211,6 +222,7 @@ class AdaptAlignmentToTokenizerMapper:
         max_length=None,
         remove_underscore_if_roberta=True,
         first_subword_only=True,
+        noaligner=False,
     ):
         self.tokenizer = tokenizer
         self.max_length = max_length
@@ -220,6 +232,7 @@ class AdaptAlignmentToTokenizerMapper:
         )
         if self.remove_underscore:
             self.underscore_id = self.tokenizer.convert_tokens_to_ids(["▁"])[0]
+        self.noaligner = noaligner
 
     def __call__(self, examples):
         """
@@ -238,9 +251,7 @@ class AdaptAlignmentToTokenizerMapper:
         """
         left_tokens = examples["left_tokens"]
         right_tokens = examples["right_tokens"]
-        aligned_left_ids = examples["aligned_left_ids"]
-        aligned_right_ids = examples["aligned_right_ids"]
-
+        
         left_tokenized_inputs = self.tokenizer(
             left_tokens, truncation=True, is_split_into_words=True, max_length=self.max_length
         )
@@ -255,6 +266,29 @@ class AdaptAlignmentToTokenizerMapper:
             right_tokenized_inputs, right_tokens
         )
 
+        if self.noaligner:
+            alignment_left_pos = [
+                [pos for pos in sent if pos is not None] for sent in alignment_left_pos
+            ]
+            alignment_right_pos = [
+                [pos for pos in sent if pos is not None] for sent in alignment_right_pos
+            ]
+
+        output = {
+            **{f"left_{k}": v for k, v in new_left_inputs.items()},
+            **{f"right_{k}": v for k, v in new_right_inputs.items()},
+            "alignment_left_positions": alignment_left_pos,
+            "alignment_right_positions": alignment_right_pos,
+            "alignment_left_length": [len(elt) for elt in alignment_left_pos],
+            "alignment_right_length": [len(elt) for elt in alignment_right_pos],
+        }
+
+        if self.noaligner:
+            return output
+
+        aligned_left_ids = examples["aligned_left_ids"]
+        aligned_right_ids = examples["aligned_right_ids"]
+
         (
             alignment_left_pos,
             alignment_right_pos,
@@ -265,15 +299,14 @@ class AdaptAlignmentToTokenizerMapper:
         )
 
         return {
-            **{f"left_{k}": v for k, v in new_left_inputs.items()},
-            **{f"right_{k}": v for k, v in new_right_inputs.items()},
-            "alignment_left_ids": aligned_left_ids,
-            "alignment_right_ids": aligned_right_ids,
+            **output,
             "alignment_left_positions": alignment_left_pos,
             "alignment_right_positions": alignment_right_pos,
-            "alignment_nb": [len(elt) for elt in aligned_left_ids],
             "alignment_left_length": [len(elt) for elt in alignment_left_pos],
             "alignment_right_length": [len(elt) for elt in alignment_right_pos],
+            "alignment_left_ids": aligned_left_ids,
+            "alignment_right_ids": aligned_right_ids,
+            "alignment_nb": [len(elt) for elt in aligned_left_ids],
         }
 
     def retrieve_positions_and_remove_underscore(self, tokenized_inputs, tokens):
@@ -439,7 +472,7 @@ class MultiparallelAdaptAlignmentToTokenizerMapper(AdaptAlignmentToTokenizerMapp
 def get_realignment_dataset_for_one_pair(
     tokenizer,
     translation_file: str,
-    alignment_file: str,
+    alignment_file: Optional[str],
     max_length=None,
     first_subowrd_only=True,
     ignore_identical=True,
@@ -454,13 +487,13 @@ def get_realignment_dataset_for_one_pair(
         translation_file, alignment_file, ignore_identical=ignore_identical, repeat=True
     ).shuffle(seed=seed, buffer_size=10_000)
     mapper = AdaptAlignmentToTokenizerMapper(
-        tokenizer, max_length=max_length, first_subword_only=first_subowrd_only
+        tokenizer, max_length=max_length, first_subword_only=first_subowrd_only, noaligner=alignment_file is None
     )
     dataset = raw_dataset.map(
         mapper,
         batched=True,
-        remove_columns=["aligned_left_ids", "aligned_right_ids", "left_tokens", "right_tokens"],
-    ).filter(lambda x: len(x["alignment_left_ids"]) > 0)
+        remove_columns=["aligned_left_ids", "aligned_right_ids", "left_tokens", "right_tokens"] if alignment_file is not None else ["left_tokens", "right_tokens"],
+    ).filter(lambda x: x["alignment_left_length"] > 0 and x["alignment_right_length"] > 0 and (alignment_file is None or len(x["alignment_left_ids"]) > 0))
     if left_id is not None:
         dataset = dataset.map(lambda x: {**x, "left_lang_id": [left_id]})
     if right_id is not None:
@@ -521,7 +554,7 @@ def get_multiparallel_realignment_dataset(
 def get_multilingual_realignment_dataset(
     tokenizer,
     translation_path: str,
-    alignment_path: str,
+    alignment_path: Optional[str],
     pairs: List[Tuple[str, str]],
     max_length=None,
     seed=None,
@@ -529,6 +562,7 @@ def get_multilingual_realignment_dataset(
     split="train",
     return_torch_compatible=True,
     do_interleave_datasets=True,
+    first_subowrd_only=True,
 ):
     """
     Load and prepare (lazily) a realignment dataset based on:
@@ -548,11 +582,12 @@ def get_multilingual_realignment_dataset(
         get_realignment_dataset_for_one_pair(
             tokenizer,
             os.path.join(translation_path, f"{left_lang}-{right_lang}.tokenized.{split}.txt"),
-            os.path.join(alignment_path, f"{left_lang}-{right_lang}.{split}"),
+            os.path.join(alignment_path, f"{left_lang}-{right_lang}.{split}") if alignment_path else None,
             max_length=max_length,
             seed=seed,
             left_id=lang_to_id[left_lang],
             right_id=lang_to_id[right_lang],
+            first_subowrd_only=first_subowrd_only,
         )
         for left_lang, right_lang in pairs
     ]
