@@ -3,7 +3,7 @@ import numpy as np
 import os
 from typing import List, Tuple, Optional, Set
 from transformers import AutoTokenizer
-from datasets import load_metric
+from evaluate import load as load_metric
 import logging
 import re
 from collections import defaultdict
