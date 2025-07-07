@@ -59,6 +59,7 @@ def model_with_realignment_factory(
             self,
             config,
             realignment_loss="contrastive",
+            realignment_method="token",
             with_mapping=False,
             train_only_mapping: Optional[bool] = None,
             realignment_layers: Optional[List[int]] = None,
@@ -74,6 +75,7 @@ def model_with_realignment_factory(
             super().__init__(config, with_mapping=with_mapping, nb_pairs=nb_pairs)
 
             self.realignment_loss = realignment_loss
+            self.realignment_method = realignment_method
 
             assert realignment_loss in ["contrastive", "l2"]
 
@@ -171,6 +173,7 @@ def model_with_realignment_factory(
                 initial_model=self.initial_model,
                 realignment_loss=self.realignment_loss,
                 train_only_mapping=self.train_only_mapping,
+                realignment_method=self.realignment_method,
             )
 
         @merge_args(base_class.forward)

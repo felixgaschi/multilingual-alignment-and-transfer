@@ -156,6 +156,7 @@ def realignment_loop(
     fine_tuning_steps=2_000,
     nb_pairs=5000,
     strong_alignment=True,
+    noaligner=False,
     log_in_wandb=False,
     seed=None,
     device="cuda:0" if torch.cuda.device_count() > 0 else "cpu",
@@ -197,7 +198,7 @@ def realignment_loop(
         train_realignment_dataset,
         shuffle=False,
         batch_size=realignment_batch_size,
-        collate_fn=RealignmentCollator(tokenizer),
+        collate_fn=RealignmentCollator(tokenizer, noaligner=noaligner),
     )
 
     optimizer = torch.optim.Adam(model.parameters(), lr=realignment_learning_rate)

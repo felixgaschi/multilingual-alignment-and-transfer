@@ -111,7 +111,8 @@ def realignment_training_loop(
     label_key="labels",
     model_name=None,
     checkpoint_path=None,
-    task_name=None
+    task_name=None,
+    noaligner=False,
 ):
     """
     Performs a training loop, with or without realignment
@@ -298,6 +299,7 @@ def realignment_training_loop(
             collate_fn=RealignmentAndOtherCollator(
                 tokenizer,
                 data_collator,
+                noaligner=noaligner,
             ),
         )
     else:
@@ -326,6 +328,8 @@ def realignment_training_loop(
 
     use_caching = False
     selected_layers = None
+
+    realignment_ckpt = None
 
     # If strategy is "before" or "before+during", perform realignment before fine-tuning
     if strategy in ["before", "before+during", 
@@ -720,6 +724,8 @@ def realignment_training_loop(
             log_layer_status(model, model_name)
 
             # Check for existing realignment ckpt
+            
+            realignment_checkpoint_prefix_name = None
             if checkpoint_path:
                 realignment_checkpoint_prefix_name = f"realignment_{model_name}_seed_{seed}"
                 pattern = os.path.join(checkpoint_path, f"{realignment_checkpoint_prefix_name}_iter_*.ckpt")
@@ -737,6 +743,7 @@ def realignment_training_loop(
                     except Exception as e:
                         logging.warning(f"Unable to load realignment ckpt. Error: {e}")
                         del realignment_ckpt, realignment_ckpt_file, partial_state_dict
+                        realignment_ckpt = None
                     # This frees up unused memory
                     del realignment_ckpt["model_state_dict"], partial_state_dict
             if not realignment_ckpt:
@@ -1112,13 +1119,40 @@ def realignment_training_loop(
     if not isinstance(evaluation_datasets, list):
         evaluation_datasets = [evaluation_datasets]
 
+    finetuning_ckpt = None
+    checkpoint_epoch = None
+    if checkpoint_path:
+        finetuning_checkpoint_prefix_name = f"finetuning_{model_name}_{task_name}_seed_{seed}"
+        pattern = os.path.join(checkpoint_path, f"{finetuning_checkpoint_prefix_name}_epoch_*_iter_*.ckpt")
+        matching_files = glob.glob(pattern)
+        if matching_files:
+            finetuning_ckpt_file = sorted(matching_files)[-1]
+            checkpoint_epoch = int(re.search(r"epoch_([0-9]+)", finetuning_ckpt_file).group(1))
+            finetuning_ckpt = torch.load(finetuning_ckpt_file, map_location=torch.device('cpu'))
+            try:
+                missing_keys, unexpected_keys = model.load_state_dict(finetuning_ckpt['model_state_dict'], strict=True)
+                logging.info(f"Found saved finetuning checkpoint. finetuning checkpoint loaded {finetuning_ckpt_file}")
+                logging.warning(f"Missing keys: {missing_keys}")
+                logging.warning(f"Unexpected keys: {unexpected_keys}")
+            except Exception as e:
+                logging.warning(f"Unable to load finetuning ckpt. Error: {e}")
+                del finetuning_ckpt, finetuning_ckpt_file
+                finetuning_ckpt = None
+            # This frees up unused memory
+            del finetuning_ckpt["model_state_dict"]
+
     for i in range(n_epochs):
+        if checkpoint_epoch is not None and i <= checkpoint_epoch:
+            logging.info(f"Skipping epoch {i} as it is already completed in checkpoint.")
+            continue
+
         if i == n_epochs - 1:
             logging.info(f"Saving checkpoint for epoch {i}")
             ft_checkpoint_path = checkpoint_path
             ft_prefix_name = f"finetuning_{model_name}_{task_name}_seed_{seed}_epoch_{i}"
         else:
             ft_checkpoint_path = ft_prefix_name = None
+        
         training_state = epoch_loop(
             model,
             optimizer,

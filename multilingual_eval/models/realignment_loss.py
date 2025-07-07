@@ -3,7 +3,7 @@ from typing import List
 import torch
 import torch.nn.functional as F
 
-from multilingual_eval.models.utils import remove_batch_dimension, sum_ranges_and_put_together
+from multilingual_eval.models.utils import remove_batch_dimension, sum_ranges_and_put_together, build_mask_from_lengths
 from multilingual_eval.models.contexts import DumbContext
 
 
@@ -18,6 +18,7 @@ def compute_realignment_loss(
     regularization_lambda=1.0,
     initial_model=None,
     realignment_loss="contrastive",
+    realignment_method="token", # "token" or "sentence"
     train_only_mapping=False,
     left_context=None,
     right_context=None,
@@ -150,73 +151,105 @@ def compute_realignment_loss(
 
     for layer in realignment_layers:
         # Inspired by https://github.com/shijie-wu/crosslingual-nlp/blob/780f738df2b75f653aaaf11b9f513850fe11ba36/src/model/aligner.py#L139
-        aligned_left_repr = sum_ranges_and_put_together(
-            left_hidden_states[layer],
-            alignment_left_positions,
-            ids=alignment_left_ids,
-        )
-        aligned_right_repr = sum_ranges_and_put_together(
-            right_hidden_states[layer],
-            alignment_right_positions,
-            ids=alignment_right_ids,
-        )
+
+        if realignment_method == "sentence":
+            aligned_left_repr = left_hidden_states[layer] * build_mask_from_lengths(
+                alignment_left_length, left_hidden_states[layer].shape[1]
+            ).to(the_device).unsqueeze(-1)
+            aligned_right_repr = right_hidden_states[layer] * build_mask_from_lengths(
+                alignment_right_length, right_hidden_states[layer].shape[1]
+            ).to(the_device).unsqueeze(-1)
+            aligned_left_repr = aligned_left_repr.sum(dim=1) / alignment_left_length.unsqueeze(-1)
+            aligned_right_repr = aligned_right_repr.sum(dim=1) / alignment_right_length.unsqueeze(-1)
+        elif realignment_method == "token":
+            aligned_left_repr = sum_ranges_and_put_together(
+                left_hidden_states[layer],
+                alignment_left_positions,
+                ids=alignment_left_ids,
+            )
+            aligned_right_repr = sum_ranges_and_put_together(
+                right_hidden_states[layer],
+                alignment_right_positions,
+                ids=alignment_right_ids,
+            )
+            aligned_left_repr = remove_batch_dimension(aligned_left_repr, alignment_nb)
+            aligned_right_repr = remove_batch_dimension(aligned_right_repr, alignment_nb)
+        else:
+            raise NotImplementedError(
+                f"Unknown realignment_method for compute_realignment_loss: {realignment_method}"
+            )
 
         if realignment_transformation is not None:
             aligned_left_repr = realignment_transformation(aligned_left_repr)
             aligned_right_repr = realignment_transformation(aligned_right_repr)
 
-        aligned_left_repr = remove_batch_dimension(aligned_left_repr, alignment_nb)
-        aligned_right_repr = remove_batch_dimension(aligned_right_repr, alignment_nb)
-
         if realignment_loss == "l2":
             loss = F.mse_loss(aligned_left_repr, aligned_right_repr)
         elif realignment_loss == "contrastive":
-            all_left_repr = sum_ranges_and_put_together(
-                left_hidden_states[layer], alignment_left_positions
-            )
-            all_right_repr = sum_ranges_and_put_together(
-                right_hidden_states[layer],
-                alignment_right_positions,
-            )
+            if realignment_method == "sentence":
+                all_left_repr = aligned_left_repr
+                all_right_repr = aligned_right_repr
 
-            if realignment_transformation is not None:
-                all_left_repr = realignment_transformation(all_left_repr)
-                all_right_repr = realignment_transformation(all_right_repr)
+                N = aligned_left_repr.shape[0]
+                left_goal = torch.arange(
+                    0, N, 1, device=the_device
+                ) + N
+                right_goal = torch.arange(
+                    0, N, 1, device=the_device
+                )
+            elif realignment_method == "token":
+                all_left_repr = sum_ranges_and_put_together(
+                    left_hidden_states[layer], alignment_left_positions
+                )
+                all_right_repr = sum_ranges_and_put_together(
+                    right_hidden_states[layer],
+                    alignment_right_positions,
+                )
 
-            all_left_repr = remove_batch_dimension(all_left_repr, alignment_left_length)
-            all_right_repr = remove_batch_dimension(all_right_repr, alignment_right_length)
+                if realignment_transformation is not None:
+                    all_left_repr = realignment_transformation(all_left_repr)
+                    all_right_repr = realignment_transformation(all_right_repr)
 
-            right_cumul_length = torch.cat(
-                (
-                    torch.tensor([0], dtype=torch.long, device=the_device),
-                    torch.cumsum(alignment_right_length, 0),
-                )
-            )
-            left_cumul_length = torch.cat(
-                (
-                    torch.tensor([0], dtype=torch.long, device=the_device),
-                    torch.cumsum(alignment_left_length, 0),
-                )
-            )
+                all_left_repr = remove_batch_dimension(all_left_repr, alignment_left_length)
+                all_right_repr = remove_batch_dimension(all_right_repr, alignment_right_length)
 
-            left_goal = torch.cat(
-                (
-                    *[
-                        all_left_repr.shape[0]
-                        + right_cumul_length[b]
-                        + alignment_right_ids[b][: alignment_nb[b]]
-                        for b in range(alignment_left_ids.shape[0])
-                    ],
+                right_cumul_length = torch.cat(
+                    (
+                        torch.tensor([0], dtype=torch.long, device=the_device),
+                        torch.cumsum(alignment_right_length, 0),
+                    )
                 )
-            )
-            right_goal = torch.cat(
-                (
-                    *[
-                        left_cumul_length[b] + alignment_left_ids[b][: alignment_nb[b]]
-                        for b in range(alignment_right_ids.shape[0])
-                    ],
+                left_cumul_length = torch.cat(
+                    (
+                        torch.tensor([0], dtype=torch.long, device=the_device),
+                        torch.cumsum(alignment_left_length, 0),
+                    )
                 )
-            )
+
+                left_goal = torch.cat(
+                    (
+                        *[
+                            all_left_repr.shape[0]
+                            + right_cumul_length[b]
+                            + alignment_right_ids[b][: alignment_nb[b]]
+                            for b in range(alignment_left_ids.shape[0])
+                        ],
+                    )
+                )
+                right_goal = torch.cat(
+                    (
+                        *[
+                            left_cumul_length[b] + alignment_left_ids[b][: alignment_nb[b]]
+                            for b in range(alignment_right_ids.shape[0])
+                        ],
+                    )
+                )
+            else:
+                raise NotImplementedError(
+                    f"Unknown realignment_method for compute_realignment_loss: {realignment_method}"
+                )
+
+            
 
             aligned_reprs = torch.cat((aligned_left_repr, aligned_right_repr))
             all_reprs = torch.cat((all_left_repr, all_right_repr))
