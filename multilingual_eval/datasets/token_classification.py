@@ -15,6 +15,14 @@ from multilingual_eval.datasets.lang_preprocessing import StanfordSegmenterWithL
 from multilingual_eval.tokenization.chinese_segmenter import StanfordSegmenter
 
 
+masakhapos_lang = {
+    'bam', 'bbj', 'ewe', 'fon', 'hau', 'ibo', 'kin', 'lug', 'luo', 'mos', 'nya', 'pcm', 'sna', 'swa', 'tsn', 'twi', 'wol', 'xho', 'yor', 'zul'
+}
+
+masakhaner_lang = {
+    "amh", "hau", "ibo", "kin", "lug", "luo", "pcm", "swa", "wol", "yor"
+}
+
 def get_token_classification_getter(
     subset_loader,
     label_name: str,
@@ -42,7 +50,7 @@ def get_token_classification_getter(
         return_length=False,
         n_epochs=1,
         max_length=128,
-        return_overflowing_tokens=True,
+        return_overflowing_tokens=False,
         zh_segmenter: Optional[StanfordSegmenter] = None,
         resegment_zh=False,
     ):
@@ -83,19 +91,14 @@ def get_token_classification_getter(
         ):
             dictionaries_for_code_switching = [dictionaries_for_code_switching]
 
-        afri_langs = {
-            'bam', 'bbj', 'ewe', 'fon', 'hau', 'ibo', 'kin', 'lug', 'luo', 'mos', 'nya', 'pcm', 'sna', 'swa', 'tsn', 'twi', 'wol', 'xho', 'yor', 'zul'
-        }
-
-        masakhapos_lang = [elt for elt in lang if elt in afri_langs]
+        afri_langs = [elt for elt in lang if elt in masakhapos_lang or elt in masakhaner_lang]
         lang = [elt for elt in lang if elt not in afri_langs]
         
         datasets = [subset_loader(elt, cache_dir=datasets_cache_dir)[split] for elt in lang]
 
-        if "pos" in label_name and masakhapos_lang:
-            print(f"Loading dataset from {split} split for {masakhapos_lang}")
-            masakhapos_datasets = load_masakhapos(split, masakhapos_lang, datasets_cache_dir)
-            datasets.extend(masakhapos_datasets)
+        if afri_langs:
+            masakha_datasets = load_masakha(split, label_name, afri_langs, datasets_cache_dir)
+            datasets.extend(masakha_datasets)
 
         n_datasets = len(datasets)
 
@@ -174,18 +177,44 @@ def get_token_classification_getter(
 
     return get_token_classification_dataset
 
-def load_masakhapos(split, lang, datasets_cache_dir):
+def load_masakha(split, label_name, lang, datasets_cache_dir):
     """
-    Return masakhapos dataset from Masakhane (https://huggingface.co/datasets/masakhane/masakhapos)
+    Return masakha dataset from Masakhane 
+    POS Tagging: https://huggingface.co/datasets/masakhane/masakhapos
+    NER: https://huggingface.co/datasets/masakhane/masakhaner
     """
+    if "pos" in label_name:
+        afri_langs = [elt for elt in lang if elt in masakhapos_lang]
+        print(f"Loading dataset from {split} split for MasakhaPOS: {afri_langs}")
+        task = "pos"
+
+    elif "ner" in label_name:
+        afri_langs = [elt for elt in lang if elt in masakhapos_lang]
+        print(f"Loading dataset from {split} split for MasakhaNER2: {afri_langs}")
+        task = "ner2"
+
     # datasets version < 2.15 are unable to load this dataset directly
-    local_dir  = snapshot_download(
-        repo_id="masakhane/masakhapos", 
-        repo_type="dataset", 
-        local_dir=f"{datasets_cache_dir}/masakhapos",
-    )
-    print(f"Dataset loading script masakhane/masakhapos downloaded to: {local_dir}. Loading datasets...")
-    datasets = [load_dataset(f"{local_dir}/masakhapos.py", name=elt, split=split, cache_dir=local_dir) for elt in lang] 
+    local_dir = f"{datasets_cache_dir}/masakha{task}"
+    try:
+        local_dir  = snapshot_download(
+            repo_id=f"masakhane/masakha{task}", 
+            repo_type="dataset", 
+            local_dir=local_dir,
+        )
+    except Exception as e:
+        print("Unable to snapshot download, runnning git clone")
+        import subprocess
+        try:
+            subprocess.run(
+                ["git", "clone", f"https://huggingface.co/datasets/masakhane/masakha{task}", local_dir],
+                check=True
+            )
+            print("Clone successful.")
+        except subprocess.CalledProcessError as e:
+            print("Error during git clone:", e)
+    
+    print(f"Dataset loading script masakhane/masakha{task} downloaded to: {local_dir}. Loading datasets...")
+    datasets = [load_dataset(f"{local_dir}/masakha{task}.py", name=elt, split=split, cache_dir=local_dir) for elt in lang] 
     return datasets
 
 def get_token_classification_metrics():
