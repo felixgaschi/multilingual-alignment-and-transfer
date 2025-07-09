@@ -3,6 +3,8 @@ from datasets import interleave_datasets
 import evaluate
 import logging
 
+from huggingface_hub import snapshot_download
+
 from multilingual_eval.datasets.data_utils import convert_dataset_to_iterable_dataset
 from multilingual_eval.datasets.span_alignment import SpanAligner
 
@@ -53,10 +55,14 @@ def get_question_answering_getter(
                 lang_id = [lang_id]
             assert len(lang_id) == len(lang)
 
-        datasets = [subset_loader(elt, cache_dir=datasets_cache_dir) for elt in lang]
+        datasets = [subset_loader(elt, cache_dir=datasets_cache_dir) for elt in lang if elt != "ind"]
 
         if split is not None:
             datasets = list(map(lambda x: x[split], datasets))
+        
+        if "ind" in lang:
+            indoqa_dataset = load_indoqa(split, datasets_cache_dir)
+            datasets.extend(indoqa_dataset)
 
         n_datasets = len(datasets)
 
@@ -105,9 +111,42 @@ def get_question_answering_getter(
             return datasets[0]
         if return_length:
             return datasets, lengths
+        print(len(datasets), split)
+        print(datasets)
         return datasets
 
     return get_question_answering_dataset
+
+def load_indoqa(split, datasets_cache_dir):
+    """
+    Return indoqa dataset from HuggingFace https://huggingface.co/datasets/jakartaresearch/indoqa
+    """
+    def transform_to_answers(example):
+        return {
+            "answers": {
+                "text": [example["answer"]],
+                "answer_start": [example["span_start"]],
+                "answer_end": [example["span_start"]]
+            }
+        }
+    from datasets import load_dataset
+    
+    if split not in ['train', 'validation']:
+        logging.warning(f"Split {split} is not available. Defaulting to validation")
+        split = "validation"
+    
+    # datasets version < 2.15 are unable to load this dataset directly
+    local_dir = f"{datasets_cache_dir}/indoqa"
+    local_dir  = snapshot_download(
+            repo_id=f"jakartaresearch/indoqa", 
+            repo_type="dataset", 
+            local_dir=local_dir,
+        )
+    
+    print(f"Dataset loading script jakartaresearch/indoqa downloaded to: {local_dir}. Loading datasets...")
+    datasets = [load_dataset(f"{local_dir}/indoqa.py", split=split, cache_dir=local_dir, trust_remote_code=True)] 
+    datasets = [ds.map(transform_to_answers) for ds in datasets]
+    return datasets
 
 
 def get_question_answering_metrics():

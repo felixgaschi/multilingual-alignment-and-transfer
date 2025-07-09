@@ -46,12 +46,37 @@ def get_xnli(
     afrixnli_lang = [elt for elt in lang if elt in afri_langs]
     lang = [elt for elt in lang if elt not in afri_langs]
 
-    datasets = [load_dataset("xnli", elt, data_dir=datasets_cache_dir)[split] for elt in lang]
+    datasets = [load_dataset("xnli", elt, data_dir=datasets_cache_dir)[split] for elt in lang if elt != "ind" and elt != "mya"]
 
     if afrixnli_lang:
         print(f"Loading dataset from {split} split for {afrixnli_lang}")
         afrixnli_datasets = load_afrixnli(split, afrixnli_lang, datasets_cache_dir)
         datasets.extend(afrixnli_datasets)
+
+    if "ind" in lang:
+        # The data is split across train, valid, test_lay, and test_expert. 
+        # test_expert is written by expert annotators, whereas the rest are written by lay annotators.
+        indo_split = "test_expert" if split == "test" else split
+        datasets.append(load_dataset("afaji/indonli", data_dir=datasets_cache_dir, trust_remote_code=True)[indo_split])
+
+    if "mya" in lang:
+        # Load and preprocess Myanmar XNLI
+        label_map = {
+            "entailment": 0,
+            "neutral": 1,
+            "contradiction": 2
+        }
+
+        mya_ds = (
+            load_dataset("akhtet/myanmar-xnli", cache_dir=datasets_cache_dir)[split]
+            .rename_columns({
+                'sentence1_my': 'premise',
+                'sentence2_my': 'hypothesis',
+            })
+            .map(lambda x: {"label": label_map[x["label"]]})
+            .remove_columns(["sentence1_en", "sentence2_en", "genre"])
+        )
+        datasets.append(mya_ds)
 
     n_datasets = len(datasets)
 
