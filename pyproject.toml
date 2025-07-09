@@ -9,7 +9,7 @@ dependencies = [
     "evaluate>=0.4.4",
     "gdown>=5.2.0",
     "ginza>=5.2.0",
-    "ja-ginza-electra>=5.2.0",
+    "konoha[mecab]>=5.6.0",
     "latex>=0.7.0",
     "matplotlib>=3.10.3",
     "merge-args>=0.1.5",
@@ -22,6 +22,6 @@ dependencies = [
     "seqeval>=1.2.2",
     "torch>=2.7.1",
     "tqdm>=4.67.1",
-    "transformers>=4.25.1",
+    "transformers==4.53.1",
     "wandb>=0.21.0",
 ]
