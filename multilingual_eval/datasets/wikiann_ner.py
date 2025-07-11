@@ -2,7 +2,8 @@ import logging
 from typing import List, Union
 import numpy as np
 
-from datasets import load_dataset, load_metric
+from datasets import load_dataset
+from evaluate import load as load_metric
 
 
 from multilingual_eval.datasets.token_classification import get_token_classification_getter

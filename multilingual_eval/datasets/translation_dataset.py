@@ -1,5 +1,4 @@
 from typing import Dict, Union, List, Optional
-from xxlimited import Str
 
 from datasets import get_dataset_infos, load_dataset, get_dataset_config_names
 
@@ -60,7 +59,7 @@ def get_opus100(lang1: str, lang2: str, split="train", cache_dir=None):
     return opus100
 
 
-def get_translation_langs(dataset_name: Str):
+def get_translation_langs(dataset_name: str):
     """
     Get available language pairs for a given translation dataset
     """
