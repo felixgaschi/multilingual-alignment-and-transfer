@@ -61,7 +61,7 @@ def get_xnli(
             logging.warning(f"Split {split} is not available for AmericasNLI. Defaulting to validation.")
             americas_split = 'validation'
         print(f"Loading dataset from {split} split for {americasnli_lang}")
-        americasnli_datasets = [load_dataset("nala-cub/americas_nli", elt, data_dir=datasets_cache_dir)[americas_split] for elt in americasnli_lang]
+        americasnli_datasets = [load_dataset("nala-cub/americas_nli", elt, cache_dir=datasets_cache_dir)[americas_split] for elt in americasnli_lang]
         datasets.extend(americasnli_datasets)
 
     if "ind" in lang:
