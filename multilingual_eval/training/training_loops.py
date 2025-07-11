@@ -1117,7 +1117,7 @@ def realignment_training_loop(
 
     log_layer_status(model, model_name)
     
-    if not isinstance(evaluation_datasets, list):
+    if not isinstance(evaluation_datasets, list) and evaluation_datasets is not None:
         evaluation_datasets = [evaluation_datasets]
 
     finetuning_ckpt = None

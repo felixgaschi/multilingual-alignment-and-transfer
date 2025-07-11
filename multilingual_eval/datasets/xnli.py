@@ -42,9 +42,11 @@ def get_xnli(
         assert len(lang_id) == len(lang)
 
     afri_langs = {'amh', 'eng', 'ewe', 'fra', 'hau', 'ibo', 'kin', 'lin', 'lug', 'orm', 'sna', 'sot', 'swa', 'twi', 'wol', 'xho', 'yor', 'zul'}
+    america_langs = {"aym", "bzd", "cni", "gn", "hch", "nah", "oto", "quy", "shp", "tar"}
 
     afrixnli_lang = [elt for elt in lang if elt in afri_langs]
-    lang = [elt for elt in lang if elt not in afri_langs]
+    americasnli_lang = [elt for elt in lang if elt in america_langs]
+    lang = [elt for elt in lang if elt not in afrixnli_lang and elt not in americasnli_lang]
 
     datasets = [load_dataset("xnli", elt, data_dir=datasets_cache_dir)[split] for elt in lang if elt != "ind" and elt != "mya"]
 
@@ -52,6 +54,15 @@ def get_xnli(
         print(f"Loading dataset from {split} split for {afrixnli_lang}")
         afrixnli_datasets = load_afrixnli(split, afrixnli_lang, datasets_cache_dir)
         datasets.extend(afrixnli_datasets)
+    
+    if americasnli_lang:
+        americas_split = split
+        if split not in ['validation', 'test']:
+            logging.warning(f"Split {split} is not available for AmericasNLI. Defaulting to validation.")
+            americas_split = 'validation'
+        print(f"Loading dataset from {split} split for {americasnli_lang}")
+        americasnli_datasets = [load_dataset("nala-cub/americas_nli", elt, data_dir=datasets_cache_dir)[americas_split] for elt in americasnli_lang]
+        datasets.extend(americasnli_datasets)
 
     if "ind" in lang:
         # The data is split across train, valid, test_lay, and test_expert. 
