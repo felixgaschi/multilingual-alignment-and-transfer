@@ -144,7 +144,7 @@ def load_indoqa(split, datasets_cache_dir):
         )
     
     print(f"Dataset loading script jakartaresearch/indoqa downloaded to: {local_dir}. Loading datasets...")
-    datasets = [load_dataset(f"{local_dir}/indoqa.py", split=split, cache_dir=local_dir, trust_remote_code=True)] 
+    datasets = [load_dataset(f"{local_dir}/indoqa.py", split=split, cache_dir=local_dir)] 
     datasets = [ds.map(transform_to_answers) for ds in datasets]
     return datasets
 

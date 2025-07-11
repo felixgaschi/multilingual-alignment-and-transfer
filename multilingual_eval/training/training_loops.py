@@ -1124,8 +1124,7 @@ def realignment_training_loop(
     checkpoint_epoch = None
     if checkpoint_path:
         finetuning_checkpoint_prefix_name = f"finetuning_{model_name}_{task_name}_seed_{seed}"
-        iter_num = str(realignment_steps_before - 1) if realignment_steps_before else "*"
-        pattern = os.path.join(checkpoint_path, f"{realignment_checkpoint_prefix_name}_iter_{iter_num}.ckpt")
+        pattern = os.path.join(checkpoint_path, f"{finetuning_checkpoint_prefix_name}_epoch_*_iter_*.ckpt")
         matching_files = glob.glob(pattern)
         if matching_files:
             finetuning_ckpt_file = sorted(matching_files)[-1]
