@@ -8,14 +8,16 @@ langs=$2
 
 for lang in $langs; do
 
-    pair=$(python -c "print('-'.join(sorted(['eng_Latn', '$lang'])))")
+    nllb_pair=$(python -c "print('-'.join(sorted(['eng_Latn', '$lang'])))")
+    save_pair="${nllb_pair//eng_Latn/en}"
+    echo "Pair: $nllb_pair → Save as: $save_pair"
 
-    if [ ! -d "$OUTPUT_DIR/$pair" ]; then
-        echo "Attempting to download $pair.gz from AllenNLP..."
+    if [ ! -d "$OUTPUT_DIR/$save_pair" ]; then
+        echo "Attempting to download $save_pair.gz from AllenNLP..."
 
         # Try primary download (AllenNLP)
         set +e
-        wget https://storage.googleapis.com/allennlp-data-bucket/nllb/$pair.gz -O "$OUTPUT_DIR/$pair.gz"
+        wget https://storage.googleapis.com/allennlp-data-bucket/nllb/$nllb_pair.gz -O "$OUTPUT_DIR/$save_pair.gz"
         wget_status=$?
         set -e
         
@@ -37,45 +39,45 @@ print(nllb_to_opus.get('$lang', '$lang'))
             # Compose OPUS-style pair
             opus_pair=$(python3 -c "print('-'.join(sorted(['en', '$opus_lang'])))")
             
-            echo "Original NLLB pair: $pair"
+            echo "Original NLLB pair: $nllb_pair"
             echo "Mapped OPUS pair: $opus_pair"
 
             # Try fallback download (OPUS)
             # if [ ! -f "$OUTPUT_DIR/$pair.txt.zip" ]; then
             #     wget https://object.pouta.csc.fi/OPUS-NLLB/v1/moses/$opus_pair.txt.zip -O "$OUTPUT_DIR/$pair.txt.zip"
             # fi
-            wget https://object.pouta.csc.fi/OPUS-NLLB/v1/moses/$opus_pair.txt.zip -O "$OUTPUT_DIR/$pair.txt.zip"
+            wget https://object.pouta.csc.fi/OPUS-NLLB/v1/moses/$opus_pair.txt.zip -O "$OUTPUT_DIR/$save_pair.txt.zip"
 
-            unzip -o "$OUTPUT_DIR/$pair.txt.zip" -d "$OUTPUT_DIR/$pair"
+            unzip -o "$OUTPUT_DIR/$save_pair.txt.zip" -d "$OUTPUT_DIR/$save_pair"
 
-            for file in "$OUTPUT_DIR/$pair"/NLLB.$opus_pair.*; do
+            for file in "$OUTPUT_DIR/$save_pair"/NLLB.$opus_pair.*; do
                 ext="${file##*.}"  # en, id, scores
                 new_ext="$ext"
 
-                # Map file extension
-                if [ "$ext" == "en" ]; then
-                    new_ext="eng_Latn"
-                elif [ "$ext" == "$opus_lang" ]; then
+                # # Map file extension - dont need to map eng_Latn by now
+                # if [ "$ext" == "en" ]; then
+                #     new_ext="eng_Latn"
+                if [ "$ext" == "$opus_lang" ]; then
                     new_ext="$lang"
                 fi
 
-                mv "$file" "$OUTPUT_DIR/$pair/NLLB.$pair.$new_ext"
+                mv "$file" "$OUTPUT_DIR/$save_pair/NLLB.$save_pair.$new_ext"
             done
-            rm "$OUTPUT_DIR/$pair.txt.zip"
+            rm "$OUTPUT_DIR/$save_pair.txt.zip"
 
         else
             echo "Primary download succeeded."
 
-            mkdir -p "$OUTPUT_DIR/$pair/"
-            gzip -d < "$OUTPUT_DIR/$pair.gz" > "$OUTPUT_DIR/$pair/$pair.tsv"
+            mkdir -p "$OUTPUT_DIR/$save_pair/"
+            gzip -d < "$OUTPUT_DIR/$save_pair.gz" > "$OUTPUT_DIR/$save_pair/$save_pair.tsv"
 
-            lines=$(wc -l < "$OUTPUT_DIR/$pair/$pair.tsv")
-            echo "$pair.tsv contains $lines sentences"
+            lines=$(wc -l < "$OUTPUT_DIR/$save_pair/$save_pair.tsv")
+            echo "$save_pair.tsv contains $lines sentences"
 
-            awk -F'\t' '{print $1}' "$OUTPUT_DIR/$pair/$pair.tsv" > "$OUTPUT_DIR/$pair/NLLB.$pair.eng_Latn"
-            awk -F'\t' '{print $2}' "$OUTPUT_DIR/$pair/$pair.tsv" > "$OUTPUT_DIR/$pair/NLLB.$pair.$lang"
+            awk -F'\t' '{print $1}' "$OUTPUT_DIR/$save_pair/$save_pair.tsv" > "$OUTPUT_DIR/$save_pair/NLLB.$save_pair.en"
+            awk -F'\t' '{print $2}' "$OUTPUT_DIR/$save_pair/$save_pair.tsv" > "$OUTPUT_DIR/$save_pair/NLLB.$save_pair.$lang"
 
-            rm "$OUTPUT_DIR/$pair.gz"
+            rm "$OUTPUT_DIR/$save_pair.gz"
         fi
     fi
 done
