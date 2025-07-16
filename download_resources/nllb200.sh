@@ -31,7 +31,8 @@ nllb_to_opus = {
     'ibo_Latn': 'ig', 'kin_Latn': 'rw', 'lin_Latn': 'ln', 'lug_Latn': 'lg', 'luo_Latn': 'luo',
     'mos_Latn': 'mos', 'nya_Latn': 'ny', 'gaz_Latn': 'om', 'sna_Latn': 'sn', 'swh_Latn': 'sw',
     'tsn_Latn': 'tn', 'twi_Latn': 'tw', 'wol_Latn': 'wo', 'xho_Latn': 'xh', 'yor_Latn': 'yo',
-    'zul_Latn': 'zu', 'ind_Latn': 'id', 'mya_Mymr': 'my', 'ayr_Latn': 'ay', 'grn_Latn': 'gn', 'quy_Latn': 'qu'
+    'zul_Latn': 'zu', 'ind_Latn': 'id', 'mya_Mymr': 'my', 'ayr_Latn': 'ay', 'grn_Latn': 'gn', 'quy_Latn': 'qu',
+    'jav_Latn': 'jv', 'tgl_Latn': 'tl', 'tel_Telu': 'te', 'mar_Deva': 'mr', 'kaz_Cyrl': 'kz'
 }
 print(nllb_to_opus.get('$lang', '$lang'))
 ")
