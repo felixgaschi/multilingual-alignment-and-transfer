@@ -15,6 +15,10 @@ ADD_ARGS=$7
 #=================================BASELINE=================================
 if [ "$SELECTION_STRAT" == "xt_afri" ]; then
     langs="af ar az bg bn de el es et eu fa fi fr gu he hi hu id it ja ka ko lt ml ms nl pa pl pt ro ru ta th tr uk ur vi zh amh_Ethi bam_Latn ewe_Latn fon_Latn hau_Latn ibo_Latn kin_Latn lin_Latn lug_Latn luo_Latn mos_Latn nya_Latn gaz_Latn sna_Latn swh_Latn tsn_Latn twi_Latn wol_Latn xho_Latn yor_Latn zul_Latn mya_Mymr jav_Latn tgl_Latn tel_Telu mar_Deva kaz_Cyrl"
+elif [ "$SELECTION_STRAT" == "xt_only" ]; then
+    langs="af ar az bg bn de el es et eu fa fi fr gu he hi hu id it ja ka ko lt ml ms nl pa pl pt ro ru ta th tr uk ur vi zh"
+elif [ "$SELECTION_STRAT" == "afri_only" ]; then
+    langs="amh_Ethi bam_Latn ewe_Latn fon_Latn hau_Latn ibo_Latn kin_Latn lin_Latn lug_Latn luo_Latn mos_Latn nya_Latn gaz_Latn sna_Latn swh_Latn tsn_Latn twi_Latn wol_Latn xho_Latn yor_Latn zul_Latn mya_Mymr jav_Latn tgl_Latn tel_Telu mar_Deva kaz_Cyrl"
 
 #=================================URIEL_DIVERSITY=================================
 #=======================5_langs
@@ -80,8 +84,8 @@ elif [ "$SELECTION_STRAT" == "least_family_en_20" ]; then
     langs="af bn bg nl fr de el gu hi it lt mar_Deva pl pt pa ro ru es uk ur"
 
 #=======================DISTINCT_FAMILY_25
-# elif [ "$SELECTION_STRAT" == "most_family_en_25" ]; then
-#     langs="ar az bam_Latn eu zh fi fr ka el hau_Latn hu ja kaz_Cyrl ko lin_Latn luo_Latn ms mar_Deva mos_Latn gaz_Latn ru ta tel_Telu th vi"
+elif [ "$SELECTION_STRAT" == "most_family_en_25" ]; then
+    langs="ar az bam_Latn eu zh fi fr ka el hau_Latn hu ja kaz_Cyrl ko lin_Latn luo_Latn ms mar_Deva mos_Latn gaz_Latn ru ta tel_Telu th vi"
 
 #=================================RESOURCE_LEVEL=================================
 #=======================HRLS
@@ -97,6 +101,9 @@ else
     if [ "$SELECTION_STRAT" == "random_langs_with_seed_5" ]; then
         echo "Random langs 5."
         ADD_ARGS="--n_realignment_langs 5"
+    elif [ "$SELECTION_STRAT" == "random_langs_with_seed_10" ]; then
+        echo "Random langs 10."
+        ADD_ARGS="--n_realignment_langs 10"
     elif [ "$SELECTION_STRAT" == "random_langs_with_seed_20" ]; then
         echo "Random langs 20."
         ADD_ARGS="--n_realignment_langs 20"
@@ -112,10 +119,16 @@ fi
 #********************************************TASK SETTING********************************************
 if [ "$TASK" == "xnli" ]; then
     n_epochs=2
-    eval_langs="ar bg de el en es fr hi ru sw th tr ur vi zh amh eng ewe fra hau ibo kin lin lug orm sna sot swa twi wol xho yor zul"
+    eval_langs="ar bg de el es fr hi ru sw th tr ur vi zh amh eng ewe fra hau ibo kin lin lug orm sna sot swa twi wol xho yor zul"
 elif [ "$TASK" == "wikiann" ]; then
     n_epochs=5
-    eval_langs="af ar az bg bn de el en es et eu fa fi fr gu he hi hu id it ja jv ka kk ko lt ml mr ms my nl pa pl pt qu ro ru sw ta te th tl tr uk ur vi yo zh bam bbj ewe fon hau ibo kin lug luo mos nya pcm sna swa tsn twi wol xho yor zul"
+    eval_langs="af ar az bg bn de el es et eu fa fi fr gu he hi hu id it ja jv ka kk ko lt ml mr ms my nl pa pl pt qu ro ru sw ta te th tl tr uk ur vi yo zh bam bbj ewe fon hau ibo kin lug luo mos nya pcm sna swa tsn twi wol xho yor zul"
+elif [ "$TASK" == "udpos" ]; then
+    n_epochs=5
+    eval_langs="af ar bg de el es et eu fa fi fr he hi hu id it ja kk ko lt mr nl pl pt ro ru ta te th tl tr uk ur vi wo yo zh bam bbj ewe fon hau ibo kin lug luo mos nya pcm sna swa tsn twi wol xho yor zul"
+elif [ "$TASK" == "xquad" ]; then
+    n_epochs=5
+    eval_langs="ar de el es hi ru th tr vi zh id"
 fi
 #********************************************END TASK SETTING********************************************
 
@@ -164,6 +177,7 @@ for MODEL in "xlm-roberta-base" "bert-base-multilingual-cased"; do
         --cache_dir $CACHE_DIR \
         --n_epochs $n_epochs \
         --seed $SEED \
+        --realignment_steps 24544 \
         --right_langs $langs \
         --eval_langs $eval_langs \
         --output_file $RESULT_DIR/${MODEL}__${DATASET}__${STRATEGY}__${TASK}.csv $ADD_ARGS \
