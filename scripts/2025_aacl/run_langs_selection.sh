@@ -23,7 +23,7 @@ elif [ "$SELECTION_STRAT" == "afri_only" ]; then
 #=================================URIEL_DIVERSITY=================================
 #=======================5_langs
 elif [ "$SELECTION_STRAT" == "most_uriel_en_5" ]; then
-    langs="fon_Latn ka kk lin_Latn gaz_Latn"
+    langs="fon_Latn ka kaz_Cyrl lin_Latn gaz_Latn"
 elif [ "$SELECTION_STRAT" == "least_uriel_en_5" ]; then
     langs="it pt ro es uk"
 elif [ "$SELECTION_STRAT" == "most_uriel_5" ]; then
