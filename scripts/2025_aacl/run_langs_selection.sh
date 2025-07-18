@@ -16,6 +16,49 @@ ADD_ARGS=$7
 if [ "$SELECTION_STRAT" == "xt_afri" ]; then
     langs="af ar az bg bn de el es et eu fa fi fr gu he hi hu id it ja ka ko lt ml ms nl pa pl pt ro ru ta th tr uk ur vi zh amh_Ethi bam_Latn ewe_Latn fon_Latn hau_Latn ibo_Latn kin_Latn lin_Latn lug_Latn luo_Latn mos_Latn nya_Latn gaz_Latn sna_Latn swh_Latn tsn_Latn twi_Latn wol_Latn xho_Latn yor_Latn zul_Latn mya_Mymr jav_Latn tgl_Latn tel_Telu mar_Deva kaz_Cyrl"
 
+#=================================URIEL_DIVERSITY=================================
+#=======================5_langs=======================
+elif [ "$SELECTION_STRAT" == "most_uriel_en_5" ]; then
+    langs="fon_Latn ka kk lin_Latn gaz_Latn"
+elif [ "$SELECTION_STRAT" == "least_uriel_en_5" ]; then
+    langs="it pt ro es uk"
+elif [ "$SELECTION_STRAT" == "most_uriel_5" ]; then
+    langs="ar lin_Latn gaz_Latn vi zh"
+elif [ "$SELECTION_STRAT" == "least_uriel_5" ]; then
+    langs="bn gu hi pa ur"
+
+#=======================10_langs=======================
+elif [ "$SELECTION_STRAT" == "most_uriel_en_10" ]; then
+    langs="af ar fon_Latn ka ja kaz_Cyrl lin_Latn gaz_Latn sna_Latn vi"
+elif [ "$SELECTION_STRAT" == "least_uriel_en_10" ]; then
+    langs="bg de el es fr it nl pt ro uk"
+elif [ "$SELECTION_STRAT" == "most_uriel_10" ]; then
+    langs="af ar zh ka kaz_Cyrl lin_Latn gaz_Latn sna_Latn ta vi"
+elif [ "$SELECTION_STRAT" == "least_uriel_10" ]; then
+    langs="bg el it lt pl pt ro ru es uk"
+
+#=======================20_langs=======================
+elif [ "$SELECTION_STRAT" == "most_uriel_en_20" ]; then
+    langs="af ar az eu zh fon_Latn lug_Latn ka el he ja kaz_Cyrl ko lin_Latn gaz_Latn sna_Latn ta twi_Latn vi yor_Latn"
+elif [ "$SELECTION_STRAT" == "least_uriel_en_20" ]; then
+    langs="bg nl et fi fr de el gu hi hu it lt fa pl pt pa ro ru es uk"
+#Similar to with en
+# elif [ "$SELECTION_STRAT" == "most_uriel_20" ]; then
+#     langs="af ar az eu zh fon_Latn lug_Latn ka el he ja kaz_Cyrl ko lin_Latn gaz_Latn sna_Latn ta twi_Latn vi yor_Latn"
+# elif [ "$SELECTION_STRAT" == "least_uriel_20" ]; then
+#     langs="bn gu hi pa ur"
+
+#=======================40_langs=======================
+elif [ "$SELECTION_STRAT" == "most_uriel_en_40" ]; then
+    langs="af ar az eu mya_Mymr zh ewe_Latn fon_Latn fr lug_Latn ka el hau_Latn he ibo_Latn ja kaz_Cyrl kin_Latn ko lin_Latn ms ml mar_Deva nya_Latn gaz_Latn fa ru sna_Latn es tgl_Latn ta tel_Telu th tr twi_Latn ur vi xho_Latn yor_Latn zul_Latn"
+elif [ "$SELECTION_STRAT" == "least_uriel_en_40" ]; then
+    langs="amh_Ethi ar az bam_Latn eu bn bg nl et fi fr de el gu hau_Latn he hi hu id it jav_Latn lt luo_Latn ml mar_Deva mos_Latn fa pl pt pa ro ru es tgl_Latn ta tel_Telu tr uk ur wol_Latn"
+# elif [ "$SELECTION_STRAT" == "least_uriel_40" ]; then
+#     langs="bn gu hi pa ur"
+# elif [ "$SELECTION_STRAT" == "most_uriel_40" ]; then
+#     langs="ar lin_Latn gaz_Latn vi zh"
+
+#=================================RANDOM=================================
 else
     langs="af ar az bg bn de el es et eu fa fi fr gu he hi hu id it ja ka ko lt ml ms nl pa pl pt ro ru ta th tr uk ur vi zh amh_Ethi bam_Latn ewe_Latn fon_Latn hau_Latn ibo_Latn kin_Latn lin_Latn lug_Latn luo_Latn mos_Latn nya_Latn gaz_Latn sna_Latn swh_Latn tsn_Latn twi_Latn wol_Latn xho_Latn yor_Latn zul_Latn mya_Mymr jav_Latn tgl_Latn tel_Telu mar_Deva kaz_Cyrl"
     if [ "$SELECTION_STRAT" == "random_langs_with_seed_5" ]; then
