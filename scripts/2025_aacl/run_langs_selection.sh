@@ -16,9 +16,9 @@ ADD_ARGS=$7
 if [ "$SELECTION_STRAT" == "xt_afri" ]; then
     langs="af ar az bg bn de el es et eu fa fi fr gu he hi hu id it ja ka ko lt ml ms nl pa pl pt ro ru ta th tr uk ur vi zh amh_Ethi bam_Latn ewe_Latn fon_Latn hau_Latn ibo_Latn kin_Latn lin_Latn lug_Latn luo_Latn mos_Latn nya_Latn gaz_Latn sna_Latn swh_Latn tsn_Latn twi_Latn wol_Latn xho_Latn yor_Latn zul_Latn mya_Mymr jav_Latn tgl_Latn tel_Telu mar_Deva kaz_Cyrl"
 elif [ "$SELECTION_STRAT" == "xt_only" ]; then
-    langs="af ar az bg bn de el es et eu fa fi fr gu he hi hu id it ja ka ko lt ml ms nl pa pl pt ro ru ta th tr uk ur vi zh"
+    langs="af ar az bg bn de el es et eu fa fi fr gu he hi hu id it ja jav_Latn ka kaz_Cyrl ko lt mar_Deva ml ms mya_Mymr nl pa pl pt ro ru swh_Latn ta tel_Telu tgl_Latn th tr uk ur vi wol_Latn yor_Latn zh"
 elif [ "$SELECTION_STRAT" == "afri_only" ]; then
-    langs="amh_Ethi bam_Latn ewe_Latn fon_Latn hau_Latn ibo_Latn kin_Latn lin_Latn lug_Latn luo_Latn mos_Latn nya_Latn gaz_Latn sna_Latn swh_Latn tsn_Latn twi_Latn wol_Latn xho_Latn yor_Latn zul_Latn mya_Mymr jav_Latn tgl_Latn tel_Telu mar_Deva kaz_Cyrl"
+    langs="amh_Ethi bam_Latn ewe_Latn fon_Latn hau_Latn ibo_Latn kin_Latn lin_Latn lug_Latn luo_Latn mos_Latn nya_Latn gaz_Latn sna_Latn swh_Latn tsn_Latn twi_Latn wol_Latn xho_Latn yor_Latn zul_Latn"
 
 #=================================URIEL_DIVERSITY=================================
 #=======================5_langs
@@ -128,7 +128,7 @@ elif [ "$TASK" == "udpos" ]; then
     eval_langs="af ar bg de el es et eu fa fi fr he hi hu id it ja kk ko lt mr nl pl pt ro ru ta te th tl tr uk ur vi wo yo zh bam bbj ewe fon hau ibo kin lug luo mos nya pcm sna swa tsn twi wol xho yor zul"
 elif [ "$TASK" == "xquad" ]; then
     n_epochs=5
-    eval_langs="ar de el es hi ru th tr vi zh id"
+    eval_langs="ar de el es hi ru th tr vi zh ind"
 fi
 #********************************************END TASK SETTING********************************************
 
