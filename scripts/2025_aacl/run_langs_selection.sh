@@ -87,6 +87,33 @@ elif [ "$SELECTION_STRAT" == "least_family_en_20" ]; then
 elif [ "$SELECTION_STRAT" == "most_family_en_25" ]; then
     langs="ar az bam_Latn eu zh fi fr ka el hau_Latn hu ja kaz_Cyrl ko lin_Latn luo_Latn ms mar_Deva mos_Latn gaz_Latn ru ta tel_Telu th vi"
 
+#=================================SCRIPT_DIVERSITY=================================
+#=======================MOST_DIVERSE_DISTINCT_SCRIPT
+elif [ "$SELECTION_STRAT" == "most_distinct_script_5" ]; then
+    langs="ar ka ja kaz_Cyrl th"
+elif [ "$SELECTION_STRAT" == "most_distinct_script_10" ]; then
+    langs="ar mya_Mymr zh ka el he ja kaz_Cyrl ta th"
+elif [ "$SELECTION_STRAT" == "most_distinct_script_18" ]; then
+    langs="amh_Ethi ar bn mya_Mymr zh ka el gu he hi ja kaz_Cyrl ko ml pa ta tel_Telu th"
+
+#=======================MOST_DIVERSE_SAME_SCRIPT (Latin only)
+elif [ "$SELECTION_STRAT" == "most_same_script_5" ]; then
+    langs="az fon_Latn lin_Latn gaz_Latn tgl_Latn"
+elif [ "$SELECTION_STRAT" == "most_same_script_10" ]; then
+    langs="af az eu fon_Latn lin_Latn gaz_Latn sna_Latn tgl_Latn twi_Latn vi"
+elif [ "$SELECTION_STRAT" == "most_same_script_20" ]; then
+    langs="bam_Latn nl et fi fr de hau_Latn hu id it jav_Latn lt luo_Latn ms pl pt ro es tgl_Latn wol_Latn"
+elif [ "$SELECTION_STRAT" == "most_same_script_41" ]; then
+    langs="af az bam_Latn eu nl et ewe_Latn fi fon_Latn fr lug_Latn de hau_Latn hu ibo_Latn id it jav_Latn kin_Latn lin_Latn lt luo_Latn ms mos_Latn nya_Latn gaz_Latn pl pt ro sna_Latn es swh_Latn tgl_Latn tsn_Latn tr twi_Latn vi wol_Latn xho_Latn yor_Latn zul_Latn"
+
+#=======================LEAST_DIVERSE_SAME_SCRIPT (Latin only)
+elif [ "$SELECTION_STRAT" == "least_same_script_5" ]; then
+    langs="nl fr de it pt"
+elif [ "$SELECTION_STRAT" == "least_same_script_10" ]; then
+    langs="nl et fi fr de hu it pt ro es"
+elif [ "$SELECTION_STRAT" == "least_same_script_20" ]; then
+    langs="af az eu ewe_Latn fon_Latn fr lug_Latn lin_Latn lt ms gaz_Latn pl sna_Latn es tgl_Latn tr twi_Latn vi yor_Latn zul_Latn"
+
 #=================================RESOURCE_LEVEL=================================
 #=======================HRLS
 
