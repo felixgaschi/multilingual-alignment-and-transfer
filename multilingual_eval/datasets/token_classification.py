@@ -215,7 +215,7 @@ def load_masakha(split, label_name, lang, datasets_cache_dir):
     
     print(f"Dataset loading script masakhane/masakha{task} downloaded to: {local_dir}. Loading datasets...")
     datasets = [load_dataset(f"{local_dir}/masakha{task}.py", name=elt, split=split, cache_dir=local_dir) for elt in lang] 
-    if label_name != "upos":
+    if "pos" in label_name and label_name != "upos":
         datasets = [ds.rename_column("upos", label_name) for ds in datasets] 
     return datasets
 
