@@ -144,16 +144,21 @@ fi
 #********************************************END REALIGNMENT LANGUAGE SETTING********************************************
 
 #********************************************TASK SETTING********************************************
+# THERE ARE DUPLICATED LANGS IN EVAL SET!!!
 if [ "$TASK" == "xnli" ]; then
+    # 14 XTREME-R + 18 AfriXNLI + 10 AmericasNLI + Ind + Mya 
     n_epochs=2
-    eval_langs="ar bg de el es fr hi ru sw th tr ur vi zh amh eng ewe fra hau ibo kin lin lug orm sna sot swa twi wol xho yor zul"
+    eval_langs="ar bg de el es fr hi ru sw th tr ur vi zh amh eng ewe fra hau ibo kin lin lug orm sna sot swa twi wol xho yor zul aym bzd cni gn hch nah oto quy shp tar ind mya"
 elif [ "$TASK" == "wikiann" ]; then
+    # 47 XTREME-R + 20 MasakhaNER2
     n_epochs=5
     eval_langs="af ar az bg bn de el es et eu fa fi fr gu he hi hu id it ja jv ka kk ko lt ml mr ms my nl pa pl pt qu ro ru sw ta te th tl tr uk ur vi yo zh bam bbj ewe fon hau ibo kin lug luo mos nya pcm sna swa tsn twi wol xho yor zul"
-elif [ "$TASK" == "udpos" ]; then
+elif [ "$TASK" == "xtreme_r.udpos" ]; then
+    # 37 XTREME-R + 20 MasakhaNER2
     n_epochs=5
     eval_langs="af ar bg de el es et eu fa fi fr he hi hu id it ja kk ko lt mr nl pl pt ro ru ta te th tl tr uk ur vi wo yo zh bam bbj ewe fon hau ibo kin lug luo mos nya pcm sna swa tsn twi wol xho yor zul"
 elif [ "$TASK" == "xquad" ]; then
+    # 10 XTREME-R + Ind
     n_epochs=5
     eval_langs="ar de el es hi ru th tr vi zh ind"
 fi
