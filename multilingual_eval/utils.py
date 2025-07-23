@@ -209,12 +209,11 @@ class ThaiTokenizer:
 
 class JapaneseTokenizer:
     def __init__(self):
-        import spacy
-        self.processor = spacy.load("ja_ginza_electra")
+        from konoha import WordTokenizer
+        self.processor = WordTokenizer('sudachi', mode="A")
 
     def tokenize(self, sentence):
-        doc = self.processor(sentence)
-        return [token.orth_ for token in doc]
+        return [token.surface for token in self.processor.tokenize(sentence)]
 
 
 class LanguageSpecificTokenizer:
