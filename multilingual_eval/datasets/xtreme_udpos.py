@@ -15,6 +15,14 @@ get_xtreme_udpos = get_token_classification_getter(
     "pos_tags",
 )
 
+get_xtreme_r_udpos = get_token_classification_getter(
+    lambda lang, cache_dir=None: load_dataset(
+        "izhx/xtreme-r-udpos",
+        f"{lang}",
+        cache_dir=cache_dir,
+    ),
+    "pos_tags",
+)
 
 # missing: bn, mk, ms
 wuetal_subsets = {

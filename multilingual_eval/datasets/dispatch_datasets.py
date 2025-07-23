@@ -10,7 +10,7 @@ from transformers import (
 
 from multilingual_eval.datasets.wikiann_ner import get_wikiann_ner, get_wikiann_metric_fn
 from multilingual_eval.datasets.xnli import get_xnli, xnli_metric_fn
-from multilingual_eval.datasets.xtreme_udpos import get_wuetal_udpos, get_xtreme_udpos
+from multilingual_eval.datasets.xtreme_udpos import get_wuetal_udpos, get_xtreme_udpos, get_xtreme_r_udpos
 from multilingual_eval.datasets.pawsx import get_pawsx, pawsx_metric_fn
 from multilingual_eval.datasets.token_classification import get_token_classification_metrics
 from multilingual_eval.datasets.xquad import get_xquad
@@ -36,6 +36,7 @@ def get_dataset_fn(name, zh_segmenter=None):
         ),
         "udpos": get_wuetal_udpos,
         "xtreme.udpos": get_xtreme_udpos,
+        "xtreme_r.udpos": get_xtreme_r_udpos,
         "xnli": get_xnli,
         "pawsx": get_pawsx,
         "xquad": get_xquad,
@@ -47,6 +48,7 @@ def get_dataset_metric_fn(name):
         "wikiann": get_wikiann_metric_fn,
         "udpos": get_token_classification_metrics,
         "xtreme.udpos": get_token_classification_metrics,
+        "xtreme_r.udpos": get_token_classification_metrics,
         "xnli": lambda: xnli_metric_fn,
         "pawsx": lambda: pawsx_metric_fn,
         "xquad": lambda: get_question_answering_metrics(),
@@ -85,6 +87,9 @@ def model_fn(task_name, with_realignment=False):
             *args, **kwargs, num_labels=18
         ),
         "xtreme.udpos": lambda *args, **kwargs: token_classification.from_pretrained(
+            *args, **kwargs, num_labels=18
+        ),
+        "xtreme_r.udpos": lambda *args, **kwargs: token_classification.from_pretrained(
             *args, **kwargs, num_labels=18
         ),
         "xnli": lambda *args, **kwargs: sequence_classification.from_pretrained(
@@ -177,7 +182,7 @@ class CustomDataCollator(DataCollatorForTokenClassification):
 
 
 def collator_fn(task_name):
-    if task_name in ["wikiann", "udpos", "xtreme.udpos"]:
+    if task_name in ["wikiann", "udpos", "xtreme.udpos", "xtreme_r.udpos"]:
         return DataCollatorForTokenClassification
     elif task_name in ["xnli", "pawsx", "xquad"]:
         return DataCollatorWithPadding
