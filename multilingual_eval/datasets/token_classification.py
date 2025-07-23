@@ -214,7 +214,7 @@ def load_masakha(split, label_name, lang, datasets_cache_dir):
             print("Error during git clone:", e)
     
     print(f"Dataset loading script masakhane/masakha{task} downloaded to: {local_dir}. Loading datasets...")
-    datasets = [load_dataset(f"{local_dir}/masakha{task}.py", name=elt, split=split, cache_dir=local_dir) for elt in lang] 
+    datasets = [load_dataset(f"{local_dir}/masakha{task}.py", name=elt, split=split, cache_dir=local_dir, trust_remote_code=True) for elt in lang] 
 
     # Post process to match the differences from Afri dataset to udpos and wikiann
     if "pos" in label_name and label_name != "upos":
