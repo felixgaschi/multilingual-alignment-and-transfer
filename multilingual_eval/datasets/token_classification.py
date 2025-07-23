@@ -215,8 +215,16 @@ def load_masakha(split, label_name, lang, datasets_cache_dir):
     
     print(f"Dataset loading script masakhane/masakha{task} downloaded to: {local_dir}. Loading datasets...")
     datasets = [load_dataset(f"{local_dir}/masakha{task}.py", name=elt, split=split, cache_dir=local_dir) for elt in lang] 
+
+    # Post process to match the differences from Afri dataset to udpos and wikiann
     if "pos" in label_name and label_name != "upos":
         datasets = [ds.rename_column("upos", label_name) for ds in datasets] 
+    elif "ner" in label_name:
+        def fix_ner_tags(example):
+            example["ner_tags"] = [tag if tag <= 6 else 0 for tag in example["ner_tags"]]
+            return example
+
+        datasets = [ds.map(fix_ner_tags) for ds in datasets] 
     return datasets
 
 def get_token_classification_metrics():
