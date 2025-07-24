@@ -842,49 +842,15 @@
 
 # Overall average across 4 tasks,  
 
-- Insufficient number of tasks:
+## Insufficient number of tasks:
 
-Dropped: model=bert-base-multilingual-cased, method=least_family_en_10, values=[np.float64(55.42995259481037)] 
+- bert-base-multilingual-cased: least_family_en_10 (1) | random_langs_with_seed_10 (3) | least_uriel_10 (3) | least_uriel_20 (3) | least_uriel_40 (3) | least_uriel_5 (3) | most_uriel_10 (3) | most_uriel_20 (3) | most_uriel_40 (3) | most_uriel_5 (2) | 
 
-Dropped: model=bert-base-multilingual-cased, method=random_langs_with_seed_10, values=[np.float64(54.624927228875585), np.float64(49.851354914854504), np.float64(80.61327269025136)] 
-
-Dropped: model=bert-base-multilingual-cased, method=least_uriel_10, values=[np.float64(49.98261514330055), np.float64(80.78008652985785), np.float64(35.577010708589654)] 
-
-Dropped: model=bert-base-multilingual-cased, method=least_uriel_20, values=[np.float64(50.55900534776476), np.float64(83.68549651239711), np.float64(34.45572487368153)] 
-
-Dropped: model=bert-base-multilingual-cased, method=least_uriel_40, values=[np.float64(50.55900534776476), np.float64(83.68549651239711), np.float64(34.45572487368153)] 
-
-Dropped: model=bert-base-multilingual-cased, method=least_uriel_5, values=[np.float64(51.95868915071679), np.float64(73.9210419911951), np.float64(32.54101161995898)] 
-
-Dropped: model=bert-base-multilingual-cased, method=most_uriel_10, values=[np.float64(49.75598384495305), np.float64(80.54328380034089), np.float64(33.98734134802246)] 
-
-Dropped: model=bert-base-multilingual-cased, method=most_uriel_20, values=[np.float64(50.55900534776476), np.float64(83.68549651239711), np.float64(34.45572487368153)] 
-
-Dropped: model=bert-base-multilingual-cased, method=most_uriel_40, values=[np.float64(50.55900534776476), np.float64(83.68549651239711), np.float64(34.45572487368153)] 
-
-Dropped: model=bert-base-multilingual-cased, method=most_uriel_5, values=[np.float64(80.69755748677106), np.float64(34.44342808893892)] 
-
-Dropped: model=xlm-roberta-base, method=least_family_en_10, values=[np.float64(59.622286676646695)] 
-
-Dropped: model=xlm-roberta-base, method=least_uriel_10, values=[np.float64(52.15398098365244), np.float64(81.10003047751971), np.float64(32.075878198169214)] 
-
-Dropped: model=xlm-roberta-base, method=least_uriel_20, values=[np.float64(51.93656819968925), np.float64(84.38374766945498), np.float64(31.55348263707396)] 
-
-Dropped: model=xlm-roberta-base, method=least_uriel_40, values=[np.float64(51.93656819968925), np.float64(84.38374766945498), np.float64(31.55348263707396)] 
-
-Dropped: model=xlm-roberta-base, method=least_uriel_5, values=[np.float64(52.795544021579055), np.float64(69.70063805002496), np.float64(31.589903904145377)] 
-
-Dropped: model=xlm-roberta-base, method=most_uriel_10, values=[np.float64(52.01605939295807), np.float64(83.06072953147877), np.float64(31.95284333829224)] 
-
-Dropped: model=xlm-roberta-base, method=most_uriel_20, values=[np.float64(51.93656819968925), np.float64(84.38374766945498), np.float64(31.55348263707396)] 
-
-Dropped: model=xlm-roberta-base, method=most_uriel_40, values=[np.float64(51.93656819968925), np.float64(84.38374766945498), np.float64(31.55348263707396)] 
-
-Dropped: model=xlm-roberta-base, method=most_uriel_5, values=[np.float64(51.810614548670365), np.float64(77.93233140599418), np.float64(31.24371758272686)] 
+- xlm-roberta-base: least_family_en_10 (1) | least_uriel_10 (3) | least_uriel_20 (3) | least_uriel_40 (3) | least_uriel_5 (3) | most_uriel_10 (3) | most_uriel_20 (3) | most_uriel_40 (3) | most_uriel_5 (3) | 
 
 | Model                        |   afri_only |   least_family_en_20 |   least_family_en_5 |   least_same_script_10 |   least_same_script_20 |   least_same_script_5 |   least_uriel_en_10 |   least_uriel_en_20 |   least_uriel_en_40 |   least_uriel_en_5 |   most_distinct_script_10 |   most_distinct_script_18 |   most_distinct_script_5 |   most_family_en_10 |   most_family_en_20 |   most_family_en_25 |   most_family_en_5 |   most_same_script_10 |   most_same_script_20 | most_same_script_41   |   most_same_script_5 |   most_uriel_en_10 |   most_uriel_en_20 |   most_uriel_en_40 |   most_uriel_en_5 | random_langs_with_seed_10   |   random_langs_with_seed_20 |   random_langs_with_seed_40 |   random_langs_with_seed_5 |   xt_afri | xt_only   |
 |------------------------------|-------------|----------------------|---------------------|------------------------|------------------------|-----------------------|---------------------|---------------------|---------------------|--------------------|---------------------------|---------------------------|--------------------------|---------------------|---------------------|---------------------|--------------------|-----------------------|-----------------------|-----------------------|----------------------|--------------------|--------------------|--------------------|-------------------|-----------------------------|-----------------------------|-----------------------------|----------------------------|-----------|-----------|
-| bert-base-multilingual-cased |       54.95 |                54.24 |               53.72 |                  54.73 |                  56.03 |                 53.23 |               54.99 |               54.58 |               55.13 |              54.1  |                     53.69 |                     53.8  |                    53.88 |               54.57 |               55.42 |               55.75 |              53.65 |                 54.69 |                 55.39 | **56.16**             |                54    |              55.24 |              55.83 |              55.86 |             54.35 | -                           |                       55.15 |                       55.89 |                      54.08 |     55.84 | 55.44     |
-| xlm-roberta-base             |       56.65 |                55.3  |               55.59 |                  55.86 |                  56.78 |                 54.2  |               55.2  |               56.37 |               56.66 |              55.57 |                     55.14 |                     54.51 |                    53.88 |               56.29 |               56.45 |               56.48 |              54.96 |                 56.55 |                 56.28 | 56.96                 |                55.98 |              56.75 |              56.9  |              56.85 |             55.94 | 56.17                       |                       57.03 |                       56.97 |                      55.97 |     56.99 | **57.38** |
+| bert-base-multilingual-cased |       47.38 |                46.94 |               46.65 |                  47.29 |                  48.4  |                 46.78 |               47.42 |               47.37 |               47.51 |              46.83 |                     46.84 |                     46.86 |                    47.3  |               47.28 |               47.98 |               48.25 |              46.57 |                 47.54 |                 47.87 | **48.48**             |                46.68 |              47.69 |              48.41 |              48.46 |             46.78 | -                           |                       47.57 |                       48.22 |                      47    |     48.34 | 47.75     |
+| xlm-roberta-base             |       49.4  |                48.45 |               48.79 |                  48.93 |                  49.64 |                 48.41 |               48.48 |               49.17 |               49.52 |              48.69 |                     48.68 |                     48.35 |                    47.97 |               49.02 |               49.28 |               49.27 |              48.38 |                 49.4  |                 49.13 | 49.83                 |                48.86 |              49.57 |              49.83 |              49.73 |             48.87 | 49.10                       |                       49.95 |                       49.76 |                      48.94 |     49.94 | **50.32** |
 
 

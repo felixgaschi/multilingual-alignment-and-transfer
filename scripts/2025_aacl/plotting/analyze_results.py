@@ -40,7 +40,15 @@ for task in tasks:
                 std = cur_line.loc[(method, "std")]
                 bold = '**' if mean == max_mean else ''
                 line.append(f"{bold}{mean * 100:.2f} ± {std * 100:.2f}{bold}")
-                if lang == "avg"  or lang == "eval_avg_em":
+                if task in ["xnli", "xtremer.udpos"]:
+                    avg = "avg"
+                elif task == "wikiann":
+                    avg = "avg_f1"
+                elif task == "xquad":
+                    avg = "eval_avg_em"
+                else:
+                    raise Exception(f"Unknown task: {task}")                
+                if lang == avg:
                     overall_dict[model_name][method].append(mean * 100)
             table.append(line)
 
@@ -64,19 +72,23 @@ for model, method_dict in overall_dict.items():
     for method, lst in method_dict.items():
         if len(lst) == max_len:
             filtered_overall_dict[model][method] = lst
-dropped = []
+dropped = defaultdict(list)
 for model in overall_dict:
     for method in overall_dict[model]:
         if method not in filtered_overall_dict[model]:
-            dropped.append(f"Dropped: model={model}, method={method}, values={overall_dict[model][method]}")
+            dropped[model].append((method, len(overall_dict[model][method])))
 
 overall_dict = filtered_overall_dict
 
 with open("./scripts/2025_aacl/plotting/results.md", "a") as f:
     f.write(f"# Overall average across {max_len} tasks,  \n\n")
-    f.write("- Insufficient number of tasks:\n\n")
-    for message in dropped:
-        f.write(f"{message} \n\n")
+    f.write("## Insufficient number of tasks:\n\n")
+    for model in dropped:
+        message = f"- {model}: "
+        for method, values in dropped[model]:
+            message += f"{method} ({values}) | "
+        message += "\n\n"
+        f.write(message)
     
     all_methods = sorted({m for model in overall_dict for m in overall_dict[model]})
     table = []
