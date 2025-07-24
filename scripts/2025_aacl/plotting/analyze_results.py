@@ -9,6 +9,13 @@ from collections import defaultdict
 res_dir = "./scripts/2025_aacl/plotting/mean_and_std_res"
 tasks = ["xnli", "xtremer.udpos", "wikiann", "xquad"]
 overall_dict = defaultdict(lambda: defaultdict(list))
+avg_keys = {
+    "xnli": "avg",
+    "xtremer.udpos": "avg",
+    "wikiann": "avg_f1",
+    "xquad": "eval_avg_f1"
+}
+
 with open("./scripts/2025_aacl/plotting/results.md", "w") as f:
         f.write("")
 
@@ -39,16 +46,8 @@ for task in tasks:
                 mean = cur_line.loc[(method, "mean")]
                 std = cur_line.loc[(method, "std")]
                 bold = '**' if mean == max_mean else ''
-                line.append(f"{bold}{mean * 100:.2f} ± {std * 100:.2f}{bold}")
-                if task in ["xnli", "xtremer.udpos"]:
-                    avg = "avg"
-                elif task == "wikiann":
-                    avg = "avg_f1"
-                elif task == "xquad":
-                    avg = "eval_avg_em"
-                else:
-                    raise Exception(f"Unknown task: {task}")                
-                if lang == avg:
+                line.append(f"{bold}{mean * 100:.2f} ± {std * 100:.2f}{bold}")               
+                if lang == avg_keys[task]:
                     overall_dict[model_name][method].append(mean * 100)
             table.append(line)
 
