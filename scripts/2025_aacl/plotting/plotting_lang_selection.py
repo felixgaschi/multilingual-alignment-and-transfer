@@ -10,6 +10,7 @@ save_results = True
 models = ["bert-base-multilingual-cased", "xlm-roberta-base"]
 tasks = ["xnli", "xtreme_r.udpos", "wikiann", "xquad"]
 figure = None
+SEEDS = [42, 66, 17]
 
 def add_df_from_method(df_list, method, task):
     """
@@ -38,9 +39,10 @@ def add_df_from_method(df_list, method, task):
 
         try:
             df = pd.read_csv(file_path)
-
+            df = df[df['seed'].isin(SEEDS)]
+            if len(df) < 3:
+                raise Exception("Dataframe does not contain enough data.")
             df["method"] = method
-
             df_list.append(df)
 
         except Exception as e:
@@ -48,6 +50,7 @@ def add_df_from_method(df_list, method, task):
 
 for model in models:
     for task in tasks:
+        print(f"==========================={task.upper()}===========================")
         # Initialize list to collect individual method DataFrames
         df_list = []
 
@@ -55,6 +58,7 @@ for model in models:
         for method in os.listdir(results_dir):
             add_df_from_method(df_list, method, task)
 
+        print(f"Total method: {len(df_list)}")
         # Merge all DataFrames into one
         df_merged = pd.concat(df_list, ignore_index=True, sort=False)
 
@@ -62,7 +66,10 @@ for model in models:
         seed_list = sorted(df_merged["seed"].unique())
 
         # Identify all final evaluation columns
-        final_columns = [col for col in df_merged.columns if "final" in col]
+        if task == "xquad":
+            final_columns = [col for col in df_merged.columns if "eval" in col]
+        else:
+            final_columns = [col for col in df_merged.columns if "final" in col]
 
         # Convert to long-form DataFrame suitable for seaborn plotting
         long_df = pd.melt(

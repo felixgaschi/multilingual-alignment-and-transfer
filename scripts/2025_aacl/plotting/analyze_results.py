@@ -9,12 +9,12 @@ from collections import defaultdict
 res_dir = "./scripts/2025_aacl/plotting/mean_and_std_res"
 tasks = ["xnli", "xtremer.udpos", "wikiann", "xquad"]
 overall_dict = defaultdict(lambda: defaultdict(list))
-with open("/home/leelab-alignfreeze2/nlp_project/scripts/2025_aacl/plotting/results.md", "w") as f:
+with open("./scripts/2025_aacl/plotting/results.md", "w") as f:
         f.write("")
 
 for task in tasks:
     print(f"==========================={task.upper()}===========================")
-    with open("/home/leelab-alignfreeze2/nlp_project/scripts/2025_aacl/plotting/results.md", "a") as f:
+    with open("./scripts/2025_aacl/plotting/results.md", "a") as f:
         f.write(f"# {task.upper()}")
         f.write("\n")
     for file in os.listdir(res_dir):
@@ -47,56 +47,53 @@ for task in tasks:
         # print(f"{model_name} with {seed_str}")
         # print(tabulate.tabulate(table, headers=headers, tablefmt="github"))
         # print()
-        with open("/home/leelab-alignfreeze2/nlp_project/scripts/2025_aacl/plotting/results.md", "a") as f:
+        with open("./scripts/2025_aacl/plotting/results.md", "a") as f:
             f.write(f"### {model_name} with {seed_str}\n\n")
             f.write(tabulate.tabulate(table, headers=headers, tablefmt="github"))
             f.write("\n\n\n")
 
-max_len = max(
-    len(lst)
-    for model in overall_dict
-    for lst in overall_dict[model].values()
-)
-
-filtered_overall_dict = defaultdict(lambda: defaultdict(list))
-
-for model, method_dict in overall_dict.items():
-    for method, lst in method_dict.items():
-        if len(lst) == max_len:
-            filtered_overall_dict[model][method] = lst
-
-overall_dict = filtered_overall_dict
-
-with open("/home/leelab-alignfreeze2/nlp_project/scripts/2025_aacl/plotting/results.md", "a") as f:
+with open("./scripts/2025_aacl/plotting/results.md", "a") as f:
     f.write(f"# Overall\n\n")
 
-    all_methods = sorted({m for model in overall_dict for m in overall_dict[model]})
-    table = []
+    # Group models by list length
+    length_groups = defaultdict(list)
+    
     for model_name in overall_dict:
-        average_dict = {
-            method: sum(values) / len(values)
-            for method, values in overall_dict[model_name].items()
-            if values
-        }
+        for method, values in overall_dict[model_name].items():
+            list_len = len(values)
+            length_groups[list_len].append(model_name)
+            break  # Group model once by the first method's length
 
-        # Fill missing methods with "-"
-        row_values = [average_dict.get(method, "-") for method in all_methods]
+    # Generate one table per list length
+    for list_len, models in sorted(length_groups.items()):
+        f.write(f"# Overall (List Length = {list_len})\n\n")
 
-        # Find max (exclude missing ones)
-        numeric_vals = [(i, v) for i, v in enumerate(row_values) if isinstance(v, (int, float))]
-        if numeric_vals:
-            max_idx, _ = max(numeric_vals, key=lambda x: x[1])
-            row_values[max_idx] = f"**{row_values[max_idx]:.2f}**"
+        all_methods = sorted({m for model in models for m in overall_dict[model]})
+        table = []
 
-        # Format floats
-        row_values = [
-            f"{v:.2f}" if isinstance(v, float) else v
-            for v in row_values
-        ]
+        for model_name in models:
+            average_dict = {
+                method: sum(values) / len(values)
+                for method, values in overall_dict[model_name].items()
+                if values
+            }
 
-        table.append([model_name] + row_values)
-    # Header
-    headers = ["Model"] + all_methods
+            row_values = [average_dict.get(method, "-") for method in all_methods]
 
-    f.write(tabulate.tabulate(table, headers=headers, tablefmt="github"))
-    f.write("\n\n\n")
+            # Bold the max value
+            numeric_vals = [(i, v) for i, v in enumerate(row_values) if isinstance(v, (int, float))]
+            if numeric_vals:
+                max_idx, _ = max(numeric_vals, key=lambda x: x[1])
+                row_values[max_idx] = f"**{row_values[max_idx]:.2f}**"
+
+            # Format other floats
+            row_values = [
+                f"{v:.2f}" if isinstance(v, float) and not str(v).startswith("**") else v
+                for v in row_values
+            ]
+
+            table.append([model_name] + row_values)
+
+        headers = ["Model"] + all_methods
+        f.write(tabulate.tabulate(table, headers=headers, tablefmt="github"))
+        f.write("\n\n\n")
