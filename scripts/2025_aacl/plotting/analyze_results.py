@@ -74,9 +74,9 @@ overall_dict = filtered_overall_dict
 
 with open("./scripts/2025_aacl/plotting/results.md", "a") as f:
     f.write(f"# Overall average across {max_len} tasks,  \n\n")
-    f.write("- Insufficient number of tasks:\n")
+    f.write("- Insufficient number of tasks:\n\n")
     for message in dropped:
-        f.write(f"{message} \n")
+        f.write(f"{message} \n\n")
     
     all_methods = sorted({m for model in overall_dict for m in overall_dict[model]})
     table = []
