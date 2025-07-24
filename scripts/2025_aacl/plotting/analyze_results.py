@@ -40,7 +40,7 @@ for task in tasks:
                 std = cur_line.loc[(method, "std")]
                 bold = '**' if mean == max_mean else ''
                 line.append(f"{bold}{mean * 100:.2f} ± {std * 100:.2f}{bold}")
-                if lang == "avg":
+                if lang == "avg"  or lang == "eval_avg_em":
                     overall_dict[model_name][method].append(mean * 100)
             table.append(line)
 
@@ -52,48 +52,57 @@ for task in tasks:
             f.write(tabulate.tabulate(table, headers=headers, tablefmt="github"))
             f.write("\n\n\n")
 
+max_len = max(
+    len(lst)
+    for model in overall_dict
+    for lst in overall_dict[model].values()
+)
+
+filtered_overall_dict = defaultdict(lambda: defaultdict(list))
+
+for model, method_dict in overall_dict.items():
+    for method, lst in method_dict.items():
+        if len(lst) == max_len:
+            filtered_overall_dict[model][method] = lst
+dropped = []
+for model in overall_dict:
+    for method in overall_dict[model]:
+        if method not in filtered_overall_dict[model]:
+            dropped.append(f"Dropped: model={model}, method={method}, values={overall_dict[model][method]}")
+
+overall_dict = filtered_overall_dict
+
 with open("./scripts/2025_aacl/plotting/results.md", "a") as f:
-    f.write(f"# Overall\n\n")
-
-    # Group models by list length
-    length_groups = defaultdict(list)
+    f.write(f"# Overall average across {max_len} tasks,  \n\n")
+    f.write("- Insufficient number of tasks:\n")
+    for message in dropped:
+        f.write(f"{message} \n")
     
+    all_methods = sorted({m for model in overall_dict for m in overall_dict[model]})
+    table = []
     for model_name in overall_dict:
-        for method, values in overall_dict[model_name].items():
-            list_len = len(values)
-            length_groups[list_len].append(model_name)
-            break  # Group model once by the first method's length
+        average_dict = {
+            method: sum(values) / len(values)
+            for method, values in overall_dict[model_name].items()
+            if values
+        }
 
-    # Generate one table per list length
-    for list_len, models in sorted(length_groups.items()):
-        f.write(f"# Overall (List Length = {list_len})\n\n")
+        row_values = [average_dict.get(method, "-") for method in all_methods]
 
-        all_methods = sorted({m for model in models for m in overall_dict[model]})
-        table = []
+        # Bold the max value
+        numeric_vals = [(i, v) for i, v in enumerate(row_values) if isinstance(v, (int, float))]
+        if numeric_vals:
+            max_idx, _ = max(numeric_vals, key=lambda x: x[1])
+            row_values[max_idx] = f"**{row_values[max_idx]:.2f}**"
 
-        for model_name in models:
-            average_dict = {
-                method: sum(values) / len(values)
-                for method, values in overall_dict[model_name].items()
-                if values
-            }
+        # Format other floats
+        row_values = [
+            f"{v:.2f}" if isinstance(v, float) and not str(v).startswith("**") else v
+            for v in row_values
+        ]
 
-            row_values = [average_dict.get(method, "-") for method in all_methods]
+        table.append([model_name] + row_values)
 
-            # Bold the max value
-            numeric_vals = [(i, v) for i, v in enumerate(row_values) if isinstance(v, (int, float))]
-            if numeric_vals:
-                max_idx, _ = max(numeric_vals, key=lambda x: x[1])
-                row_values[max_idx] = f"**{row_values[max_idx]:.2f}**"
-
-            # Format other floats
-            row_values = [
-                f"{v:.2f}" if isinstance(v, float) and not str(v).startswith("**") else v
-                for v in row_values
-            ]
-
-            table.append([model_name] + row_values)
-
-        headers = ["Model"] + all_methods
-        f.write(tabulate.tabulate(table, headers=headers, tablefmt="github"))
-        f.write("\n\n\n")
+    headers = ["Model"] + all_methods
+    f.write(tabulate.tabulate(table, headers=headers, tablefmt="github"))
+    f.write("\n\n\n")
