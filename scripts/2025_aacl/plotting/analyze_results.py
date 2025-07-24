@@ -40,6 +40,6 @@ for task in tasks:
         # print(tabulate.tabulate(table, headers=headers, tablefmt="github"))
         # print()
         with open("/home/leelab-alignfreeze2/nlp_project/scripts/2025_aacl/plotting/results.md", "a") as f:
-            f.write(f"{model_name} with {seed_str}\n\n")
+            f.write(f"### {model_name} with {seed_str}\n\n")
             f.write(tabulate.tabulate(table, headers=headers, tablefmt="github"))
             f.write("\n\n\n")
