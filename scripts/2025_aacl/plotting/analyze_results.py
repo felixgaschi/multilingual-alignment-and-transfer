@@ -41,7 +41,7 @@ for task in tasks:
                 bold = '**' if mean == max_mean else ''
                 line.append(f"{bold}{mean * 100:.2f} ± {std * 100:.2f}{bold}")
                 if lang == "avg":
-                    overall_dict[model_name][method].append(mean)
+                    overall_dict[model_name][method].append(mean * 100)
             table.append(line)
 
         # print(f"{model_name} with {seed_str}")
@@ -52,8 +52,23 @@ for task in tasks:
             f.write(tabulate.tabulate(table, headers=headers, tablefmt="github"))
             f.write("\n\n\n")
 
+max_len = max(
+    len(lst)
+    for model in overall_dict
+    for lst in overall_dict[model].values()
+)
+
+filtered_overall_dict = defaultdict(lambda: defaultdict(list))
+
+for model, method_dict in overall_dict.items():
+    for method, lst in method_dict.items():
+        if len(lst) == max_len:
+            filtered_overall_dict[model][method] = lst
+
+overall_dict = filtered_overall_dict
+
 with open("/home/leelab-alignfreeze2/nlp_project/scripts/2025_aacl/plotting/results.md", "a") as f:
-    f.write(f"### Overall\n\n")
+    f.write(f"# Overall\n\n")
 
     all_methods = sorted({m for model in overall_dict for m in overall_dict[model]})
     table = []
