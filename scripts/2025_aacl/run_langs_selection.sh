@@ -65,7 +65,7 @@ elif [ "$SELECTION_STRAT" == "least_family_en_5" ]; then
 #=======================DISTINCT_FAMILY_10
 elif [ "$SELECTION_STRAT" == "most_family_en_10" ]; then
     langs="ar zh ka ja kaz_Cyrl lin_Latn ms gaz_Latn ta vi"
-elif [ "$SELECTION_STRAT" == "least_family_en_5" ]; then
+elif [ "$SELECTION_STRAT" == "least_family_en_10" ]; then
     langs="af bg nl fr de it pt ro es uk"
 
 #=======================DISTINCT_FAMILY_20
