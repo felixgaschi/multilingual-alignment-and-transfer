@@ -46,21 +46,12 @@ elif [ "$SELECTION_STRAT" == "most_uriel_en_20" ]; then
     langs="af ar az eu zh fon_Latn lug_Latn ka el he ja kaz_Cyrl ko lin_Latn gaz_Latn sna_Latn ta twi_Latn vi yor_Latn"
 elif [ "$SELECTION_STRAT" == "least_uriel_en_20" ]; then
     langs="bg nl et fi fr de el gu hi hu it lt fa pl pt pa ro ru es uk"
-#Similar to with en
-# elif [ "$SELECTION_STRAT" == "most_uriel_20" ]; then
-#     langs="af ar az eu zh fon_Latn lug_Latn ka el he ja kaz_Cyrl ko lin_Latn gaz_Latn sna_Latn ta twi_Latn vi yor_Latn"
-# elif [ "$SELECTION_STRAT" == "least_uriel_20" ]; then
-#     langs="bn gu hi pa ur"
 
 #=======================40_langs
 elif [ "$SELECTION_STRAT" == "most_uriel_en_40" ]; then
     langs="af ar az eu mya_Mymr zh ewe_Latn fon_Latn fr lug_Latn ka el hau_Latn he ibo_Latn ja kaz_Cyrl kin_Latn ko lin_Latn ms ml mar_Deva nya_Latn gaz_Latn fa ru sna_Latn es tgl_Latn ta tel_Telu th tr twi_Latn ur vi xho_Latn yor_Latn zul_Latn"
 elif [ "$SELECTION_STRAT" == "least_uriel_en_40" ]; then
     langs="amh_Ethi ar az bam_Latn eu bn bg nl et fi fr de el gu hau_Latn he hi hu id it jav_Latn lt luo_Latn ml mar_Deva mos_Latn fa pl pt pa ro ru es tgl_Latn ta tel_Telu tr uk ur wol_Latn"
-# elif [ "$SELECTION_STRAT" == "least_uriel_40" ]; then
-#     langs="bn gu hi pa ur"
-# elif [ "$SELECTION_STRAT" == "most_uriel_40" ]; then
-#     langs="ar lin_Latn gaz_Latn vi zh"
 
 #=================================FAMILY_DIVERSITY=================================
 # MOST DIVERSE DISTINCT FAMILY: add English to the set, so need to "disperse" from English
@@ -114,12 +105,91 @@ elif [ "$SELECTION_STRAT" == "least_same_script_10" ]; then
 elif [ "$SELECTION_STRAT" == "least_same_script_20" ]; then
     langs="af az eu ewe_Latn fon_Latn fr lug_Latn lin_Latn lt ms gaz_Latn pl sna_Latn es tgl_Latn tr twi_Latn vi yor_Latn zul_Latn"
 
-#=================================RESOURCE_LEVEL=================================
-#=======================HRLS
+#=================================ABLATION_10=================================
 
-#=======================MRLS
+#_________________________________JOSHI CLASS
+#=======================Joshi 4 and 5
+elif [ "$SELECTION_STRAT" == "abla_random_joshi45" ]; then
+    langs="ar de es eu fa fi fr hi hu it ja ko nl pl pt ru tr vi zh"
+    ADD_ARGS="--n_realignment_langs 10"
+elif [ "$SELECTION_STRAT" == "abla_most_uriel_joshi45" ]; then
+    langs="ar eu zh fr ja ko fa ru tr vi"
+elif [ "$SELECTION_STRAT" == "abla_most_script_joshi45" ]; then
+    langs="ar eu fr hi ja ko fa ru tr vi"
 
-#=======================LRLS
+#=======================Joshi 3
+elif [ "$SELECTION_STRAT" == "abla_random_joshi3" ]; then
+    langs="af bg bn el et he id ka kaz_Cyrl lt ms ro ta tgl_Latn th uk ur"
+    ADD_ARGS="--n_realignment_langs 10"
+elif [ "$SELECTION_STRAT" == "abla_most_uriel_joshi3" ]; then
+    langs="af ka el he kaz_Cyrl ms tgl_Latn ta th ur"
+elif [ "$SELECTION_STRAT" == "abla_most_family_joshi3" ]; then
+    langs="et ka el he kaz_Cyrl lt ms ta th ur"
+elif [ "$SELECTION_STRAT" == "abla_most_script_joshi3" ]; then
+    langs="bn bg ka el he kaz_Cyrl ta th uk ur"
+
+#=======================Joshi 3-5
+elif [ "$SELECTION_STRAT" == "abla_random_joshi35" ]; then
+    langs="af ar bg bn de el es et eu fa fi fr he hi hu id it ja ka kaz_Cyrl ko lt ms nl pl pt ro ru ta tgl_Latn th tr uk ur vi zh"
+    ADD_ARGS="--n_realignment_langs 10"
+elif [ "$SELECTION_STRAT" == "abla_most_uriel_joshi35" ]; then
+    langs="af ar eu zh ka ja kaz_Cyrl ms ta vi"
+elif [ "$SELECTION_STRAT" == "abla_most_family_joshi35" ]; then
+    langs="ar zh ka el ja kaz_Cyrl ms ta th vi"
+elif [ "$SELECTION_STRAT" == "abla_most_script_joshi35" ]; then
+    langs="ar zh ka el he ja kaz_Cyrl ko ta th"
+
+#=======================Joshi < 2
+elif [ "$SELECTION_STRAT" == "abla_random_joshi2" ]; then
+    langs="amh_Ethi az bam_Latn ewe_Latn fon_Latn gaz_Latn gu hau_Latn ibo_Latn jav_Latn kin_Latn lin_Latn lug_Latn luo_Latn mar_Deva ml mos_Latn mya_Mymr nya_Latn pa sna_Latn swh_Latn tel_Telu tsn_Latn twi_Latn wol_Latn xho_Latn yor_Latn zul_Latn"
+    ADD_ARGS="--n_realignment_langs 10"
+elif [ "$SELECTION_STRAT" == "abla_most_uriel_joshi2" ]; then
+    langs="az mya_Mymr fon_Latn kin_Latn lin_Latn mar_Deva gaz_Latn sna_Latn tel_Telu yor_Latn"
+elif [ "$SELECTION_STRAT" == "abla_most_family_joshi2" ]; then
+    langs="az mya_Mymr hau_Latn jav_Latn lin_Latn luo_Latn mar_Deva mos_Latn gaz_Latn tel_Telu"
+elif [ "$SELECTION_STRAT" == "abla_most_script_joshi2" ]; then
+    langs="amh_Ethi mya_Mymr gu lin_Latn ml mar_Deva gaz_Latn pa tel_Telu yor_Latn"
+
+#_________________________________SEEN AND UNSEEN
+#=======================Seen-only XLM-R
+elif [ "$SELECTION_STRAT" == "abla_random_seen_xlmr" ]; then
+    langs="af amh_Ethi ar az bg bn de el es et eu fa fi fr gaz_Latn gu hau_Latn he hi hu id it ja jav_Latn ka kaz_Cyrl ko lt mar_Deva ml ms mya_Mymr nl pa pl pt ro ru swh_Latn ta tel_Telu tgl_Latn th tr uk ur vi xho_Latn zh"
+    ADD_ARGS="--n_realignment_langs 10"
+elif [ "$SELECTION_STRAT" == "abla_most_uriel_seen_xlmr" ]; then
+    langs="af ar zh ka ja kaz_Cyrl ms gaz_Latn swh_Latn vi"
+elif [ "$SELECTION_STRAT" == "abla_most_family_seen_xlmr" ]; then
+    langs="ar zh ka ja kaz_Cyrl ms gaz_Latn ta vi xho_Latn"
+elif [ "$SELECTION_STRAT" == "abla_most_script_seen_xlmr" ]; then
+    langs="ar mya_Mymr zh ka el he ja kaz_Cyrl ta th"
+
+#=======================Unseen-only XLM-R
+elif [ "$SELECTION_STRAT" == "abla_random_unseen_xlmr" ]; then
+    langs="bam_Latn ewe_Latn fon_Latn ibo_Latn kin_Latn lin_Latn lug_Latn luo_Latn mos_Latn nya_Latn sna_Latn tsn_Latn twi_Latn wol_Latn yor_Latn zul_Latn"
+    ADD_ARGS="--n_realignment_langs 10"
+elif [ "$SELECTION_STRAT" == "abla_most_uriel_unseen_xlmr" ]; then
+    langs="ewe_Latn fon_Latn lin_Latn luo_Latn mos_Latn sna_Latn twi_Latn wol_Latn yor_Latn zul_Latn"
+elif [ "$SELECTION_STRAT" == "abla_most_family_unseen_xlmr" ]; then
+    langs="bam_Latn fon_Latn lin_Latn luo_Latn mos_Latn sna_Latn twi_Latn wol_Latn yor_Latn zul_Latn"
+
+#=======================Seen-only mBERT
+elif [ "$SELECTION_STRAT" == "abla_random_seen_mbert" ]; then
+    langs="af ar az bg bn de el es et eu fa fi fr gu he hi hu id it ja jav_Latn ka kaz_Cyrl ko lt mar_Deva ml ms mya_Mymr nl pa pl pt ro ru swh_Latn ta tel_Telu tgl_Latn th tr uk ur vi yor_Latn zh"
+    ADD_ARGS="--n_realignment_langs 10"
+elif [ "$SELECTION_STRAT" == "abla_most_uriel_seen_mbert" ]; then
+    langs="af ar zh ka ja kaz_Cyrl swh_Latn ta vi yor_Latn"
+elif [ "$SELECTION_STRAT" == "abla_most_family_seen_mbert" ]; then
+    langs="ar az zh ka ja kaz_Cyrl ms ta vi yor_Latn"
+elif [ "$SELECTION_STRAT" == "abla_most_script_seen_mbert" ]; then
+    langs="ar mya_Mymr zh ka el he ja kaz_Cyrl ta th"
+
+#=======================Unseen-only mBERT
+elif [ "$SELECTION_STRAT" == "abla_random_unseen_mbert" ]; then
+    langs="amh_Ethi bam_Latn ewe_Latn fon_Latn gaz_Latn hau_Latn ibo_Latn kin_Latn lin_Latn lug_Latn luo_Latn mos_Latn nya_Latn sna_Latn tsn_Latn twi_Latn wol_Latn xho_Latn zul_Latn"
+    ADD_ARGS="--n_realignment_langs 10"
+elif [ "$SELECTION_STRAT" == "abla_most_uriel_unseen_mbert" ]; then
+    langs="amh_Ethi ewe_Latn fon_Latn hau_Latn lin_Latn luo_Latn gaz_Latn sna_Latn twi_Latn xho_Latn"
+elif [ "$SELECTION_STRAT" == "abla_most_family_unseen_mbert" ]; then
+    langs="amh_Ethi bam_Latn fon_Latn hau_Latn lin_Latn luo_Latn mos_Latn gaz_Latn sna_Latn twi_Latn"
 
 
 #=================================RANDOM=================================
@@ -138,7 +208,8 @@ else
         echo "Random langs 40."
         ADD_ARGS="--n_realignment_langs 40"
     else
-        echo "Unknown SELECTION_STRAT value: $SELECTION_STRAT. Setting to XTREME-R and African languages."
+        echo "Unknown SELECTION_STRAT value: $SELECTION_STRAT. Exitting."
+        exit 1
     fi
 fi
 #********************************************END REALIGNMENT LANGUAGE SETTING********************************************
