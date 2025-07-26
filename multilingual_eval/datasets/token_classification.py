@@ -185,7 +185,7 @@ def load_masakha(split, label_name, lang, datasets_cache_dir):
     """
     masakhapos_order = ["NOUN", "PUNCT", "ADP", "NUM", "SYM", "SCONJ", "ADJ", "PART", "DET", "CCONJ", "PROPN", "PRON", "X", "ADV", "INTJ", "VERB", "AUX"]
     canonical_order = sorted(masakhapos_order)
-    tag_mapping = {i: canonical_order.index(i) for i in range(len(masakhapos_order))}
+    tag_mapping = {i: canonical_order.index(label) for i, label in enumerate(masakhapos_order)}
 
     if "pos" in label_name:
         afri_langs = [elt for elt in lang if elt in masakhapos_lang]
@@ -223,8 +223,10 @@ def load_masakha(split, label_name, lang, datasets_cache_dir):
     # Post process to match the differences from Afri dataset to udpos and wikiann
     if "pos" in label_name and label_name != "upos":
         datasets = [ds.rename_column("upos", label_name) for ds in datasets] 
+
+    if "pos" in label_name:
         def fix_pos_tags(example):
-            example["pos_tags"] = [tag_mapping[tag] for tag in example["pos_tags"]]
+            example["pos_tags"] = [tag_mapping[tag]if tag <= 16 else tag for tag in example["pos_tags"]]
             return example
         
         datasets = [ds.map(fix_pos_tags) for ds in datasets]
