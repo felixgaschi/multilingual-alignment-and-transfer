@@ -1,0 +1,684 @@
+# Completed
+- afri_only -- xlm-roberta-base -- xtreme_r.udpos
+- afri_only -- xlm-roberta-base -- wikiann
+- afri_only -- xlm-roberta-base -- xquad
+- afri_only -- bert-base-multilingual-cased -- xtreme_r.udpos
+- afri_only -- bert-base-multilingual-cased -- wikiann
+- afri_only -- bert-base-multilingual-cased -- xquad
+- most_same_script_10 -- xlm-roberta-base -- xtreme_r.udpos
+- most_same_script_10 -- xlm-roberta-base -- xnli
+- most_same_script_10 -- xlm-roberta-base -- wikiann
+- most_same_script_10 -- xlm-roberta-base -- xquad
+- most_same_script_10 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_same_script_10 -- bert-base-multilingual-cased -- xnli
+- most_same_script_10 -- bert-base-multilingual-cased -- wikiann
+- most_same_script_10 -- bert-base-multilingual-cased -- xquad
+- abla_most_uriel_seen_xlmr -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_uriel_seen_xlmr -- xlm-roberta-base -- xnli
+- abla_most_uriel_seen_xlmr -- xlm-roberta-base -- wikiann
+- abla_most_uriel_seen_xlmr -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_uriel_en_40 -- xlm-roberta-base -- xtreme_r.udpos
+- most_uriel_en_40 -- xlm-roberta-base -- xnli
+- most_uriel_en_40 -- xlm-roberta-base -- wikiann
+- most_uriel_en_40 -- xlm-roberta-base -- xquad
+- most_uriel_en_40 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_uriel_en_40 -- bert-base-multilingual-cased -- xnli
+- most_uriel_en_40 -- bert-base-multilingual-cased -- wikiann
+- most_uriel_en_40 -- bert-base-multilingual-cased -- xquad
+- baseline -- xlm-roberta-base -- xtreme_r.udpos
+- baseline -- xlm-roberta-base -- xnli
+- baseline -- xlm-roberta-base -- wikiann
+- baseline -- xlm-roberta-base -- xquad
+- baseline -- bert-base-multilingual-cased -- xtreme_r.udpos
+- baseline -- bert-base-multilingual-cased -- xnli
+- baseline -- bert-base-multilingual-cased -- wikiann
+- baseline -- bert-base-multilingual-cased -- xquad
+- abla_most_uriel_joshi2 -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_uriel_joshi2 -- xlm-roberta-base -- xnli
+- abla_most_uriel_joshi2 -- xlm-roberta-base -- wikiann
+- abla_most_uriel_joshi2 -- xlm-roberta-base -- xquad
+- abla_most_uriel_joshi2 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_distinct_script_10 -- xlm-roberta-base -- xtreme_r.udpos
+- most_distinct_script_10 -- xlm-roberta-base -- xnli
+- most_distinct_script_10 -- xlm-roberta-base -- wikiann
+- most_distinct_script_10 -- xlm-roberta-base -- xquad
+- most_distinct_script_10 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_distinct_script_10 -- bert-base-multilingual-cased -- xnli
+- most_distinct_script_10 -- bert-base-multilingual-cased -- wikiann
+- most_distinct_script_10 -- bert-base-multilingual-cased -- xquad
+- abla_most_family_joshi3 -- xlm-roberta-base -- xtreme_r.udpos
+- random_langs_with_seed_20 -- xlm-roberta-base -- xtreme_r.udpos
+- random_langs_with_seed_20 -- xlm-roberta-base -- xnli
+- random_langs_with_seed_20 -- xlm-roberta-base -- wikiann
+- random_langs_with_seed_20 -- xlm-roberta-base -- xquad
+- random_langs_with_seed_20 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- random_langs_with_seed_20 -- bert-base-multilingual-cased -- xnli
+- random_langs_with_seed_20 -- bert-base-multilingual-cased -- wikiann
+- random_langs_with_seed_20 -- bert-base-multilingual-cased -- xquad
+- most_same_script_41 -- xlm-roberta-base -- xtreme_r.udpos
+- most_same_script_41 -- xlm-roberta-base -- xnli
+- most_same_script_41 -- xlm-roberta-base -- wikiann
+- most_same_script_41 -- xlm-roberta-base -- xquad
+- most_same_script_41 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_same_script_41 -- bert-base-multilingual-cased -- xnli
+- most_same_script_41 -- bert-base-multilingual-cased -- wikiann
+- most_same_script_41 -- bert-base-multilingual-cased -- xquad
+- most_same_script_5 -- xlm-roberta-base -- xtreme_r.udpos
+- most_same_script_5 -- xlm-roberta-base -- xnli
+- most_same_script_5 -- xlm-roberta-base -- wikiann
+- most_same_script_5 -- xlm-roberta-base -- xquad
+- most_same_script_5 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_same_script_5 -- bert-base-multilingual-cased -- xnli
+- most_same_script_5 -- bert-base-multilingual-cased -- wikiann
+- most_same_script_5 -- bert-base-multilingual-cased -- xquad
+- abla_most_uriel_unseen_xlmr -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_uriel_unseen_xlmr -- xlm-roberta-base -- xnli
+- abla_most_uriel_unseen_xlmr -- xlm-roberta-base -- wikiann
+- abla_most_uriel_unseen_xlmr -- bert-base-multilingual-cased -- xtreme_r.udpos
+- least_uriel_en_10 -- xlm-roberta-base -- xtreme_r.udpos
+- least_uriel_en_10 -- xlm-roberta-base -- xnli
+- least_uriel_en_10 -- xlm-roberta-base -- wikiann
+- least_uriel_en_10 -- xlm-roberta-base -- xquad
+- least_uriel_en_10 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- least_uriel_en_10 -- bert-base-multilingual-cased -- xnli
+- least_uriel_en_10 -- bert-base-multilingual-cased -- wikiann
+- least_uriel_en_10 -- bert-base-multilingual-cased -- xquad
+- least_same_script_5 -- xlm-roberta-base -- xtreme_r.udpos
+- least_same_script_5 -- xlm-roberta-base -- xnli
+- least_same_script_5 -- xlm-roberta-base -- wikiann
+- least_same_script_5 -- xlm-roberta-base -- xquad
+- least_same_script_5 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- least_same_script_5 -- bert-base-multilingual-cased -- xnli
+- least_same_script_5 -- bert-base-multilingual-cased -- wikiann
+- least_same_script_5 -- bert-base-multilingual-cased -- xquad
+- most_family_en_25 -- xlm-roberta-base -- xtreme_r.udpos
+- most_family_en_25 -- xlm-roberta-base -- xnli
+- most_family_en_25 -- xlm-roberta-base -- wikiann
+- most_family_en_25 -- xlm-roberta-base -- xquad
+- most_family_en_25 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_family_en_25 -- bert-base-multilingual-cased -- xnli
+- most_family_en_25 -- bert-base-multilingual-cased -- wikiann
+- most_family_en_25 -- bert-base-multilingual-cased -- xquad
+- abla_random_joshi45 -- xlm-roberta-base -- xtreme_r.udpos
+- abla_random_joshi45 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- abla_random_seen_mbert -- xlm-roberta-base -- xtreme_r.udpos
+- abla_random_seen_mbert -- bert-base-multilingual-cased -- xtreme_r.udpos
+- least_family_en_20 -- xlm-roberta-base -- xtreme_r.udpos
+- least_family_en_20 -- xlm-roberta-base -- wikiann
+- least_family_en_20 -- xlm-roberta-base -- xquad
+- least_family_en_20 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- least_family_en_20 -- bert-base-multilingual-cased -- wikiann
+- least_family_en_20 -- bert-base-multilingual-cased -- xquad
+- random_langs_with_seed_5 -- xlm-roberta-base -- xtreme_r.udpos
+- random_langs_with_seed_5 -- xlm-roberta-base -- xnli
+- random_langs_with_seed_5 -- xlm-roberta-base -- wikiann
+- random_langs_with_seed_5 -- xlm-roberta-base -- xquad
+- random_langs_with_seed_5 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- random_langs_with_seed_5 -- bert-base-multilingual-cased -- xnli
+- random_langs_with_seed_5 -- bert-base-multilingual-cased -- wikiann
+- random_langs_with_seed_5 -- bert-base-multilingual-cased -- xquad
+- random_langs_with_seed_40 -- xlm-roberta-base -- xtreme_r.udpos
+- random_langs_with_seed_40 -- xlm-roberta-base -- xnli
+- random_langs_with_seed_40 -- xlm-roberta-base -- wikiann
+- random_langs_with_seed_40 -- xlm-roberta-base -- xquad
+- random_langs_with_seed_40 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- random_langs_with_seed_40 -- bert-base-multilingual-cased -- xnli
+- random_langs_with_seed_40 -- bert-base-multilingual-cased -- wikiann
+- random_langs_with_seed_40 -- bert-base-multilingual-cased -- xquad
+- least_family_en_5 -- xlm-roberta-base -- xtreme_r.udpos
+- least_family_en_5 -- xlm-roberta-base -- xnli
+- least_family_en_5 -- xlm-roberta-base -- wikiann
+- least_family_en_5 -- xlm-roberta-base -- xquad
+- least_family_en_5 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- least_family_en_5 -- bert-base-multilingual-cased -- xnli
+- least_family_en_5 -- bert-base-multilingual-cased -- wikiann
+- least_family_en_5 -- bert-base-multilingual-cased -- xquad
+- abla_most_uriel_seen_mbert -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_uriel_seen_mbert -- xlm-roberta-base -- xnli
+- abla_most_uriel_seen_mbert -- xlm-roberta-base -- wikiann
+- abla_most_uriel_seen_mbert -- bert-base-multilingual-cased -- xtreme_r.udpos
+- xt_afri -- xlm-roberta-base -- xtreme_r.udpos
+- xt_afri -- xlm-roberta-base -- xnli
+- xt_afri -- xlm-roberta-base -- wikiann
+- xt_afri -- xlm-roberta-base -- xquad
+- xt_afri -- bert-base-multilingual-cased -- xtreme_r.udpos
+- xt_afri -- bert-base-multilingual-cased -- xnli
+- xt_afri -- bert-base-multilingual-cased -- wikiann
+- xt_afri -- bert-base-multilingual-cased -- xquad
+- abla_most_script_joshi2 -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_script_joshi2 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- abla_random_joshi2 -- xlm-roberta-base -- xtreme_r.udpos
+- abla_random_joshi2 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- abla_most_script_seen_mbert -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_script_seen_mbert -- bert-base-multilingual-cased -- xtreme_r.udpos
+- least_same_script_20 -- xlm-roberta-base -- xtreme_r.udpos
+- least_same_script_20 -- xlm-roberta-base -- wikiann
+- least_same_script_20 -- xlm-roberta-base -- xquad
+- least_same_script_20 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- least_same_script_20 -- bert-base-multilingual-cased -- wikiann
+- least_same_script_20 -- bert-base-multilingual-cased -- xquad
+- most_family_en_10 -- xlm-roberta-base -- xtreme_r.udpos
+- most_family_en_10 -- xlm-roberta-base -- xnli
+- most_family_en_10 -- xlm-roberta-base -- wikiann
+- most_family_en_10 -- xlm-roberta-base -- xquad
+- most_family_en_10 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_family_en_10 -- bert-base-multilingual-cased -- xnli
+- most_family_en_10 -- bert-base-multilingual-cased -- wikiann
+- most_family_en_10 -- bert-base-multilingual-cased -- xquad
+- most_uriel_en_5 -- xlm-roberta-base -- xtreme_r.udpos
+- most_uriel_en_5 -- xlm-roberta-base -- xnli
+- most_uriel_en_5 -- xlm-roberta-base -- wikiann
+- most_uriel_en_5 -- xlm-roberta-base -- xquad
+- most_uriel_en_5 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_uriel_en_5 -- bert-base-multilingual-cased -- xnli
+- most_uriel_en_5 -- bert-base-multilingual-cased -- wikiann
+- most_uriel_en_5 -- bert-base-multilingual-cased -- xquad
+- most_uriel_en_20 -- xlm-roberta-base -- xtreme_r.udpos
+- most_uriel_en_20 -- xlm-roberta-base -- xnli
+- most_uriel_en_20 -- xlm-roberta-base -- wikiann
+- most_uriel_en_20 -- xlm-roberta-base -- xquad
+- most_uriel_en_20 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_uriel_en_20 -- bert-base-multilingual-cased -- xnli
+- most_uriel_en_20 -- bert-base-multilingual-cased -- wikiann
+- most_uriel_en_20 -- bert-base-multilingual-cased -- xquad
+- abla_random_joshi35 -- xlm-roberta-base -- xtreme_r.udpos
+- abla_random_joshi35 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- abla_most_script_joshi35 -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_script_joshi35 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_uriel_en_10 -- xlm-roberta-base -- xtreme_r.udpos
+- most_uriel_en_10 -- xlm-roberta-base -- xnli
+- most_uriel_en_10 -- xlm-roberta-base -- wikiann
+- most_uriel_en_10 -- xlm-roberta-base -- xquad
+- most_uriel_en_10 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_uriel_en_10 -- bert-base-multilingual-cased -- xnli
+- most_uriel_en_10 -- bert-base-multilingual-cased -- wikiann
+- most_uriel_en_10 -- bert-base-multilingual-cased -- xquad
+- most_family_en_20 -- xlm-roberta-base -- xtreme_r.udpos
+- most_family_en_20 -- xlm-roberta-base -- xnli
+- most_family_en_20 -- xlm-roberta-base -- wikiann
+- most_family_en_20 -- xlm-roberta-base -- xquad
+- most_family_en_20 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_family_en_20 -- bert-base-multilingual-cased -- xnli
+- most_family_en_20 -- bert-base-multilingual-cased -- wikiann
+- most_family_en_20 -- bert-base-multilingual-cased -- xquad
+- abla_most_family_joshi2 -- xlm-roberta-base -- xtreme_r.udpos
+- least_same_script_10 -- xlm-roberta-base -- xtreme_r.udpos
+- least_same_script_10 -- xlm-roberta-base -- xnli
+- least_same_script_10 -- xlm-roberta-base -- wikiann
+- least_same_script_10 -- xlm-roberta-base -- xquad
+- least_same_script_10 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- least_same_script_10 -- bert-base-multilingual-cased -- xnli
+- least_same_script_10 -- bert-base-multilingual-cased -- wikiann
+- least_same_script_10 -- bert-base-multilingual-cased -- xquad
+- abla_most_family_unseen_mbert -- xlm-roberta-base -- xtreme_r.udpos
+- least_uriel_en_40 -- xlm-roberta-base -- xtreme_r.udpos
+- least_uriel_en_40 -- xlm-roberta-base -- wikiann
+- least_uriel_en_40 -- xlm-roberta-base -- xquad
+- least_uriel_en_40 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- least_uriel_en_40 -- bert-base-multilingual-cased -- wikiann
+- least_uriel_en_40 -- bert-base-multilingual-cased -- xquad
+- abla_most_family_seen_mbert -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_uriel_joshi3 -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_uriel_joshi3 -- xlm-roberta-base -- xnli
+- abla_most_uriel_joshi3 -- xlm-roberta-base -- wikiann
+- abla_most_uriel_joshi3 -- xlm-roberta-base -- xquad
+- abla_most_uriel_joshi3 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- abla_most_uriel_joshi3 -- bert-base-multilingual-cased -- xnli
+- least_family_en_10 -- xlm-roberta-base -- xtreme_r.udpos
+- least_family_en_10 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- abla_random_seen_xlmr -- xlm-roberta-base -- xtreme_r.udpos
+- abla_random_seen_xlmr -- bert-base-multilingual-cased -- xtreme_r.udpos
+- xt_only -- xlm-roberta-base -- xtreme_r.udpos
+- xt_only -- xlm-roberta-base -- xnli
+- xt_only -- xlm-roberta-base -- wikiann
+- xt_only -- xlm-roberta-base -- xquad
+- xt_only -- bert-base-multilingual-cased -- xtreme_r.udpos
+- xt_only -- bert-base-multilingual-cased -- xnli
+- xt_only -- bert-base-multilingual-cased -- wikiann
+- xt_only -- bert-base-multilingual-cased -- xquad
+- abla_most_script_joshi45 -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_script_joshi45 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- abla_most_family_unseen_xlmr -- xlm-roberta-base -- xtreme_r.udpos
+- abla_random_unseen_xlmr -- xlm-roberta-base -- xtreme_r.udpos
+- abla_random_unseen_xlmr -- bert-base-multilingual-cased -- xtreme_r.udpos
+- least_uriel_en_20 -- xlm-roberta-base -- xtreme_r.udpos
+- least_uriel_en_20 -- xlm-roberta-base -- wikiann
+- least_uriel_en_20 -- xlm-roberta-base -- xquad
+- least_uriel_en_20 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- least_uriel_en_20 -- bert-base-multilingual-cased -- wikiann
+- least_uriel_en_20 -- bert-base-multilingual-cased -- xquad
+- abla_most_script_joshi3 -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_script_joshi3 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- abla_most_family_seen_xlmr -- xlm-roberta-base -- xtreme_r.udpos
+- least_uriel_en_5 -- xlm-roberta-base -- xtreme_r.udpos
+- least_uriel_en_5 -- xlm-roberta-base -- wikiann
+- least_uriel_en_5 -- xlm-roberta-base -- xquad
+- least_uriel_en_5 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- least_uriel_en_5 -- bert-base-multilingual-cased -- wikiann
+- least_uriel_en_5 -- bert-base-multilingual-cased -- xquad
+- abla_random_joshi3 -- xlm-roberta-base -- xtreme_r.udpos
+- abla_random_joshi3 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- abla_most_uriel_joshi45 -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_uriel_joshi45 -- xlm-roberta-base -- xnli
+- abla_most_uriel_joshi45 -- xlm-roberta-base -- xquad
+- abla_most_uriel_joshi45 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- abla_most_uriel_joshi45 -- bert-base-multilingual-cased -- xnli
+- random_langs_with_seed_10 -- xlm-roberta-base -- xtreme_r.udpos
+- random_langs_with_seed_10 -- xlm-roberta-base -- xnli
+- random_langs_with_seed_10 -- xlm-roberta-base -- wikiann
+- random_langs_with_seed_10 -- xlm-roberta-base -- xquad
+- random_langs_with_seed_10 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- random_langs_with_seed_10 -- bert-base-multilingual-cased -- xnli
+- random_langs_with_seed_10 -- bert-base-multilingual-cased -- wikiann
+- random_langs_with_seed_10 -- bert-base-multilingual-cased -- xquad
+- most_distinct_script_5 -- xlm-roberta-base -- xtreme_r.udpos
+- most_distinct_script_5 -- xlm-roberta-base -- xnli
+- most_distinct_script_5 -- xlm-roberta-base -- wikiann
+- most_distinct_script_5 -- xlm-roberta-base -- xquad
+- most_distinct_script_5 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_distinct_script_5 -- bert-base-multilingual-cased -- xnli
+- most_distinct_script_5 -- bert-base-multilingual-cased -- wikiann
+- most_distinct_script_5 -- bert-base-multilingual-cased -- xquad
+- abla_most_uriel_unseen_mbert -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_uriel_unseen_mbert -- xlm-roberta-base -- xnli
+- abla_most_uriel_unseen_mbert -- xlm-roberta-base -- wikiann
+- abla_most_uriel_unseen_mbert -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_family_en_5 -- xlm-roberta-base -- xtreme_r.udpos
+- most_family_en_5 -- xlm-roberta-base -- xnli
+- most_family_en_5 -- xlm-roberta-base -- wikiann
+- most_family_en_5 -- xlm-roberta-base -- xquad
+- most_family_en_5 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_family_en_5 -- bert-base-multilingual-cased -- xnli
+- most_family_en_5 -- bert-base-multilingual-cased -- wikiann
+- most_family_en_5 -- bert-base-multilingual-cased -- xquad
+- abla_most_family_joshi35 -- xlm-roberta-base -- xtreme_r.udpos
+- most_distinct_script_18 -- xlm-roberta-base -- xtreme_r.udpos
+- most_distinct_script_18 -- xlm-roberta-base -- xnli
+- most_distinct_script_18 -- xlm-roberta-base -- wikiann
+- most_distinct_script_18 -- xlm-roberta-base -- xquad
+- most_distinct_script_18 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_distinct_script_18 -- bert-base-multilingual-cased -- xnli
+- most_distinct_script_18 -- bert-base-multilingual-cased -- wikiann
+- most_distinct_script_18 -- bert-base-multilingual-cased -- xquad
+- abla_most_uriel_joshi35 -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_uriel_joshi35 -- xlm-roberta-base -- xnli
+- abla_most_uriel_joshi35 -- xlm-roberta-base -- wikiann
+- abla_most_uriel_joshi35 -- xlm-roberta-base -- xquad
+- abla_most_uriel_joshi35 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- abla_most_uriel_joshi35 -- bert-base-multilingual-cased -- xnli
+- most_same_script_20 -- xlm-roberta-base -- xtreme_r.udpos
+- most_same_script_20 -- xlm-roberta-base -- xnli
+- most_same_script_20 -- xlm-roberta-base -- wikiann
+- most_same_script_20 -- xlm-roberta-base -- xquad
+- most_same_script_20 -- bert-base-multilingual-cased -- xtreme_r.udpos
+- most_same_script_20 -- bert-base-multilingual-cased -- xnli
+- most_same_script_20 -- bert-base-multilingual-cased -- wikiann
+- most_same_script_20 -- bert-base-multilingual-cased -- xquad
+- abla_random_unseen_mbert -- xlm-roberta-base -- xtreme_r.udpos
+- abla_random_unseen_mbert -- bert-base-multilingual-cased -- xtreme_r.udpos
+- abla_most_script_seen_xlmr -- xlm-roberta-base -- xtreme_r.udpos
+- abla_most_script_seen_xlmr -- bert-base-multilingual-cased -- xtreme_r.udpos
+
+
+
+# Incompleted
+
+
+## Incompleted main
+- afri_only -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23]
+- afri_only -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- least_family_en_20 -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23]
+- least_family_en_20 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- least_same_script_20 -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23]
+- least_same_script_20 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- least_uriel_en_40 -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23]
+- least_uriel_en_40 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- least_family_en_10 -- xlm-roberta-base -- xnli
+  - Missing file
+- least_family_en_10 -- xlm-roberta-base -- wikiann
+  - Missing file
+- least_family_en_10 -- xlm-roberta-base -- xquad
+  - Missing file
+- least_family_en_10 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- least_family_en_10 -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- least_family_en_10 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- least_uriel_en_20 -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23]
+- least_uriel_en_20 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- least_uriel_en_5 -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23]
+- least_uriel_en_5 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+
+
+## Incompleted ablation study
+- abla_most_uriel_seen_xlmr -- xlm-roberta-base -- xquad
+  - Misisng seeds: [23]
+- abla_most_uriel_seen_xlmr -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_uriel_seen_xlmr -- bert-base-multilingual-cased -- wikiann
+  - Misisng seeds: [17, 23]
+- abla_most_uriel_seen_xlmr -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_uriel_joshi2 -- bert-base-multilingual-cased -- xnli
+  - Misisng seeds: [23]
+- abla_most_uriel_joshi2 -- bert-base-multilingual-cased -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_most_uriel_joshi2 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_family_joshi3 -- xlm-roberta-base -- xnli
+  - Missing file
+- abla_most_family_joshi3 -- xlm-roberta-base -- wikiann
+  - Missing file
+- abla_most_family_joshi3 -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_most_family_joshi3 -- bert-base-multilingual-cased -- xtreme_r.udpos
+  - Misisng seeds: [23]
+- abla_most_family_joshi3 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_family_joshi3 -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_family_joshi3 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_uriel_unseen_xlmr -- xlm-roberta-base -- xquad
+  - Misisng seeds: [23]
+- abla_most_uriel_unseen_xlmr -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_uriel_unseen_xlmr -- bert-base-multilingual-cased -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_most_uriel_unseen_xlmr -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_random_joshi45 -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_random_joshi45 -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_random_joshi45 -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_random_joshi45 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_random_joshi45 -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_random_joshi45 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_random_seen_mbert -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_random_seen_mbert -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_random_seen_mbert -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_random_seen_mbert -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_random_seen_mbert -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_random_seen_mbert -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_uriel_seen_mbert -- xlm-roberta-base -- xquad
+  - Misisng seeds: [23]
+- abla_most_uriel_seen_mbert -- bert-base-multilingual-cased -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_most_uriel_seen_mbert -- bert-base-multilingual-cased -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_most_uriel_seen_mbert -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_script_joshi2 -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_most_script_joshi2 -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_most_script_joshi2 -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_most_script_joshi2 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_script_joshi2 -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_script_joshi2 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_random_joshi2 -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_random_joshi2 -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_random_joshi2 -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_random_joshi2 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_random_joshi2 -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_random_joshi2 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_script_seen_mbert -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_most_script_seen_mbert -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_most_script_seen_mbert -- xlm-roberta-base -- xquad
+  - Misisng seeds: [17, 23, 66]
+- abla_most_script_seen_mbert -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_script_seen_mbert -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_script_seen_mbert -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_random_joshi35 -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_random_joshi35 -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_random_joshi35 -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_random_joshi35 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_random_joshi35 -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_random_joshi35 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_script_joshi35 -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_most_script_joshi35 -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_most_script_joshi35 -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_most_script_joshi35 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_script_joshi35 -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_script_joshi35 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_family_joshi2 -- xlm-roberta-base -- xnli
+  - Missing file
+- abla_most_family_joshi2 -- xlm-roberta-base -- wikiann
+  - Missing file
+- abla_most_family_joshi2 -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_most_family_joshi2 -- bert-base-multilingual-cased -- xtreme_r.udpos
+  - Misisng seeds: [23]
+- abla_most_family_joshi2 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_family_joshi2 -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_family_joshi2 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_family_unseen_mbert -- xlm-roberta-base -- xnli
+  - Missing file
+- abla_most_family_unseen_mbert -- xlm-roberta-base -- wikiann
+  - Missing file
+- abla_most_family_unseen_mbert -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_most_family_unseen_mbert -- bert-base-multilingual-cased -- xtreme_r.udpos
+  - Misisng seeds: [23]
+- abla_most_family_unseen_mbert -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_family_unseen_mbert -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_family_unseen_mbert -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_family_seen_mbert -- xlm-roberta-base -- xnli
+  - Missing file
+- abla_most_family_seen_mbert -- xlm-roberta-base -- wikiann
+  - Missing file
+- abla_most_family_seen_mbert -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_most_family_seen_mbert -- bert-base-multilingual-cased -- xtreme_r.udpos
+  - Misisng seeds: [23]
+- abla_most_family_seen_mbert -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_family_seen_mbert -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_family_seen_mbert -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_uriel_joshi3 -- bert-base-multilingual-cased -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_most_uriel_joshi3 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_random_seen_xlmr -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_random_seen_xlmr -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_random_seen_xlmr -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_random_seen_xlmr -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_random_seen_xlmr -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_random_seen_xlmr -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_script_joshi45 -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_most_script_joshi45 -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_most_script_joshi45 -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_most_script_joshi45 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_script_joshi45 -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_script_joshi45 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_family_unseen_xlmr -- xlm-roberta-base -- xnli
+  - Missing file
+- abla_most_family_unseen_xlmr -- xlm-roberta-base -- wikiann
+  - Missing file
+- abla_most_family_unseen_xlmr -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_most_family_unseen_xlmr -- bert-base-multilingual-cased -- xtreme_r.udpos
+  - Misisng seeds: [23]
+- abla_most_family_unseen_xlmr -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_family_unseen_xlmr -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_family_unseen_xlmr -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_random_unseen_xlmr -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_random_unseen_xlmr -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_random_unseen_xlmr -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_random_unseen_xlmr -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_random_unseen_xlmr -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_random_unseen_xlmr -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_script_joshi3 -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_most_script_joshi3 -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_most_script_joshi3 -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_most_script_joshi3 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_script_joshi3 -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_script_joshi3 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_family_seen_xlmr -- xlm-roberta-base -- xnli
+  - Missing file
+- abla_most_family_seen_xlmr -- xlm-roberta-base -- wikiann
+  - Missing file
+- abla_most_family_seen_xlmr -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_most_family_seen_xlmr -- bert-base-multilingual-cased -- xtreme_r.udpos
+  - Misisng seeds: [23]
+- abla_most_family_seen_xlmr -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_family_seen_xlmr -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_family_seen_xlmr -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_random_joshi3 -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_random_joshi3 -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_random_joshi3 -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_random_joshi3 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_random_joshi3 -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_random_joshi3 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_uriel_joshi45 -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_most_uriel_joshi45 -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_uriel_joshi45 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_uriel_unseen_mbert -- xlm-roberta-base -- xquad
+  - Misisng seeds: [23]
+- abla_most_uriel_unseen_mbert -- bert-base-multilingual-cased -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_most_uriel_unseen_mbert -- bert-base-multilingual-cased -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_most_uriel_unseen_mbert -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_family_joshi35 -- xlm-roberta-base -- xnli
+  - Missing file
+- abla_most_family_joshi35 -- xlm-roberta-base -- wikiann
+  - Missing file
+- abla_most_family_joshi35 -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_most_family_joshi35 -- bert-base-multilingual-cased -- xtreme_r.udpos
+  - Misisng seeds: [23]
+- abla_most_family_joshi35 -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_family_joshi35 -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_family_joshi35 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_uriel_joshi35 -- bert-base-multilingual-cased -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_most_uriel_joshi35 -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_random_unseen_mbert -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_random_unseen_mbert -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_random_unseen_mbert -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_random_unseen_mbert -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_random_unseen_mbert -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_random_unseen_mbert -- bert-base-multilingual-cased -- xquad
+  - Missing file
+- abla_most_script_seen_xlmr -- xlm-roberta-base -- xnli
+  - Misisng seeds: [17, 23, 66]
+- abla_most_script_seen_xlmr -- xlm-roberta-base -- wikiann
+  - Misisng seeds: [17, 23, 66]
+- abla_most_script_seen_xlmr -- xlm-roberta-base -- xquad
+  - Missing file
+- abla_most_script_seen_xlmr -- bert-base-multilingual-cased -- xnli
+  - Missing file
+- abla_most_script_seen_xlmr -- bert-base-multilingual-cased -- wikiann
+  - Missing file
+- abla_most_script_seen_xlmr -- bert-base-multilingual-cased -- xquad
+  - Missing file
