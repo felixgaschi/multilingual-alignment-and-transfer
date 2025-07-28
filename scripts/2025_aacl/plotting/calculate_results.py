@@ -6,14 +6,17 @@ from tqdm import tqdm
 
 from langcodes import *
 
+with_en=True
+
 # Constants
 MASAKHA_DICT = {
-    "Masakha": ['bam', 'bbj', 'ewe', 'fon', 'hau', 'ibo', 'kin', 'lug', 'luo', 'mos', 'nya', 'pcm', 'sna', 'swa', 'tsn', 'twi', 'wol', 'xho', 'yor', 'zul'],
+    "Masakha": ['bam', 'ewe', 'fon', 'hau', 'ibo', 'kin', 'lug', 'luo', 'mos', 'nya', 'sna', 'swa', 'tsn', 'twi', 'wol', 'xho', 'yor', 'zul'],
 }
+MASAKHA_UNSEEN = ['bbj', 'pcm']
 #-----------NLI-----------
 NLI_DICT = {
     "XNLI": ['ar', 'bg', 'de', 'el', 'es', 'fr', 'hi', 'ru', 'sw', 'th', 'tr', 'ur', 'vi', 'zh'],
-    "AfriXNLI": ['amh', 'eng', 'ewe', 'fra', 'hau', 'ibo', 'kin', 'lin', 'lug', 'orm', 'sna', 'sot', 'swa', 'twi', 'wol', 'xho', 'yor', 'zul'],
+    "AfriXNLI": ['amh', 'ewe', 'fra', 'hau', 'ibo', 'kin', 'lin', 'lug', 'orm', 'sna', 'sot', 'swa', 'twi', 'wol', 'xho', 'yor', 'zul'],
     "AmericasNLI": ['aym', 'bzd', 'cni', 'gn', 'hch', 'nah', 'oto', 'quy', 'shp', 'tar']
 }
 NLI_LANGS = [
@@ -90,7 +93,7 @@ def check_exp_langs(df: pd.DataFrame):
         "wikiann": (NER_DICT, "final_eval_{}_f1"),
         "xquad": (QA_DICT, "eval_{}_f1"),
     }
-    eval_dict, col_template = task_dict[task]
+    eval_dict, col_template = task_dict[true_task]
     df_cols = set(df.columns)
 
     for eval_set, langs in eval_dict.items():
@@ -106,9 +109,14 @@ def check_exp_seeds(df: pd.DataFrame):
     if missing:
         return False
     return True
- 
+
+if with_en:
+    for langs in POS_LANGS, NER_LANGS, NLI_LANGS, QA_LANGS:
+        langs += ['same']
+
+failed_exp = []
 for model in tqdm(["xlm-roberta-base", "bert-base-multilingual-cased"], desc="Model"):
-    for task in tqdm(['xtreme_r.udpos', 'xnli', 'wikiann', 'xquad'], desc=f"Task for {model}", leave=False):
+    for task in tqdm(['xtreme_r.udpos', 'xnli', 'wikiann', 'xquad', 'americasnli', 'masakha_unseen_ner', 'masakha_unseen_pos'], desc=f"Task for {model}", leave=False):
         tqdm.write(f"Running {model} on {task}")
         per_experiment_results = []
         
@@ -118,6 +126,10 @@ for model in tqdm(["xlm-roberta-base", "bert-base-multilingual-cased"], desc="Mo
             cols_filter = [f"final_eval_{lang}_f1" for lang in NER_LANGS]
         elif task == "xnli":
             cols_filter = [f"final_eval_{lang}_accuracy" for lang in NLI_LANGS]
+        elif task == "americasnli":
+            cols_filter = [f"final_eval_{lang}_accuracy" for lang in NLI_DICT['AmericasNLI']]
+        elif task == "masakha_unseen_ner" or task == "masakha_unseen_pos":
+            cols_filter = [f"final_eval_{lang}_accuracy" for lang in MASAKHA_UNSEEN]
         elif task == "xquad":
             cols_filter = [f"eval_{lang}_f1" for lang in QA_LANGS]
         cols_filter += ['seed']
@@ -129,20 +141,30 @@ for model in tqdm(["xlm-roberta-base", "bert-base-multilingual-cased"], desc="Mo
                 ]:
                 continue
             try:
-                df = pd.read_csv(f"{results_dir}/{exp}/{model}__mix_opus100_nllb__before_noaligner__{task}.csv")
+                if task == "americasnli":
+                    true_task = "xnli"
+                elif task == "masakha_unseen_ner":
+                    true_task = "wikiann"
+                elif task == "masakha_unseen_pos":
+                    true_task = "xtreme_r.udpos"
+                else:
+                    true_task = task
+                aligner = "baseline" if exp == "baseline" else "before_noaligner"
+                df = pd.read_csv(f"{results_dir}/{exp}/{model}__mix_opus100_nllb__{aligner}__{true_task}.csv")
                 is_passed = check_exp_langs(df) and check_exp_seeds(df)
                 if not is_passed:
                     raise Exception()
                 df = df[cols_filter]
                 df = df[df['seed'].isin(SEEDS)]
             except Exception as e:
+                failed_exp.append(exp)
                 continue
                         
             accuracy_cols = [
                 col for col in df.columns
                 if "eval_" in col
                 and not col.endswith("avg_accuracy")
-                and not col.endswith("same_accuracy")
+                # and not col.endswith("same_accuracy")
             ]
             # # Compute mean and std per column
             df[accuracy_cols] *= 100
@@ -180,4 +202,4 @@ for model in tqdm(["xlm-roberta-base", "bert-base-multilingual-cased"], desc="Mo
 
             # Print LaTeX format
             results_df.to_csv(f"scripts/2025_aacl/plotting/summary_{model}_{task}.csv", index=False)
- 
+print(failed_exp)
