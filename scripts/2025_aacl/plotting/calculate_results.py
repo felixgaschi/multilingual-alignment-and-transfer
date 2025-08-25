@@ -16,7 +16,7 @@ MASAKHA_UNSEEN = ['bbj', 'pcm']
 #-----------NLI-----------
 NLI_DICT = {
     "XNLI": ['ar', 'bg', 'de', 'el', 'es', 'fr', 'hi', 'ru', 'sw', 'th', 'tr', 'ur', 'vi', 'zh'],
-    "AfriXNLI": ['amh', 'ewe', 'fra', 'hau', 'ibo', 'kin', 'lin', 'lug', 'orm', 'sna', 'sot', 'swa', 'twi', 'wol', 'xho', 'yor', 'zul'],
+    "AfriXNLI": ['amh', 'ewe', 'hau', 'ibo', 'kin', 'lin', 'lug', 'orm', 'sna', 'sot', 'swa', 'twi', 'wol', 'xho', 'yor', 'zul'],
     "AmericasNLI": ['aym', 'bzd', 'cni', 'gn', 'hch', 'nah', 'oto', 'quy', 'shp', 'tar']
 }
 NLI_LANGS = [
