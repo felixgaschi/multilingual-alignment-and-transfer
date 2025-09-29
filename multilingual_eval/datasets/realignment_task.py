@@ -31,7 +31,7 @@ def get_pharaoh_dataset(
                     continue
                 left_sent, right_sent = parts
                 left_tokens = left_sent.strip().split()
-                right_tokens = right_sent.strip().split()
+                right_tokens = right_sent.strip().split(" ")
 
                 output = {
                     "left_tokens": left_tokens,
