@@ -1,3 +1,0 @@
-seed,model,task,method,finetuning_steps,realignment_steps,distinct_realignment_samples,repeated_realignment_samples,train_loss,realignment_loss,task_loss,eval_ar_accuracy,eval_zh_accuracy,eval_hi_accuracy,eval_avg_accuracy,eval_same_accuracy,final_eval_ar_accuracy,final_eval_zh_accuracy,final_eval_hi_accuracy,final_eval_avg_accuracy,final_eval_same_accuracy
-66,xlm-roberta-base,xnli,before_oneatatime_bottomup_13_dico,36816,36816,281216,589056,0.556018590927124,0,0.556018590927124,0.681437125748503,0.7035928143712575,0.666067864271457,0.6836992681304058,0.8119760479041916,0.681437125748503,0.7035928143712575,0.666067864271457,0.6836992681304058,0.8119760479041916
-419162
