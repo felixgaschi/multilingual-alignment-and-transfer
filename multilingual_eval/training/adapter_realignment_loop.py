@@ -94,7 +94,7 @@ def realignment_loop_with_adapters(
 
         batch = bring_batch_to_model(batch, model)
 
-        loss = compute_realignment_loss(
+        loss, _, _ = compute_realignment_loss(
             model,  # getattr(model, model.base_model_prefix),
             realignment_transformation,
             [-1],

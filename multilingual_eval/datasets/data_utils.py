@@ -1,7 +1,37 @@
 from datasets.iterable_dataset import IterableDataset
+from datasets import load_dataset, load_from_disk
 import torch
 import itertools
 import inspect
+import hashlib
+import json
+import os
+import functools
+
+@functools.wraps(load_dataset)
+def load_dataset_cached(*args, cache_dir: str | None = None, **kwargs):
+    """
+    Wrapper around load_dataset that saves the result to disk (under cache_dir)
+    and loads from disk on subsequent calls, avoiding any network check.
+
+    The on-disk directory is determined by a hash of the positional and keyword
+    arguments forwarded to load_dataset, so different calls map to different dirs.
+    cache_dir is NOT forwarded to load_dataset (pass it explicitly via kwargs if
+    you also want the HF arrow cache to live there).
+    """
+    if cache_dir is None:
+        return load_dataset(*args, **kwargs)
+
+    key = json.dumps({"args": list(args), "kwargs": kwargs}, sort_keys=True)
+    dir_hash = hashlib.md5(key.encode()).hexdigest()
+    save_path = os.path.join(cache_dir, "saved_datasets", dir_hash)
+
+    if os.path.isdir(save_path):
+        return load_from_disk(save_path)
+
+    dataset = load_dataset(*args, **kwargs)
+    dataset.save_to_disk(save_path)
+    return dataset
 
 from multilingual_eval.seeds import seeds
 

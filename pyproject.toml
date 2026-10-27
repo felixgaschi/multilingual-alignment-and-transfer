@@ -16,6 +16,7 @@ dependencies = [
     "nltk>=3.9.1",
     "numpy>=2.3.1",
     "pandas>=2.3.0",
+    "peft>=0.17.1",
     "pyarrow>=20.0.0",
     "pycountry>=24.6.1",
     "pythainlp>=5.1.2",

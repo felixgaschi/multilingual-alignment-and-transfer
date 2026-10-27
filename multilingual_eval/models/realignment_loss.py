@@ -46,6 +46,10 @@ def compute_realignment_loss(
     alignment_nb=None,  # [[i]]
     alignment_left_length=None,  # [[i]]
     alignment_right_length=None,  # [[i]]
+    # lang_probs
+    lang_probs=None,
+    lang_ids=None,
+    meta_loss_type="micro",
 ):
     """
     Fonction for computing the realignment loss on a batch of realignment task
@@ -74,8 +78,6 @@ def compute_realignment_loss(
     - alignment_left_length: the number of word in alignment_left_positions (usefull for truncation)
     - alignment_right_length: the same for the right sentence
     """
-
-    total_loss = None
 
     left_context_manager = left_context or (torch.no_grad() if no_backward_for_source else DumbContext())
 
@@ -124,6 +126,8 @@ def compute_realignment_loss(
         )
 
         initial_hidden_states = initial_output.hidden_states
+    else:
+        initial_hidden_states = None
 
     right_context = right_context or DumbContext()
 
@@ -147,7 +151,60 @@ def compute_realignment_loss(
 
         right_hidden_states = right_output.hidden_states
 
+
+    return compute_loss_from_representations(
+        left_hidden_states, 
+        right_hidden_states,
+        realignment_transformation,
+        realignment_layers,
+        strong_alignment=strong_alignment,
+        realignment_temperature=realignment_temperature,
+        realignment_coef=realignment_coef,
+        regularization_lambda=regularization_lambda,
+        realignment_loss=realignment_loss,
+        realignment_method=realignment_method,
+        initial_model=initial_model,
+        initial_hidden_states=initial_hidden_states,
+        alignment_left_ids=alignment_left_ids,
+        alignment_left_positions=alignment_left_positions,
+        alignment_right_ids=alignment_right_ids,
+        alignment_right_positions=alignment_right_positions,
+        alignment_nb=alignment_nb,
+        alignment_left_length=alignment_left_length,
+        alignment_right_length=alignment_right_length,
+        lang_probs=lang_probs,
+        lang_ids=lang_ids,
+        meta_loss_type=meta_loss_type
+    )
+
+def compute_loss_from_representations(
+    left_hidden_states, 
+    right_hidden_states,
+    realignment_transformation,
+    realignment_layers: List[int],
+    strong_alignment=False,
+    realignment_temperature=0.1,
+    realignment_coef=1.0,
+    regularization_lambda=1.0,
+    realignment_loss="contrastive",
+    realignment_method="token",
+    initial_model=None,
+    initial_hidden_states=None,
+    # alignment labels
+    alignment_left_ids=None, 
+    alignment_left_positions=None,
+    alignment_right_ids=None,
+    alignment_right_positions=None, 
+    alignment_nb=None,
+    alignment_left_length=None, 
+    alignment_right_length=None, 
+    # lang_probs
+    lang_probs=None,
+    lang_ids=None,
+    meta_loss_type="micro",
+):
     the_device = left_hidden_states[0].device
+    total_loss, meta_loss, per_lang_losses = None, None, None
 
     for layer in realignment_layers:
         # Inspired by https://github.com/shijie-wu/crosslingual-nlp/blob/780f738df2b75f653aaaf11b9f513850fe11ba36/src/model/aligner.py#L139
@@ -185,6 +242,11 @@ def compute_realignment_loss(
 
         if realignment_loss == "l2":
             loss = F.mse_loss(aligned_left_repr, aligned_right_repr)
+            if lang_probs and lang_ids:
+                pairwise_loss = F.mse_loss(aligned_left_repr, aligned_right_repr, reduction='none')
+                example_loss = pairwise_loss.mean(dim=1)
+                sample_weights = lang_probs[lang_ids]
+                meta_loss = (example_loss * sample_weights).mean()
         elif realignment_loss == "contrastive":
             if realignment_method == "sentence":
                 all_left_repr = aligned_left_repr
@@ -285,6 +347,47 @@ def compute_realignment_loss(
             goal = torch.cat((left_goal, right_goal))
 
             loss = F.nll_loss(logits, goal)
+            if lang_ids is not None:
+                ## detach variable to seperate from model param
+                logits_meta, goal_meta = logits.detach().clone(), goal.detach().clone()
+                per_example_loss = F.nll_loss(logits_meta, goal_meta, reduction='none')
+
+                # DEBUG: similar grad issue
+                # print("lang_probs:", lang_probs.detach().cpu().numpy())
+                # print("unique lang_ids in batch:", torch.unique(lang_ids, return_counts=True))
+                # # lang_ids correspond to right-side examples
+                # per_loss_right = per_example_loss[aligned_left_repr.shape[0]:]  # right half
+                # for lang in torch.unique(lang_ids):
+                #     mask_lang = (lang_ids == lang).to(per_loss_right.device)
+                #     if mask_lang.sum() > 0:
+                #         avg = per_loss_right[mask_lang].mean().item()
+                #         print(f"lang {lang.item()} avg right-loss:", avg)
+
+                # Weight for source lang samples in a batch will be similar to weights for right lang samples
+                full_lang_ids = torch.cat([lang_ids, lang_ids], dim=0)
+
+                # Compute per-language average losses (used by UCB)
+                per_lang_losses = {}
+                for lid in torch.unique(full_lang_ids):
+                    mask = (full_lang_ids == lid)
+                    per_lang_losses[lid.item()] = per_example_loss[mask].mean().item()
+
+                # Compute meta_loss for gradient-based meta-learning (only when lang_probs provided)
+                if lang_probs is not None:
+                    sample_weights = lang_probs[full_lang_ids]
+                    # right_weights = lang_probs[lang_ids]
+                    # sample_weights = torch.cat([right_weights, right_weights], dim=0)
+
+                    # Macro avg
+                    if meta_loss_type == "macro":
+                        lang_counts = torch.bincount(full_lang_ids)
+                        ## weight of each example is divieded by the count of its language
+                        sample_weights = sample_weights / lang_counts[full_lang_ids].float().clamp(min=1.0)
+                    elif meta_loss_type == "micro_log":
+                        sample_weights = torch.log(lang_probs[full_lang_ids] + 1e-9)
+
+                    meta_loss = (per_example_loss * sample_weights).sum() / sample_weights.sum().clamp(min=1e-12)
+
         else:
             raise NotImplementedError(
                 f"Unknown realignment_loss for compute_realignment_loss: {realignment_loss}"
@@ -300,4 +403,4 @@ def compute_realignment_loss(
         else:
             total_loss += (realignment_coef / len(realignment_layers)) * loss
 
-    return total_loss
+    return total_loss, meta_loss, per_lang_losses

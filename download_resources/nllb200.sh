@@ -51,6 +51,8 @@ print(nllb_to_opus.get('$lang', '$lang'))
 
             unzip -o "$OUTPUT_DIR/$save_pair.txt.zip" -d "$OUTPUT_DIR/$save_pair"
 
+            rm "$OUTPUT_DIR/$save_pair.txt.zip"
+
             for file in "$OUTPUT_DIR/$save_pair"/NLLB.$opus_pair.*; do
                 ext="${file##*.}"  # en, id, scores
                 new_ext="$ext"
@@ -64,13 +66,12 @@ print(nllb_to_opus.get('$lang', '$lang'))
 
                 mv "$file" "$OUTPUT_DIR/$save_pair/NLLB.$save_pair.$new_ext"
             done
-            rm "$OUTPUT_DIR/$save_pair.txt.zip"
-
         else
             echo "Primary download succeeded."
 
             mkdir -p "$OUTPUT_DIR/$save_pair/"
             gzip -d < "$OUTPUT_DIR/$save_pair.gz" > "$OUTPUT_DIR/$save_pair/$save_pair.tsv"
+            rm "$OUTPUT_DIR/$save_pair.gz"
 
             lines=$(wc -l < "$OUTPUT_DIR/$save_pair/$save_pair.tsv")
             echo "$save_pair.tsv contains $lines sentences"
@@ -78,7 +79,8 @@ print(nllb_to_opus.get('$lang', '$lang'))
             awk -F'\t' '{print $1}' "$OUTPUT_DIR/$save_pair/$save_pair.tsv" > "$OUTPUT_DIR/$save_pair/NLLB.$save_pair.en"
             awk -F'\t' '{print $2}' "$OUTPUT_DIR/$save_pair/$save_pair.tsv" > "$OUTPUT_DIR/$save_pair/NLLB.$save_pair.$lang"
 
-            rm "$OUTPUT_DIR/$save_pair.gz"
+            rm -rf "$OUTPUT_DIR/$save_pair/$save_pair.tsv"
+
         fi
     fi
 done

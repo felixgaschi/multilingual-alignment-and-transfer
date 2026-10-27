@@ -1,15 +1,23 @@
 model_to_batch_size_small = {
-    "xlm-roberta-base": 2,
-    "bert-base-multilingual-cased": 4,
-    "distilbert-base-multilingual-cased": 8,
-    "xlm-roberta-large": 1,
-}
-
-model_to_batch_size_big = {
     "xlm-roberta-base": 32,
     "bert-base-multilingual-cased": 32,
     "distilbert-base-multilingual-cased": 32,
-    "xlm-roberta-large": 8,
+    "xlm-roberta-large": 32,
+    "google/gemma-2-2b": 1,
+    "google/gemma-2-9b": 1,
+    "meta-llama/Llama-3.2-3B": 1,
+    "meta-llama/Llama-3.1-8B": 1,
+}
+
+model_to_batch_size_big = {
+    "xlm-roberta-base": 128,
+    "bert-base-multilingual-cased": 128,
+    "distilbert-base-multilingual-cased": 128,
+    "xlm-roberta-large": 128,
+    "google/gemma-2-2b": 32,
+    "google/gemma-2-9b": 4,
+    "meta-llama/Llama-3.2-3B": 16,
+    "meta-llama/Llama-3.1-8B": 4,
 }
 
 

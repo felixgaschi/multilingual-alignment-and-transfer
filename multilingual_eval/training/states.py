@@ -78,10 +78,13 @@ class TrainingState:
         accumulation_steps=1,
         nb_realignment_steps_before=None,
     ):
-        nb_finetuning_steps_expected = (
-            math.ceil(len(task_dataloader) / accumulation_steps) * n_epochs
-        )
-        nb_finetuning_samples_expected = len(task_dataset)
+        if task_dataset:
+            nb_finetuning_steps_expected = (
+                math.ceil(len(task_dataloader) / accumulation_steps) * n_epochs
+            )
+            nb_finetuning_samples_expected = len(task_dataset)
+        else:
+            nb_finetuning_steps_expected, nb_finetuning_samples_expected = 0, 0
 
         nb_realignment_steps_expected = 0
         nb_realignment_samples_expected = 0

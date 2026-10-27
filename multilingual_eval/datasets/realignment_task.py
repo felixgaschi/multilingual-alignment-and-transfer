@@ -563,6 +563,7 @@ def get_multilingual_realignment_dataset(
     return_torch_compatible=True,
     do_interleave_datasets=True,
     first_subowrd_only=True,
+    return_iterator_list=False # Return an iterator for each language, together as a list, to be used in weighted sampling
 ):
     """
     Load and prepare (lazily) a realignment dataset based on:
@@ -591,6 +592,8 @@ def get_multilingual_realignment_dataset(
         )
         for left_lang, right_lang in pairs
     ]
+    if return_iterator_list:
+        return [TorchCompatibleIterableDataset(one_pair_dataset) for one_pair_dataset in datasets]
 
     if not do_interleave_datasets:
         datasets = concatenate_datasets(datasets, axis=0)

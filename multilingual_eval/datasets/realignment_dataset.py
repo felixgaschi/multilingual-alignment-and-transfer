@@ -436,6 +436,12 @@ class RealignmentCollator:
         self.noaligner = noaligner
 
     def __call__(self, examples):
+        if isinstance(examples[0], tuple) and len(examples[0]) == 2:
+            examples, lang_ids = zip(*examples)
+        else:
+            examples = examples
+            lang_ids = None
+
         left_inputs = [
             {k.split("_", 1)[1]: v for k, v in sample.items() if k.startswith("left_")}
             for sample in examples
@@ -475,6 +481,9 @@ class RealignmentCollator:
                 [ex["alignment_right_length"] for ex in examples]
             ),
         }
+        if lang_ids is not None:
+            output["lang_ids"] = torch.tensor(lang_ids)
+
         if self.noaligner:
             return output
 

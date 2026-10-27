@@ -203,13 +203,17 @@ def model_with_realignment_factory(
             alignment_nb=None,
             alignment_left_length=None,
             alignment_right_length=None,
+            # lang_probs for languages alignment loss contribution
+            lang_probs=None,
+            lang_ids=None,
+            meta_loss_type="micro",
             # kwargs from the base model
             lang_id=None,
             **usual_args,
         ):
 
             if left_input_ids is not None:
-                realignment_loss = self.get_compute_realignment_loss_fn()(
+                realignment_loss, meta_loss, _ = self.get_compute_realignment_loss_fn()(
                     left_input_ids=left_input_ids,
                     left_attention_mask=left_attention_mask,
                     left_token_type_ids=left_token_type_ids,
@@ -231,6 +235,9 @@ def model_with_realignment_factory(
                     alignment_nb=alignment_nb,
                     alignment_left_length=alignment_left_length,
                     alignment_right_length=alignment_right_length,
+                    lang_probs=lang_probs,
+                    lang_ids=lang_ids,
+                    meta_loss_type=meta_loss_type,
                 )
 
             labels = usual_args.get("labels")
@@ -246,10 +253,13 @@ def model_with_realignment_factory(
                         return (res[0] + realignment_loss, *res[1:])
             elif is_usual_args_used:
                 return super().forward(**usual_args, lang_id=lang_id)
-            elif left_input_ids is not None:
-                if not return_dict:
-                    return (realignment_loss,)
-                return output_class(loss=realignment_loss)
+            elif left_input_ids is not None: # Apply to before strat only for now
+                base_return = realignment_loss if not return_dict else output_class(loss=realignment_loss)
+                
+                if meta_loss:
+                    return (base_return, meta_loss)
+                else:
+                    return (base_return,) if not return_dict else base_return
             else:
                 raise Exception(f"both usual argument of the model and realignment ones were empty")
 

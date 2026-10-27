@@ -10,6 +10,13 @@ from transformers.trainer_pt_utils import nested_concat
 
 from multilingual_eval.datasets.token_classification import get_token_classification_metrics
 from multilingual_eval.datasets.xquad import get_xquad
+from multilingual_eval.datasets.xlsum import (
+    get_xlsum,
+    compute_rouge,
+    build_xlsum_clm_prompt,
+)
+
+from multilingual_eval.models.simplified import SimplifiedModelForRealignment
 
 
 def evaluate_any_task(
@@ -129,6 +136,9 @@ def evaluate_xquad(
     log_in_wandb=False,
     result_store=None,
 ):
+    if isinstance(model, SimplifiedModelForRealignment):
+        model = model.model
+
     oracle = QuestionAnsweringPipeline(
         model=model, tokenizer=tokenizer, device=model.device.index, batch_size=batch_size
     )
@@ -242,6 +252,133 @@ def evaluate_xquad(
         "f1": sum([compute_f1(x, y) for x, y in zip(predictions, references)]) / len(predictions),
     }
     res.update(prefix_dictionary(results, "eval_same"))
+
+    logging.info(res)
+    if log_in_wandb:
+        import wandb
+
+        wandb.log(res)
+    if result_store:
+        result_store.log(res)
+
+
+def evaluate_xlsum(
+    model,
+    tokenizer,
+    left_lang,
+    right_langs,
+    batch_size=16,
+    debug=False,
+    data_cache_dir=None,
+    log_in_wandb=False,
+    result_store=None,
+    max_length=512,
+    max_target_length=64,
+    num_beams=1,
+):
+    """
+    Evaluates a seq2seq or decoder-only model on XLSum with generation,
+    computing ROUGE for each target language and the source language
+    """
+    import torch
+
+    if isinstance(model, SimplifiedModelForRealignment):
+        model = model.model
+
+    model.eval()
+
+    is_seq2seq = getattr(model.config, "is_encoder_decoder", False)
+    pad_token_id = tokenizer.pad_token_id
+    if pad_token_id is None:
+        pad_token_id = tokenizer.eos_token_id
+
+    def generate_seq2seq_batch(texts):
+        inputs = tokenizer(
+            texts,
+            max_length=max_length,
+            truncation=True,
+            padding=True,
+            return_tensors="pt",
+        )
+        inputs = {k: v.to(model.device) for k, v in inputs.items()}
+        with torch.no_grad():
+            generated = model.generate(
+                **inputs, max_new_tokens=max_target_length, num_beams=num_beams
+            )
+        return tokenizer.batch_decode(generated, skip_special_tokens=True)
+
+    def generate_causal_batch(texts):
+        # left-pad the prompts so that generated tokens all start at the
+        # same position, then strip the prompt before decoding
+        prompts = [
+            build_xlsum_clm_prompt(
+                tokenizer, text, max_length=max_length, max_target_length=max_target_length
+            )
+            for text in texts
+        ]
+        longest = max(map(len, prompts))
+        input_ids = torch.tensor(
+            [[pad_token_id] * (longest - len(p)) + p for p in prompts]
+        ).to(model.device)
+        attention_mask = torch.tensor(
+            [[0] * (longest - len(p)) + [1] * len(p) for p in prompts]
+        ).to(model.device)
+        with torch.no_grad():
+            generated = model.generate(
+                input_ids=input_ids,
+                attention_mask=attention_mask,
+                max_new_tokens=max_target_length,
+                num_beams=num_beams,
+                pad_token_id=pad_token_id,
+            )
+        return tokenizer.batch_decode(generated[:, longest:], skip_special_tokens=True)
+
+    def generate_summaries(examples, lang):
+        predictions = []
+        texts = examples["text"]
+        for i in range(0, len(texts), batch_size):
+            batch = texts[i : i + batch_size]
+            if is_seq2seq:
+                predictions.extend(generate_seq2seq_batch(batch))
+            else:
+                predictions.extend(generate_causal_batch(batch))
+        return compute_rouge(predictions, examples["summary"], lang=lang)
+
+    validation_datasets = get_xlsum(
+        right_langs,
+        tokenizer,
+        split="test",
+        limit=100 if debug else None,
+        datasets_cache_dir=data_cache_dir,
+        interleave=False,
+        preprocessing=False,
+    )
+    if not isinstance(validation_datasets, list):
+        validation_datasets = [validation_datasets]
+
+    res = {}
+    agg = defaultdict(lambda: 0)
+    for lang, examples in zip(right_langs, validation_datasets):
+        results = generate_summaries(examples, lang)
+
+        for key, value in results.items():
+            agg[key] += value
+        res.update(prefix_dictionary(results, lang))
+
+    res.update(
+        prefix_dictionary({k: v / len(validation_datasets) for k, v in agg.items()}, prefix="avg")
+    )
+    res = prefix_dictionary(res, "eval")
+
+    source_validation_dataset = get_xlsum(
+        left_lang,
+        tokenizer,
+        split="test",
+        limit=100 if debug else None,
+        datasets_cache_dir=data_cache_dir,
+        preprocessing=False,
+    )
+    res.update(prefix_dictionary(generate_summaries(source_validation_dataset, left_lang), "eval_same"))
 
     logging.info(res)
     if log_in_wandb:

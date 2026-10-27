@@ -1,9 +1,9 @@
 from typing import Union, List
 import numpy as np
-from datasets import load_dataset, interleave_datasets
+from datasets import interleave_datasets
 from huggingface_hub import snapshot_download
 
-from multilingual_eval.datasets.data_utils import convert_dataset_to_iterable_dataset
+from multilingual_eval.datasets.data_utils import convert_dataset_to_iterable_dataset, load_dataset_cached
 
 
 class XNLIMapper:
@@ -47,12 +47,12 @@ def get_xnli(
     afrixnli_lang = [elt for elt in lang if elt in afri_langs]
     americasnli_lang = [elt for elt in lang if elt in america_langs]
     lang = [elt for elt in lang if elt not in afrixnli_lang and elt not in americasnli_lang]
-
-    datasets = [load_dataset("xnli", elt, data_dir=datasets_cache_dir)[split] for elt in lang if elt != "ind" and elt != "mya"]
+    datasets = [load_dataset_cached("xnli", elt, cache_dir=datasets_cache_dir)[split] for elt in lang if elt != "ind" and elt != "mya"]
 
     if afrixnli_lang:
         print(f"Loading dataset from {split} split for {afrixnli_lang}")
-        afrixnli_datasets = load_afrixnli(split, afrixnli_lang, datasets_cache_dir)
+        # afrixnli_datasets = load_afrixnli(split, afrixnli_lang, datasets_cache_dir)
+        afrixnli_datasets = [load_dataset_cached("masakhane/afrixnli", elt, cache_dir=datasets_cache_dir)[split] for elt in afrixnli_lang]
         datasets.extend(afrixnli_datasets)
     
     if americasnli_lang:
@@ -61,14 +61,14 @@ def get_xnli(
             logging.warning(f"Split {split} is not available for AmericasNLI. Defaulting to validation.")
             americas_split = 'validation'
         print(f"Loading dataset from {split} split for {americasnli_lang}")
-        americasnli_datasets = [load_dataset("nala-cub/americas_nli", elt, cache_dir=datasets_cache_dir)[americas_split] for elt in americasnli_lang]
+        americasnli_datasets = [load_dataset_cached("nala-cub/americas_nli", elt, cache_dir=datasets_cache_dir)[americas_split] for elt in americasnli_lang]
         datasets.extend(americasnli_datasets)
 
     if "ind" in lang:
         # The data is split across train, valid, test_lay, and test_expert. 
         # test_expert is written by expert annotators, whereas the rest are written by lay annotators.
         indo_split = "test_expert" if split == "test" else split
-        datasets.append(load_dataset("afaji/indonli", data_dir=datasets_cache_dir, trust_remote_code=True)[indo_split])
+        datasets.append(load_dataset_cached("afaji/indonli", cache_dir=datasets_cache_dir, trust_remote_code=True)[indo_split])
 
     if "mya" in lang:
         # Load and preprocess Myanmar XNLI
@@ -79,7 +79,7 @@ def get_xnli(
         }
 
         mya_ds = (
-            load_dataset("akhtet/myanmar-xnli", cache_dir=datasets_cache_dir)[split]
+            load_dataset_cached("akhtet/myanmar-xnli", cache_dir=datasets_cache_dir)[split]
             .rename_columns({
                 'sentence1_my': 'premise',
                 'sentence2_my': 'hypothesis',
@@ -149,10 +149,11 @@ def get_xnli(
 def load_afrixnli(split, lang, datasets_cache_dir):
     """
     Return AfriXNLI dataset from Masakhane (https://huggingface.co/datasets/masakhane/afrixnli)
+    Deprecated: Only for datasets version < 2.15
     """
 
     def load_language_data(root_dir, lang):
-        return load_dataset(
+        return load_dataset_cached(
             "parquet",
             data_files={
                 "test": f"{root_dir}/{lang}/test/*.parquet",
@@ -175,7 +176,7 @@ def load_afrixnli(split, lang, datasets_cache_dir):
     datasets = [load_language_data(f"{datasets_cache_dir}/afrixnli", elt)[split] for elt in lang]
     return datasets
 
-def xnli_metric_fn(p):
+def sentence_classifcation_metric_fn(p):
     if isinstance(p, dict):
         predictions = p["logits"]
         labels = p["labels"]
